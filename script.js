@@ -4,6 +4,26 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
+  // Background videos: only load and play while on screen, and never for
+  // visitors who ask for reduced motion or reduced data use.
+  var videos = document.querySelectorAll("video.auto-video");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (videos.length && !reduceMotion && !saveData && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+    videos.forEach(function (v) { io.observe(v); });
+  }
+
   var form = document.getElementById("quote");
   if (!form) return;
   var errorBox = document.getElementById("form-error");
