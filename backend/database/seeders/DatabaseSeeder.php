@@ -33,5 +33,12 @@ class DatabaseSeeder extends Seeder
                 ['name' => $name, 'password' => 'password', 'email_verified_at' => now()],
             )->syncRoles([$role]);
         }
+
+        User::query()->firstOrCreate(
+            ['email' => 'sales2@example.test'],
+            ['name' => 'Sales Officer 2 (demo)', 'password' => 'password', 'email_verified_at' => now()],
+        )->syncRoles([Role::Sales->value]);
+
+        $this->call(DemoCrmSeeder::class);
     }
 }

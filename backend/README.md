@@ -1,6 +1,6 @@
 # GEA Logistics Platform: backend
 
-Laravel 11 app for the GEA website, the Filament back office at `/admin`, and the API. See `../PRD.md` for scope and `../CLAUDE.md` for conventions.
+Laravel 12 app for the GEA website, the Filament back office at `/admin`, and the API. See `../PRD.md` for scope and `../CLAUDE.md` for conventions.
 
 ## Local setup
 

@@ -5,7 +5,7 @@ Build one phase at a time and check it against that phase's acceptance criteria 
 
 ## Repo layout
 
-- `backend/`: Laravel 11 app (public website, Filament admin at `/admin`, API)
+- `backend/`: Laravel 12 app (public website, Filament admin at `/admin`, API)
 - `android-driver/`: Kotlin driver app (Phase 4)
 - `design-draft/`: unzipped "GEA Website v3" Claude Design export. Reference only, never deployed
 - `docs/`: deploy guide, integration guides, user guides, PRD .docx

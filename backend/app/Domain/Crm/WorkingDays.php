@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Crm;
 
+use Carbon\CarbonInterface;
 use Illuminate\Support\Carbon;
 
 /**
@@ -11,9 +12,9 @@ use Illuminate\Support\Carbon;
  */
 final class WorkingDays
 {
-    public static function next(Carbon $from): Carbon
+    public static function next(CarbonInterface $from): Carbon
     {
-        $due = $from->copy()->setTimezone('Africa/Lagos')->addDay();
+        $due = Carbon::instance($from)->setTimezone('Africa/Lagos')->addDay();
         while ($due->isWeekend()) {
             $due->addDay();
         }

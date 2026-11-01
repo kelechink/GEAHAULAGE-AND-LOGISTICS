@@ -91,7 +91,7 @@ RBAC is enforced server-side with Laravel policies and `spatie/laravel-permissio
 
 | Layer | Choice | Notes |
 |---|---|---|
-| Language / framework | **PHP 8.2+, Laravel 11** | Runs on cPanel |
+| Language / framework | **PHP 8.2+, Laravel 12** (upgraded from 11 for security fixes) | Runs on cPanel |
 | Database | **MySQL 8** (or MariaDB 10.6+) | Available on FigureWeb cPanel |
 | Admin panel | **Filament 3** (Livewire) | Fast CRUD, tables, filters, dashboards and charts, all PHP |
 | Public site | **Blade templates** ported from the v3 design | Plain HTML/CSS, plus small JS files for motion |

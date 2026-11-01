@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Mail;
  */
 final class LeadCaptureService
 {
-    public function __construct(private readonly WebsiteSettings $website) {}
+    public function __construct(
+        private readonly WebsiteSettings $website,
+        private readonly FollowUpAssigner $assigner,
+    ) {}
 
     /**
      * @param  array{name: string, phone: string, email?: string|null, company?: string|null, service?: string|null, from?: string|null, to?: string|null, details?: string|null}  $data
@@ -35,7 +38,10 @@ final class LeadCaptureService
 
             $contact = $this->findOrCreateContact($data, $source, $company);
 
+            $owner = $this->assigner->next();
+
             $lead = Lead::query()->create([
+                'owner_user_id' => $owner?->id,
                 'contact_id' => $contact->id,
                 'company_id' => $company?->id,
                 'source' => $source,
@@ -49,12 +55,13 @@ final class LeadCaptureService
             $lead->activities()->create([
                 'contact_id' => $contact->id,
                 'type' => 'note',
-                'body' => 'Quote request from the website: '.$this->summary($data),
+                'body' => $source->label().' enquiry: '.$this->summary($data),
                 'at' => now(),
             ]);
 
             $lead->followUps()->create([
                 'due_at' => $lead->next_follow_up_at,
+                'assigned_to' => $owner?->id,
                 'note' => 'Contact the customer about their quote request.',
             ]);
 
@@ -64,11 +71,19 @@ final class LeadCaptureService
         Mail::to($this->website->email_sales)->queue(new NewLeadMail($lead->load('contact')));
 
         $email = $data['email'] ?? null;
-        if (filled($email)) {
+        if (filled($email) && $source === LeadSource::WebsiteForm) {
             Mail::to((string) $email)->queue(new QuoteReceivedMail((string) $data['name']));
         }
 
         return $lead;
+    }
+
+    /**
+     * Staff quick-add for phone and walk-in enquiries (PRD 9.2): three fields minimum.
+     */
+    public function quickAdd(string $name, string $phone, LeadSource $source, ?string $note = null): Lead
+    {
+        return $this->captureQuoteRequest(['name' => $name, 'phone' => $phone, 'details' => $note], $source);
     }
 
     /**
