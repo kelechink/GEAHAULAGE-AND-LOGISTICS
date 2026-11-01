@@ -1,0 +1,28 @@
+# GEA Haulage and Logistics website
+
+Static one-page site for GEA Haulage and Logistics (RC 9198613), built by FigureWeb.
+Target domain: geahaulageandlogistics.com
+
+## Files
+
+- `index.html`: all page content
+- `styles.css`: styles (colour and type tokens at the top)
+- `script.js`: quote form, which opens WhatsApp (0816 216 3235) with the request already written
+
+No build step. Open `index.html` in a browser, or upload the three files to any static host.
+
+## Content sources
+
+- Onboarding questionnaire: company details, services, fleet (35 trucks, 5 to 30 t), coverage (Nigeria and West Africa), contact
+- Company profile: slogan, about, mission, vision, values, why choose GEA
+
+## Still needed from GEA
+
+- Logo files (the header uses a text wordmark for now)
+- Real photos of trucks, yard and loading work; the site has no images yet
+- Confirmation of service details written from the ticked boxes (e.g. ports served, example cargo types)
+- Testimonials and clients they're happy to show publicly
+- Licences, certifications, insurance
+- Social media links
+- The five professional mailboxes; the site uses gaeglobal1@gmail.com until they exist
+- Approver name for sign-off
