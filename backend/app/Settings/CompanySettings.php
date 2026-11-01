@@ -33,6 +33,19 @@ class CompanySettings extends Settings
     /** Hides West Africa / cross-border copy on the website until GEA confirms it (PRD 7, Open Question 1). */
     public bool $show_cross_border;
 
+    public ?string $bank_name;
+
+    public ?string $bank_account_name;
+
+    public ?string $bank_account_number;
+
+    public ?string $invoice_footer;
+
+    /** When on, an issued invoice without an IRN is flagged (PRD 10.3, FIRS readiness). */
+    public bool $einvoicing_required;
+
+    public int $quote_valid_days;
+
     public static function group(): string
     {
         return 'company';

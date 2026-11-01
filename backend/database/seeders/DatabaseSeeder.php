@@ -39,6 +39,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Sales Officer 2 (demo)', 'password' => 'password', 'email_verified_at' => now()],
         )->syncRoles([Role::Sales->value]);
 
-        $this->call([DemoCrmSeeder::class, DemoOperationsSeeder::class]);
+        $this->call([DemoCrmSeeder::class, DemoOperationsSeeder::class, DemoFinanceSeeder::class]);
     }
 }

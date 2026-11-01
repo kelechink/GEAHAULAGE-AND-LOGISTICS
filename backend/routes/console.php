@@ -20,3 +20,6 @@ Schedule::command('crm:mark-missed-follow-ups')->hourly();
 Schedule::command('tracking:poll-connectors')->everyMinute()->withoutOverlapping();
 Schedule::command('tracking:flag-stale')->everyFiveMinutes();
 Schedule::command('tracking:downsample')->dailyAt('02:30');
+
+// Finance (PRD 10.3)
+Schedule::command('finance:daily')->dailyAt('07:30')->timezone('Africa/Lagos');

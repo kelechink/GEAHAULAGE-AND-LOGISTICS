@@ -58,6 +58,22 @@ final class Money
     }
 
     /**
+     * Unit price × a decimal quantity such as "2.5" or "12.375", rounded half-up to the kobo.
+     */
+    public function timesQuantity(string|int $quantity): self
+    {
+        $q = (string) $quantity;
+        if (! preg_match('/^(\d+)(?:\.(\d{1,3}))?$/', trim($q), $m)) {
+            throw new InvalidArgumentException("Not a quantity: {$q}");
+        }
+        $milli = (int) $m[1] * 1000 + (int) str_pad($m[2] ?? '0', 3, '0');
+        $num = $this->kobo * $milli;
+        $sign = $num < 0 ? -1 : 1;
+
+        return new self($sign * intdiv(abs($num) + 500, 1000));
+    }
+
+    /**
      * Percentage of this amount, rounded half-up to the nearest kobo. Rate is given in basis points
      * (7.5% = 750) so the whole calculation stays in integers.
      */

@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Domain\Finance\EInvoice\EInvoiceProvider;
+use App\Domain\Finance\EInvoice\MockEInvoiceProvider;
+use App\Models\MaintenanceRecord;
 use App\Models\User;
+use App\Observers\MaintenanceRecordObserver;
 use App\Policies\ActivityPolicy;
 use App\View\Composers\SiteComposer;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -20,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        // FIRS e-invoicing: the mock adapter until GEA's compliance phase and credentials are confirmed (PRD 10.3).
+        $this->app->bind(EInvoiceProvider::class, MockEInvoiceProvider::class);
     }
 
     public function boot(): void
@@ -31,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(static fn (User $user): ?bool => $user->isSuperAdmin() ? true : null);
 
         Gate::policy(Activity::class, ActivityPolicy::class);
+
+        MaintenanceRecord::observe(MaintenanceRecordObserver::class);
 
         View::composer('site.*', SiteComposer::class);
 
