@@ -368,3 +368,43 @@ h1, h2, h3, p { margin: 0; }
 .trk-subform { display: flex; gap: 8px; flex-wrap: wrap; }
 .trk-subform input { flex: 1; min-width: 200px; padding: 13px 14px; border: 1px solid var(--line-strong); border-radius: 2px; background: var(--bg); color: var(--ink); font-size: 16px; }
 .trk-truck { width: 22px; height: 22px; border-radius: 50%; background: var(--signal); border: 3px solid #0B1430; box-shadow: 0 0 0 4px rgba(232, 163, 61, .35); }
+
+/* Website assistant (PRD 12.3): navy bubble, gold accent, stacked above the WhatsApp button. */
+.gea-ai { position: fixed; right: clamp(14px, 3vw, 28px); bottom: calc(clamp(14px, 3vw, 28px) + 64px); z-index: 46; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-family: var(--text); }
+.ai-bubble { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 20px 0 16px; background: #0B1430; color: #fff; border: 1px solid rgba(255, 255, 255, .12); border-bottom: 3px solid var(--signal); border-radius: 2px; font-weight: 600; font-size: 15px; cursor: pointer; box-shadow: 0 18px 40px rgba(7, 11, 24, .35); }
+.ai-bubble:hover { background: #16214A; }
+.ai-bubble:focus-visible, .gea-ai button:focus-visible, .gea-ai input:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.ai-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(232, 163, 61, .25); }
+.gea-ai [hidden], .gea-ai.is-open .ai-bubble { display: none !important; }
+.ai-teaser { max-width: 300px; background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-left: 3px solid var(--signal); box-shadow: 0 18px 40px rgba(7, 11, 24, .25); animation: ai-in .35s var(--ease) both; }
+.ai-teaser-text { display: block; width: 100%; text-align: left; padding: 14px 16px 8px; background: none; border: 0; color: inherit; font: 500 16px/1.45 var(--text); cursor: pointer; }
+.ai-teaser-actions { display: flex; justify-content: space-between; padding: 0 8px 8px 16px; }
+.ai-teaser-actions button { min-height: 32px; background: none; border: 0; color: var(--muted); font-size: 13px; cursor: pointer; }
+.ai-teaser-actions [data-ai-dismiss] { font-size: 22px; line-height: 1; padding: 0 8px; }
+.ai-panel { width: min(380px, calc(100vw - 28px)); height: min(560px, calc(100vh - 140px)); display: flex; flex-direction: column; background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); box-shadow: 0 24px 60px rgba(7, 11, 24, .35); animation: ai-in .3s var(--ease) both; }
+.ai-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: #0B1430; color: #fff; border-bottom: 3px solid var(--signal); }
+.ai-head strong { display: block; font-size: 16px; }
+.ai-head span { display: block; font-size: 13px; color: #C9CEDA; }
+.ai-head button { width: 44px; height: 44px; background: none; border: 0; color: #fff; font-size: 26px; cursor: pointer; }
+.ai-notice { margin: 0; padding: 8px 16px; font-size: 12.5px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.ai-list { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; overscroll-behavior: contain; }
+.ai-msg { max-width: 86%; padding: 10px 12px; font-size: 15px; line-height: 1.5; border-radius: 2px; }
+.ai-msg p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ai-msg a { color: var(--accent); text-decoration: underline; }
+.ai-assistant, .ai-staff { align-self: flex-start; background: var(--bg); border: 1px solid var(--line); }
+.ai-staff { border-left: 3px solid var(--signal); }
+.ai-visitor { align-self: flex-end; background: #0B1430; color: #fff; }
+.ai-system { align-self: center; max-width: 100%; font-size: 13px; color: var(--muted); text-align: center; }
+.ai-who { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 2px; }
+.ai-typing { color: var(--muted); font-style: italic; }
+.ai-quick { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 10px; }
+.ai-quick button { min-height: 36px; padding: 0 12px; background: none; border: 1px solid var(--line-strong); color: var(--ink); font-size: 14px; border-radius: 2px; cursor: pointer; }
+.ai-quick button:hover { border-color: var(--signal); }
+.ai-form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line); }
+.ai-form input, .ai-lead input { flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; background: var(--bg); color: var(--ink); border: 1px solid var(--line-strong); border-radius: 2px; font: 15px var(--text); }
+.ai-send { min-height: 44px; padding: 0 16px; background: var(--signal); color: var(--on-signal); border: 0; border-radius: 2px; font-weight: 700; cursor: pointer; }
+.ai-send:disabled { opacity: .6; }
+.ai-lead { display: flex; flex-direction: column; gap: 8px; padding: 12px; background: var(--bg); border: 1px solid var(--line); }
+@keyframes ai-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ai-teaser, .ai-panel { animation: none; } }
+@media (max-width: 520px) { .gea-ai.is-open { right: 14px; left: 14px; } .ai-panel { width: 100%; } }

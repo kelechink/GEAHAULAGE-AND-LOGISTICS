@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Domain\Ai\AiGateway;
+use App\Domain\Ai\AiProvider;
 use App\Domain\Finance\EInvoice\EInvoiceProvider;
 use App\Domain\Finance\EInvoice\MockEInvoiceProvider;
 use App\Models\MaintenanceRecord;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // FIRS e-invoicing: the mock adapter until GEA's compliance phase and credentials are confirmed (PRD 10.3).
         $this->app->bind(EInvoiceProvider::class, MockEInvoiceProvider::class);
+        $this->app->bind(AiProvider::class, AiGateway::class);
     }
 
     public function boot(): void
@@ -48,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
         // Driver app: 5 PIN attempts a minute per phone and IP; generous limit for queued uploads.
         RateLimiter::for('driver-login', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip().'|'.$request->input('phone')));
         RateLimiter::for('driver-api', static fn (Request $request): Limit => Limit::perMinute(120)->by((string) ($request->user()?->getAuthIdentifier() ?? $request->ip())));
+        // Website assistant (PRD 12.1): per-IP limits on messages and on the reply poll.
+        RateLimiter::for('assistant', static fn (Request $request): Limit => Limit::perMinute(10)->by($request->ip()));
+        RateLimiter::for('assistant-poll', static fn (Request $request): Limit => Limit::perMinute(30)->by($request->ip()));
         RateLimiter::for('tracking-poll', static fn (Request $request): Limit => Limit::perMinute(20)->by($request->ip()));
     }
 }

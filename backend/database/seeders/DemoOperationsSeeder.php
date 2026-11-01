@@ -17,8 +17,8 @@ use App\Models\Shipment;
 use App\Models\Truck;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Demo fleet and trips (PRD 18.2): 35 trucks (5–30 t), 12 drivers (8 with smartphones), 40 shipments.

@@ -58,6 +58,8 @@ enum Role: string
                 Permission::InvoicesApproveVoid,
                 Permission::DiscountsApprove,
                 Permission::AuditView,
+                Permission::AiInbox,
+                Permission::AiManage,
             ],
             self::Operations => [
                 Permission::DashboardView,

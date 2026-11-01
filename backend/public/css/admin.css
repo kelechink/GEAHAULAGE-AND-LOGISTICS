@@ -89,3 +89,32 @@
 .gdb-table th, .gdb-table td { text-align: right; padding: .3rem .4rem; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
 .gdb-table th:first-child, .gdb-table td:first-child { text-align: left; }
 .gdb .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* AI conversation inbox */
+.gea-chat { display: flex; flex-direction: column; gap: 16px; }
+.gea-chat-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: rgb(var(--gray-600)); }
+.dark .gea-chat-meta { color: rgb(var(--gray-400)); }
+.gea-chat-list { display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0; padding: 0; }
+.gea-chat-msg { max-width: 75%; padding: 10px 14px; border-radius: 10px; background: rgb(var(--gray-100)); }
+.dark .gea-chat-msg { background: rgb(var(--gray-800)); }
+.gea-chat-msg p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.gea-chat-msg.is-visitor { align-self: flex-end; background: #172F66; color: #fff; }
+.gea-chat-msg.is-staff { border-left: 4px solid #F5C400; }
+.gea-chat-msg.is-system { align-self: center; background: none; font-size: 13px; color: rgb(var(--gray-500)); }
+.gea-chat-who { display: block; font-size: 12px; opacity: .75; margin-bottom: 2px; }
+.gea-chat-reply { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.gea-chat-reply textarea { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgb(var(--gray-300)); background: transparent; }
+.gea-chat-err { color: rgb(var(--danger-600)); font-size: 13px; }
+.gdb-briefing { padding: 10px 12px; border-left: 3px solid #F5C400; background: rgba(245, 196, 0, .08); }
+
+/* Ask the system */
+.gea-ask { display: flex; gap: 10px; }
+.gea-ask-input { flex: 1; min-height: 44px; padding: 0 14px; border-radius: 8px; border: 1px solid rgb(var(--gray-300)); background: transparent; }
+.gea-ask-examples { display: flex; flex-wrap: wrap; gap: 8px; }
+.gea-ask-examples button { padding: 6px 12px; border-radius: 999px; border: 1px solid rgb(var(--gray-300)); font-size: 13px; }
+.gea-ask-examples button:hover { border-color: #F5C400; }
+.gea-ask-note { font-size: 13px; color: rgb(var(--gray-500)); }
+.gea-ask-table { overflow-x: auto; }
+.gea-ask-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.gea-ask-table th, .gea-ask-table td { padding: 8px 10px; border-bottom: 1px solid rgb(var(--gray-200)); text-align: left; }
+.dark .gea-ask-table th, .dark .gea-ask-table td { border-color: rgb(var(--gray-700)); }

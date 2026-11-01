@@ -37,6 +37,9 @@
     <section class="gdb-row">
         <article class="gdb-card gdb-summary">
             <h3 class="gdb-card-title">What's going on</h3>
+            @if (! empty($d['briefing']))
+                <p class="gdb-briefing"><strong>Morning briefing:</strong> {{ $d['briefing'] }}</p>
+            @endif
             @forelse ($d['summary'] as $line)
                 <p>{{ $line }}</p>
             @empty

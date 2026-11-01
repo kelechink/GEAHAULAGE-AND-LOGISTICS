@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\AssistantController;
 use App\Http\Controllers\Api\ConnectorWebhookController;
 use App\Http\Controllers\Api\Driver\AuthController as DriverAuth;
 use App\Http\Controllers\Api\Driver\TripController;
@@ -29,4 +30,11 @@ Route::prefix('driver')->name('api.driver.')->group(function (): void {
         Route::post('/trips/{trip}/deliver', [TripController::class, 'deliver'])->whereNumber('trip')->name('trips.deliver');
         Route::post('/trips/{trip}/issues', [TripController::class, 'issue'])->whereNumber('trip')->name('trips.issues');
     });
+});
+
+// Website assistant (PRD 12). Keys stay server-side; the browser never calls an AI provider.
+Route::prefix('assistant')->name('api.assistant.')->group(function (): void {
+    Route::post('/message', [AssistantController::class, 'message'])->middleware('throttle:assistant')->name('message');
+    Route::post('/lead', [AssistantController::class, 'lead'])->middleware('throttle:forms')->name('lead');
+    Route::get('/{token}', [AssistantController::class, 'poll'])->middleware('throttle:assistant-poll')->name('poll');
 });

@@ -51,6 +51,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make('Operations'),
                 NavigationGroup::make('Fleet'),
                 NavigationGroup::make('Finance'),
+                NavigationGroup::make('Assistant'),
                 NavigationGroup::make('Content'),
                 NavigationGroup::make('Settings')->collapsed(),
             ])

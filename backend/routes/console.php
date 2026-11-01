@@ -23,3 +23,7 @@ Schedule::command('tracking:downsample')->dailyAt('02:30');
 
 // Finance (PRD 10.3)
 Schedule::command('finance:daily')->dailyAt('07:30')->timezone('Africa/Lagos');
+
+// AI and alerts (PRD 12.5)
+Schedule::command('ai:daily-digest')->dailyAt('07:00')->timezone('Africa/Lagos');
+Schedule::command('alerts:sweep')->hourly();

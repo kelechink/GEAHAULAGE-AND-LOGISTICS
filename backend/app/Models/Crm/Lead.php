@@ -24,6 +24,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string|null $origin
  * @property string|null $destination
  * @property string|null $cargo
+ * @property string|null $tonnage
+ * @property Carbon|null $preferred_date
+ * @property string|null $ai_summary
  * @property LeadStage $stage
  * @property Carbon|null $next_follow_up_at
  * @property Carbon|null $first_contacted_at

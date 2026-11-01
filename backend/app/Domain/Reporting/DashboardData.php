@@ -9,6 +9,7 @@ use App\Enums\LeadSource;
 use App\Enums\Permission;
 use App\Enums\ShipmentStage;
 use App\Enums\TruckStatus;
+use App\Models\Ai\Digest;
 use App\Models\Crm\FollowUp;
 use App\Models\Crm\Lead;
 use App\Models\Driver;
@@ -40,6 +41,7 @@ final class DashboardData
         return [
             'kpis' => $this->kpis($canFinance, $canCrm, $canOps),
             'summary' => $this->summary($canFinance, $canCrm, $canOps),
+            'briefing' => $canOps || $user->can(Permission::AiManage->value) ? $this->briefing() : null,
             'alerts' => $this->alerts($canFinance, $canCrm, $canOps, $user),
             'charts' => array_filter([
                 'cashflow' => $canFinance ? $this->cashflow() : null,
@@ -48,6 +50,12 @@ final class DashboardData
                 'expenses' => $canFinance ? $this->expenseMix() : null,
             ]),
         ];
+    }
+
+    /** Today's 7am digest (PRD 12.5), if it has been built. */
+    private function briefing(): ?string
+    {
+        return Digest::query()->whereDate('day', now('Africa/Lagos')->toDateString())->value('summary');
     }
 
     private function monthStart(int $monthsAgo = 0): Carbon

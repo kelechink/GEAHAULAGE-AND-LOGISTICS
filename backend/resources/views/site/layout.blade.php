@@ -42,7 +42,9 @@
 </main>
 @include('site.partials.footer')
 <a class="wa-float" href="https://wa.me/{{ $company->whatsapp }}" target="_blank" rel="noopener"><i aria-hidden="true"></i>WhatsApp us</a>
+@include('site.partials.assistant')
 <script src="{{ asset('js/site.js') }}?v={{ filemtime(public_path('js/site.js')) }}" defer></script>
+<script src="{{ asset('js/assistant.js') }}?v={{ filemtime(public_path('js/assistant.js')) }}" defer></script>
 @stack('scripts')
 </body>
 </html>

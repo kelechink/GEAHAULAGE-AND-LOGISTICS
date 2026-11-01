@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([RolesAndPermissionsSeeder::class, WebsiteContentSeeder::class, PlacesSeeder::class]);
+        $this->call([RolesAndPermissionsSeeder::class, WebsiteContentSeeder::class, PlacesSeeder::class, KnowledgeSeeder::class]);
 
         $demoUsers = [
             Role::SuperAdmin->value => ['FigureWeb Admin', 'admin@example.test'],
