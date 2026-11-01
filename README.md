@@ -1,9 +1,13 @@
-# GEA Haulage and Logistics website
+# GEA Haulage and Logistics
 
-Static one-page site for GEA Haulage and Logistics (RC 9198613), built by FigureWeb.
+This repo holds the GEA Logistics Platform (`PRD.md`): a Laravel app in `backend/` (website, back office, API), with the driver app and docs to follow. See `CLAUDE.md` for conventions and `docs/deploy-cpanel.md` for deployment.
+
+## Interim static site
+
+Until Phase 1 ports the v3 design into Laravel, the repo root also holds a static one-page site for GEA Haulage and Logistics (RC 9198613), built by FigureWeb.
 Target domain: geahaulageandlogistics.com
 
-## Files
+### Files
 
 - `index.html`: all page content
 - `styles.css`: styles (colour and type tokens at the top)
@@ -13,12 +17,12 @@ Target domain: geahaulageandlogistics.com
 
 No build step. Open `index.html` in a browser, or upload the files and the `assets` folder to any static host.
 
-## Content sources
+### Content sources
 
 - Onboarding questionnaire: company details, services, fleet (35 trucks, 5 to 30 t), coverage (Nigeria and West Africa), contact
 - Company profile: slogan, about, mission, vision, values, why choose GEA
 
-## Still needed from GEA
+### Still needed from GEA
 
 - Logo file (SVG or transparent PNG). The header uses a text wordmark for now; the site's navy (#172F66) is taken from the logo.
 - Real photos or video of GEA trucks, yard, team and loading work, to replace the stock clips
