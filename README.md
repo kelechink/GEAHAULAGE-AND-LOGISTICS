@@ -8,7 +8,8 @@ Target domain: geahaulageandlogistics.com
 - `index.html`: all page content
 - `styles.css`: styles (colour and type tokens at the top)
 - `script.js`: quote form, which opens WhatsApp (0816 216 3235) with the request already written; plays the videos only while on screen
-- `assets/video/`: three muted, compressed clips with poster images (about 1.9 MB in total). They are stock footage, so replace them with GEA's own footage when it's available. They don't play for visitors with reduced motion or data saver turned on.
+- `assets/img/gea-truck.*`: GEA-branded truck cropped from the brand mockup (a mockup, not a photo of the real fleet)
+- `assets/video/`: two muted, compressed clips with poster images (about 1.4 MB in total). They are stock footage, so replace them with GEA's own footage when it's available. They don't play for visitors with reduced motion or data saver turned on.
 
 No build step. Open `index.html` in a browser, or upload the files and the `assets` folder to any static host.
 
