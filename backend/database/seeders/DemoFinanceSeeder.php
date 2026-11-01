@@ -80,6 +80,13 @@ class DemoFinanceSeeder extends Seeder
         Carbon::setTestNow($realNow);
         $invoices->markOverdue();
 
+        // Some money in and out today, so "this month" figures are not empty in a fresh demo.
+        $open = Invoice::query()->receivable()->orderBy('due_date')->first();
+        if ($open !== null) {
+            $payments->record($open->customer, intdiv($open->balance_kobo, 2), PaymentMethod::BankTransfer, $realNow, 'TRF990001');
+        }
+        Expense::query()->create(['category' => ExpenseCategory::Fuel, 'spent_on' => $realNow, 'amount_kobo' => 42_000_000, 'description' => 'Diesel top-up, Apapa depot', 'truck_id' => $trucks[0] ?? null]);
+
         // Two quotes waiting on customers, and one delivered trip left as a draft for Finance.
         $quotes = app(QuoteService::class);
         foreach ([0, 1] as $i) {

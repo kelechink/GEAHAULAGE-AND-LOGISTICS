@@ -24,7 +24,7 @@ final class FinanceReports
     private function invoices(Carbon $from, Carbon $to): Collection
     {
         return Invoice::query()->whereNotIn('status', [InvoiceStatus::Draft->value, InvoiceStatus::Void->value])
-            ->whereBetween('issue_date', [$from->toDateString(), $to->toDateString()])
+            ->whereDate('issue_date', '>=', $from->toDateString())->whereDate('issue_date', '<=', $to->toDateString())
             ->with(['customer', 'shipment.truck'])
             ->get();
     }
@@ -47,7 +47,7 @@ final class FinanceReports
     /** @return list<array{label: string, amount: int}> */
     public function expensesBy(string $dimension, Carbon $from, Carbon $to): array
     {
-        return Expense::query()->whereBetween('spent_on', [$from->toDateString(), $to->toDateString()])->with('truck')->get()
+        return Expense::query()->whereDate('spent_on', '>=', $from->toDateString())->whereDate('spent_on', '<=', $to->toDateString())->with('truck')->get()
             ->groupBy(fn (Expense $e): string => $dimension === 'truck' ? ($e->truck->registration ?? 'Not linked to a truck') : $e->category->label())
             ->map(fn (Collection $g, string $k): array => ['label' => $k, 'amount' => (int) $g->sum('amount_kobo')])
             ->sortByDesc('amount')->values()->all();
@@ -68,7 +68,7 @@ final class FinanceReports
             }
             $rows[$key]['revenue'] = ($rows[$key]['revenue'] ?? 0) + $i->total_kobo - $i->vat_kobo;
         }
-        $expenses = Expense::query()->whereBetween('spent_on', [$from->toDateString(), $to->toDateString()])->with(['truck', 'shipment'])->get();
+        $expenses = Expense::query()->whereDate('spent_on', '>=', $from->toDateString())->whereDate('spent_on', '<=', $to->toDateString())->with(['truck', 'shipment'])->get();
         foreach ($expenses as $e) {
             $key = $dimension === 'truck' ? $e->truck?->registration : $e->shipment?->tracking_code;
             if ($key === null) {
@@ -121,7 +121,7 @@ final class FinanceReports
     /** WHT deducted by customers; GEA claims this back with the credit notes from FIRS. */
     public function whtReceivable(Carbon $from, Carbon $to): int
     {
-        return (int) PaymentAllocation::query()->whereHas('payment', fn ($q) => $q->whereBetween('received_on', [$from->toDateString(), $to->toDateString()]))->sum('wht_kobo');
+        return (int) PaymentAllocation::query()->whereHas('payment', fn ($q) => $q->whereDate('received_on', '>=', $from->toDateString())->whereDate('received_on', '<=', $to->toDateString()))->sum('wht_kobo');
     }
 
     /**
@@ -157,7 +157,7 @@ final class FinanceReports
     {
         $out = [];
         foreach (ExpenseCategory::cases() as $c) {
-            $sum = (int) Expense::query()->where('category', $c->value)->whereBetween('spent_on', [$from->toDateString(), $to->toDateString()])->sum('amount_kobo');
+            $sum = (int) Expense::query()->where('category', $c->value)->whereDate('spent_on', '>=', $from->toDateString())->whereDate('spent_on', '<=', $to->toDateString())->sum('amount_kobo');
             if ($sum > 0) {
                 $out[$c->label()] = $sum;
             }
