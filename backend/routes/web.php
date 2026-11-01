@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\Site\CareersController;
 use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\QuoteController;
@@ -23,3 +24,6 @@ Route::post('/careers', [CareersController::class, 'store'])->middleware('thrott
 Route::get('/track', [TrackController::class, 'search'])->middleware('throttle:tracking')->name('track');
 Route::get('/track/{code}', [TrackController::class, 'show'])->middleware('throttle:tracking')->name('track.show');
 Route::post('/track/{code}/subscribe', [TrackController::class, 'subscribe'])->middleware('throttle:forms')->name('track.subscribe');
+
+// Uptime monitoring (PRD 6): UptimeRobot checks this for "ok".
+Route::get('/health', HealthController::class)->middleware('throttle:60,1')->name('health');

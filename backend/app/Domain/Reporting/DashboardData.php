@@ -9,6 +9,7 @@ use App\Enums\LeadSource;
 use App\Enums\Permission;
 use App\Enums\ShipmentStage;
 use App\Enums\TruckStatus;
+use App\Models\Ai\Conversation;
 use App\Models\Ai\Digest;
 use App\Models\Crm\FollowUp;
 use App\Models\Crm\Lead;
@@ -17,6 +18,7 @@ use App\Models\Finance\Expense;
 use App\Models\Finance\Invoice;
 use App\Models\Finance\Payment;
 use App\Models\Shipment;
+use App\Models\ShipmentEvent;
 use App\Models\Truck;
 use App\Models\User;
 use App\Support\Money;
@@ -130,8 +132,16 @@ final class DashboardData
             $moving = Shipment::query()->whereIn('stage', ['in_transit', 'delayed'])->count();
             $delayed = Shipment::query()->where('stage', 'delayed')->count();
             $available = Truck::query()->where('status', TruckStatus::Available->value)->count();
+            $workshop = Truck::query()->where('status', TruckStatus::Maintenance->value)->count();
             $tiles[] = ['key' => 'trips', 'slot' => 7, 'icon' => 'heroicon-o-truck', 'label' => 'Active trips', 'value' => (string) $active,
-                'note' => "{$moving} on the road · {$delayed} delayed · {$available} trucks free", 'dir' => 'flat', 'good' => null];
+                'note' => "{$moving} on the road · {$delayed} delayed · {$available} trucks free · {$workshop} in maintenance", 'dir' => 'flat', 'good' => null];
+
+            // Deliveries this month and on-time share: a delivery is on time if the trip was never marked DELAYED (PRD 10.6).
+            $delivered = Shipment::query()->whereNotNull('delivered_at')->where('delivered_at', '>=', $thisM)->pluck('id');
+            $late = $delivered->isEmpty() ? 0 : ShipmentEvent::query()->whereIn('shipment_id', $delivered)->where('to_stage', 'delayed')->distinct()->count('shipment_id');
+            $onTime = $delivered->isEmpty() ? null : intdiv(($delivered->count() - $late) * 100, $delivered->count());
+            $tiles[] = ['key' => 'deliveries', 'slot' => 6, 'icon' => 'heroicon-o-check-badge', 'label' => 'Delivered this month', 'value' => (string) $delivered->count(),
+                'note' => $onTime === null ? 'No deliveries yet this month' : "{$onTime}% on time", 'dir' => 'flat', 'good' => null];
         }
         if ($crm) {
             $week = Lead::query()->where('created_at', '>=', now()->subDays(7))->count();
@@ -295,6 +305,12 @@ final class DashboardData
             $drafts = Invoice::query()->where('status', 'draft')->whereNotNull('shipment_id')->count();
             if ($drafts > 0) {
                 $a[] = ['level' => 'warning', 'text' => "{$drafts} delivered trips are waiting to be invoiced.", 'url' => url('/admin/invoices')];
+            }
+        }
+        if ($user->can(Permission::AiInbox->value)) {
+            $waiting = Conversation::query()->where('status', 'needs_human')->count();
+            if ($waiting > 0) {
+                $a[] = ['level' => 'serious', 'text' => "{$waiting} website chats are waiting for a person.", 'url' => url('/admin/ai-conversations')];
             }
         }
         if ($crm) {

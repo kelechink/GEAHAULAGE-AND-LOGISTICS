@@ -118,3 +118,11 @@
 .gea-ask-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .gea-ask-table th, .gea-ask-table td { padding: 8px 10px; border-bottom: 1px solid rgb(var(--gray-200)); text-align: left; }
 .dark .gea-ask-table th, .dark .gea-ask-table td { border-color: rgb(var(--gray-700)); }
+
+/* Import data */
+.gea-import { display: flex; flex-direction: column; gap: 16px; }
+.gea-import-actions { display: flex; gap: 10px; }
+.gea-import-help { list-style: decimal; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.gea-import-errors { list-style: disc; padding-left: 20px; font-size: 14px; color: rgb(var(--danger-600)); }
+.gea-import-bad { color: rgb(var(--danger-600)); font-weight: 600; }
+.gea-import-good { color: rgb(var(--success-600)); font-weight: 600; }

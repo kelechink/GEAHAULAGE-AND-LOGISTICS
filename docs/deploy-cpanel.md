@@ -90,6 +90,17 @@ MAIL_SCHEME=smtps
 MAIL_USERNAME=info@geahaulageandlogistics.com
 MAIL_PASSWORD=...
 MAIL_FROM_ADDRESS=info@geahaulageandlogistics.com
+
+# Website assistant (free tiers). Without keys the chat still takes leads with a form.
+GEMINI_API_KEY=...
+GROQ_API_KEY=...
+
+# Monitoring and backups (see docs/backups-and-monitoring.md)
+ALERT_EMAIL=admin@figureweb.ng
+BACKUP_DISKS=local,offsite
+BACKUP_SFTP_HOST=...
+BACKUP_SFTP_USERNAME=...
+BACKUP_SFTP_PASSWORD=...
 ```
 
 Use `APP_URL=https://staging.geahaulageandlogistics.com` and a separate database for staging.
@@ -100,6 +111,8 @@ Use `APP_URL=https://staging.geahaulageandlogistics.com` and a separate database
 php artisan migrate --force
 php artisan db:seed --class=RolesAndPermissionsSeeder --force
 php artisan db:seed --class=WebsiteContentSeeder --force
+php artisan db:seed --class=PlacesSeeder --force
+php artisan db:seed --class=KnowledgeSeeder --force
 php artisan storage:link
 php artisan filament:optimize
 php artisan optimize
@@ -113,7 +126,9 @@ php artisan gea:make-admin "FigureWeb Admin" admin@figureweb.ng
 
 It asks for the password. Do **not** run the full `DatabaseSeeder` in production: it creates demo users.
 
-`WebsiteContentSeeder` adds the 8 services, FAQs and career roles from the v3 design. It never overwrites rows staff have edited, so it is safe to run again after an update.
+`WebsiteContentSeeder` adds the 8 services, FAQs and career roles from the v3 design. `PlacesSeeder` adds the checkpoint towns used by the update console and maps. `KnowledgeSeeder` builds the chat assistant's knowledge from the website copy. None of them overwrite rows staff have edited, so they are safe to run again after an update.
+
+Then load GEA's real customers, trucks, drivers and routes with **Settings → Import data** (see the go-live checklist).
 
 ## 7. Cron (scheduler and queue)
 
@@ -125,7 +140,7 @@ In **Cron Jobs**, add one job that runs every minute:
 
 Use the PHP binary path for the version you selected (`which php` over SSH, or e.g. `/opt/cpanel/ea-php83/root/usr/bin/php`).
 
-The scheduler runs `queue:work --stop-when-empty` every minute, so queued jobs (emails, notifications) are processed without a long-running worker.
+The scheduler runs `queue:work --stop-when-empty` every minute, so queued jobs (emails, notifications) are processed without a long-running worker. It also runs tracker polling, stale-trip and overdue checks, the 7am digest, nightly backups and a heartbeat that `/health` reads. Run `php artisan schedule:list` to see them all.
 
 ## 8. Compression and caching
 
@@ -159,9 +174,9 @@ php artisan db:seed --class=WebsiteContentSeeder --force
 php artisan optimize:clear && php artisan optimize && php artisan filament:optimize
 ```
 
-## 11. Backups
+## 11. Backups and monitoring
 
-Use cPanel/JetBackup daily backups of the account and database, plus an off-server copy (PRD Section 16). Phase 7 adds `spatie/laravel-backup` and a tested restore.
+The app backs up the database and uploads every night at 01:30 (Lagos), keeps 30 days and emails failures. Keep cPanel/JetBackup on as well. Set up the off-server copy, UptimeRobot and a restore test as described in `docs/backups-and-monitoring.md`.
 
 ## Moving to a VPS later
 

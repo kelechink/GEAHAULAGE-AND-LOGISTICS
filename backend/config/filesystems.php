@@ -40,6 +40,19 @@ return [
             'report' => false,
         ],
 
+        // Off-server backup copy over SFTP (any host or cPanel account with SSH). Set BACKUP_DISKS=local,offsite to use it.
+        'offsite' => [
+            'driver' => 'sftp',
+            'host' => env('BACKUP_SFTP_HOST'),
+            'username' => env('BACKUP_SFTP_USERNAME'),
+            'password' => env('BACKUP_SFTP_PASSWORD'),
+            'privateKey' => env('BACKUP_SFTP_PRIVATE_KEY'),
+            'port' => (int) env('BACKUP_SFTP_PORT', 22),
+            'root' => env('BACKUP_SFTP_ROOT', '/backups/gea'),
+            'timeout' => 60,
+            'throw' => true,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

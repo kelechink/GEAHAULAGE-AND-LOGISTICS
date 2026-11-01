@@ -59,7 +59,7 @@ final class DailyDigest
             'receivable_kobo' => $receivable,
             'expiring_documents' => $truckDocs + $driverDocs,
             'new_leads' => Lead::query()->where('created_at', '>=', $since)->count(),
-            'hot_leads' => Lead::query()->whereIn('stage', ['new', 'contacted', 'quoted', 'negotiating'])->where('intent_score', '>=', 70)->count(),
+            'hot_leads' => Lead::query()->whereIn('stage', ['new', 'contacted', 'qualified', 'quoted'])->where('intent_score', '>=', 70)->count(),
             'missed_follow_ups' => FollowUp::query()->where('status', 'missed')->count(),
         ];
     }
