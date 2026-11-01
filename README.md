@@ -10,7 +10,7 @@ Target domain: geahaulageandlogistics.com
 - `script.js`: quote form, which opens WhatsApp (0816 216 3235) with the request already written; plays the videos only while on screen
 - `assets/video/`: three muted, compressed clips with poster images (about 1.9 MB in total). They are stock footage, so replace them with GEA's own footage when it's available. They don't play for visitors with reduced motion or data saver turned on.
 
-No build step. Open `index.html` in a browser, or upload the three files to any static host.
+No build step. Open `index.html` in a browser, or upload the files and the `assets` folder to any static host.
 
 ## Content sources
 
@@ -20,7 +20,7 @@ No build step. Open `index.html` in a browser, or upload the three files to any 
 ## Still needed from GEA
 
 - Logo file (SVG or transparent PNG). The header uses a text wordmark for now; the site's navy (#172F66) is taken from the logo.
-- Real photos of trucks, yard and loading work; the site has no images yet
+- Real photos or video of GEA trucks, yard, team and loading work, to replace the stock clips
 - Confirmation of service details written from the ticked boxes (e.g. ports served, example cargo types)
 - Testimonials and clients they're happy to show publicly
 - Licences, certifications, insurance
