@@ -31,6 +31,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('GEA Haulage and Logistics')
+            ->brandLogo(asset('assets/img/logo-blue.png'))
+            ->darkModeBrandLogo(asset('assets/img/logo-white.png'))
+            ->brandLogoHeight('2.75rem')
+            ->favicon(asset('assets/img/favicon.png'))
             ->colors([
                 // GEA navy from the logo, with the website's gold as the warning colour.
                 'primary' => Color::hex('#172F66'),

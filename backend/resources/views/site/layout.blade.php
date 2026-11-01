@@ -21,6 +21,8 @@
     <meta property="og:image" content="{{ asset('assets/video/hero-truck-poster.jpg') }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#0B1430">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/img/apple-touch-icon.png') }}">
     <script>
         // Apply the saved theme before first paint, so dark-mode visitors see no flash.
         (function () { try { var t = localStorage.getItem('gea-theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {} document.documentElement.classList.add('js'); })();
