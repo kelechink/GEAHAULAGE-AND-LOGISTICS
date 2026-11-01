@@ -95,6 +95,9 @@ MAIL_FROM_ADDRESS=info@geahaulageandlogistics.com
 GEMINI_API_KEY=...
 GROQ_API_KEY=...
 
+# Two-factor sign-in for /admin: always true outside a local demo
+TWO_FACTOR_ENFORCED=true
+
 # Monitoring and backups (see docs/backups-and-monitoring.md)
 ALERT_EMAIL=admin@figureweb.ng
 BACKUP_DISKS=local,offsite

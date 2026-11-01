@@ -29,5 +29,7 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <!-- Off for the general suite (tests use actingAs); TwoFactorTest switches it on. -->
+        <env name="TWO_FACTOR_ENFORCED" value="false"/>
     </php>
 </phpunit>

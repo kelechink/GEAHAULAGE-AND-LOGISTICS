@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\TwoFactorSetup;
+use App\Http\Middleware\EnsureTwoFactor;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
@@ -75,6 +78,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                EnsureTwoFactor::class,
+            ])
+            ->userMenuItems([
+                MenuItem::make()->label('Two-factor sign-in')->icon('heroicon-o-shield-check')->url(fn (): string => TwoFactorSetup::getUrl()),
             ]);
     }
 }

@@ -4,7 +4,9 @@ Super Admin passes every permission check. Use it for setup and support, not dai
 
 ## Users and roles
 
-**Settings → Users and roles.** One account per person. Roles: Management, Operations, Sales, Finance, Driver, Customer. Switch off **Active** when someone leaves; their history stays. Create the first admin on a new server with `php artisan gea:make-admin "Name" email`.
+**Settings → Users and roles.** One account per person. Roles: Management, Operations, Sales, Finance, Driver, Customer. Switch off **Active** when someone leaves; their history stays.
+
+Everyone who uses `/admin` must set up two-factor sign-in with an authenticator app at their first sign-in (PRD 16). The **2FA** column shows who has it. If someone loses their phone and recovery codes, check it is really them (call them), then use **Reset two-factor**; they scan a new QR code at their next sign-in. Every setup, reset and recovery-code use is in the audit log. `TWO_FACTOR_ENFORCED` must stay `true` on staging and production. Create the first admin on a new server with `php artisan gea:make-admin "Name" email`.
 
 ## Settings
 

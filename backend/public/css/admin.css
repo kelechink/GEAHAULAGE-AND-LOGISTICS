@@ -126,3 +126,13 @@
 .gea-import-errors { list-style: disc; padding-left: 20px; font-size: 14px; color: rgb(var(--danger-600)); }
 .gea-import-bad { color: rgb(var(--danger-600)); font-weight: 600; }
 .gea-import-good { color: rgb(var(--success-600)); font-weight: 600; }
+
+/* Two-factor sign-in */
+.gea-2fa-form { display: flex; flex-direction: column; gap: 10px; max-width: 420px; align-items: flex-start; }
+.gea-2fa-form input { width: 100%; font-size: 20px; letter-spacing: .15em; }
+.gea-2fa-steps { list-style: decimal; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.gea-2fa-qr { margin: 12px 0; background: #fff; padding: 8px; border-radius: 8px; }
+.gea-2fa-key { font-family: ui-monospace, monospace; font-size: 15px; }
+.gea-2fa-note { font-size: 14px; color: rgb(var(--gray-600)); margin-bottom: 12px; }
+.dark .gea-2fa-note { color: rgb(var(--gray-400)); }
+.gea-2fa-codes { display: grid; grid-template-columns: repeat(2, max-content); gap: 6px 24px; font-family: ui-monospace, monospace; font-size: 16px; margin-bottom: 16px; }

@@ -25,6 +25,8 @@ Open http://127.0.0.1:8000/admin. Demo users (local only, password `password`):
 | Driver (no admin access) | driver@example.test |
 | Customer (no admin access) | customer@example.test |
 
+Each user is asked to set up two-factor sign-in with an authenticator app at first sign-in. For a quick local demo you can set `TWO_FACTOR_ENFORCED=false` in `.env`; never do that on staging or production.
+
 ## Checks
 
 ```bash

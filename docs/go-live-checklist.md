@@ -27,6 +27,7 @@ Download each template, fill it in, click **Check file**, fix any rows, then **I
 
 - [ ] One account per staff member with the right role (Management, Operations, Sales, Finance). No shared logins.
 - [ ] Demo users absent; FigureWeb Super Admin created with `gea:make-admin`
+- [ ] `TWO_FACTOR_ENFORCED=true`; every staff member has set up two-factor (Users and roles → **2FA** column) and stored their recovery codes
 - [ ] Each driver with a smartphone has an app PIN (**Fleet → Drivers → Set app PIN**) and the APK installed
 - [ ] Every role has had its training session using the guides in `docs/user-guides/`
 
