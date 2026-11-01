@@ -226,7 +226,8 @@ return [
         'notifiable' => Notifiable::class,
 
         'mail' => [
-            'to' => env('BACKUP_NOTIFY_EMAIL', env('ALERT_EMAIL', 'admin@example.test')),
+            // Blank values in .env count as "not set", so a copied .env.example still boots.
+            'to' => env('BACKUP_NOTIFY_EMAIL') ?: (env('ALERT_EMAIL') ?: 'admin@example.test'),
 
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
