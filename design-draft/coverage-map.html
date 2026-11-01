@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEA coverage map</title>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:transparent;overflow:hidden;font-family:Barlow,sans-serif}
+#map{width:100%;height:100%;display:block}
+.route{fill:none;stroke-linecap:round}
+@keyframes dash{to{stroke-dashoffset:-40}}
+.flow{animation:dash 1.6s linear infinite}
+@media (prefers-reduced-motion: reduce){.flow{animation:none}}
+</style>
+</head>
+<body>
+<svg id="map" role="img" aria-label="Map of GEA coverage: interstate routes across Nigeria from Lagos, and cross-border corridors to Benin, Togo, Ghana, Côte d'Ivoire and Niger"></svg>
+<script>
+const THEMES = {
+  dark:  { land: '#131B33', landStroke: 'rgba(236,238,243,0.12)', ng: '#1E2B55', corridor: '#18224A', ink: '#ECEEF3', muted: '#9AA2B6', route: '#E8A33D', xroute: '#8EA6E8', water: 'transparent' },
+  light: { land: '#E2E4EA', landStroke: 'rgba(11,20,48,0.14)', ng: '#C9D0E2', corridor: '#D5DAE6', ink: '#0B1430', muted: '#5E6578', route: '#B9741A', xroute: '#1E3A8A', water: 'transparent' }
+};
+const params = new URLSearchParams(location.search);
+let theme = params.get('theme') === 'light' ? 'light' : 'dark';
+const HQ = { name: 'Lagos (HQ)', c: [3.38, 6.52] };
+const cities = [
+  ['Ibadan', [3.90, 7.38]], ['Abuja', [7.49, 9.06]], ['Kano', [8.52, 12.0]], ['Port Harcourt', [7.03, 4.82]],
+  ['Onitsha', [6.78, 6.15]], ['Kaduna', [7.44, 10.52]], ['Benin City', [5.63, 6.34]], ['Enugu', [7.49, 6.45]],
+  ['Jos', [8.89, 9.90]], ['Maiduguri', [13.15, 11.85]], ['Sokoto', [5.24, 13.06]]
+];
+const xb = [['Cotonou', [2.42, 6.37]], ['Lomé', [1.22, 6.13]], ['Accra', [-0.19, 5.60]], ['Abidjan', [-4.03, 5.36]], ['Niamey', [2.11, 13.51]]];
+const corridorIds = new Set(['204', '768', '288', '384', '562']);
+let world;
+const svg = d3.select('#map');
+
+function draw() {
+  const T = THEMES[theme];
+  const W = innerWidth, H = innerHeight;
+  svg.attr('viewBox', `0 0 ${W} ${H}`).selectAll('*').remove();
+  const bbox = { type: 'MultiPoint', coordinates: [[-6, 3.6], [15, 14.6], [-6, 14.6], [15, 3.6]] };
+  const proj = d3.geoMercator().fitExtent([[16, 16], [W - 16, H - 16]], bbox);
+  const path = d3.geoPath(proj);
+  const countries = topojson.feature(world, world.objects.countries).features;
+  svg.append('g').selectAll('path').data(countries).join('path')
+    .attr('d', path)
+    .attr('fill', d => d.id === '566' ? T.ng : corridorIds.has(d.id) ? T.corridor : T.land)
+    .attr('stroke', T.landStroke).attr('stroke-width', 0.8);
+  const lab = svg.append('g').attr('font-family', "'Barlow Condensed',sans-serif").attr('font-weight', 700).attr('text-transform', 'uppercase');
+  [['NIGERIA', [8.4, 8.0], 1], ['BENIN', [2.3, 9.6], 0.6], ['TOGO', [1.0, 8.6], 0.6], ['GHANA', [-1.2, 7.9], 0.6], ["CÔTE D'IVOIRE", [-5.2, 7.6], 0.6], ['NIGER', [8.5, 14.1], 0.6]].forEach(([t, c, s]) => {
+    const [x, y] = proj(c);
+    lab.append('text').attr('x', x).attr('y', y).attr('text-anchor', 'middle').attr('fill', s === 1 ? T.ink : T.muted).attr('opacity', s === 1 ? 0.35 : 0.8)
+      .attr('font-size', s === 1 ? Math.max(22, W / 22) : Math.max(11, W / 70)).attr('letter-spacing', s === 1 ? 6 : 2).text(t);
+  });
+  const arc = (a, b, bend = 0.18) => {
+    const [x1, y1] = proj(a), [x2, y2] = proj(b);
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1;
+    return `M${x1},${y1} Q${mx - dy * bend},${my + dx * bend} ${x2},${y2}`;
+  };
+  const routes = svg.append('g');
+  const addRoute = (d, color, w, delay) => {
+    const p = routes.append('path').attr('class', 'route').attr('d', d).attr('stroke', color).attr('stroke-width', w).attr('opacity', 0.9);
+    const L = p.node().getTotalLength();
+    p.attr('stroke-dasharray', `${L} ${L}`).attr('stroke-dashoffset', L)
+      .transition().delay(delay).duration(1400).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0)
+      .on('end', function () { d3.select(this).attr('stroke-dasharray', '6 14').attr('stroke-dashoffset', 0).classed('flow', true); });
+  };
+  cities.forEach(([, c], i) => addRoute(arc(HQ.c, c, 0.12), T.route, 2, 200 + i * 90));
+  const chain = [HQ.c, ...xb.slice(0, 4).map(x => x[1])];
+  for (let i = 0; i < chain.length - 1; i++) addRoute(arc(chain[i], chain[i + 1], -0.25), T.xroute, 2.5, 1300 + i * 260);
+  addRoute(arc([8.52, 12.0], xb[4][1], 0.2), T.xroute, 2.5, 1600);
+  const pts = svg.append('g');
+  const dot = (name, c, kind, i) => {
+    const [x, y] = proj(c);
+    const g = pts.append('g').attr('transform', `translate(${x},${y})`).attr('opacity', 0);
+    g.transition().delay(kind === 'hq' ? 0 : 400 + i * 80).duration(500).attr('opacity', 1);
+    if (kind === 'hq') {
+      const pulse = g.append('circle').attr('r', 8).attr('fill', 'none').attr('stroke', T.route).attr('stroke-width', 2);
+      (function loop() { pulse.attr('r', 8).attr('opacity', 1).transition().duration(1800).ease(d3.easeCubicOut).attr('r', 26).attr('opacity', 0).on('end', loop); })();
+      g.append('circle').attr('r', 7).attr('fill', T.route);
+    } else g.append('circle').attr('r', kind === 'xb' ? 4.5 : 3.5).attr('fill', kind === 'xb' ? T.xroute : T.ink);
+    const small = W < 560 && kind === 'city' && !['Abuja', 'Kano', 'Port Harcourt'].includes(name);
+    const off = { 'Lagos (HQ)': [10, -10, 'start'], Cotonou: [0, 20, 'middle'], 'Lomé': [0, 20, 'middle'], Accra: [0, 20, 'middle'], Abidjan: [0, 20, 'middle'], Niamey: [-9, 4, 'end'], Onitsha: [0, 18, 'middle'] }[name] || [9, 4, 'start'];
+    if (!small) g.append('text').attr('x', off[0]).attr('y', off[1]).attr('text-anchor', off[2]).attr('paint-order', 'stroke').attr('stroke', T.land).attr('stroke-width', 3).attr('fill', T.ink).attr('font-size', kind === 'hq' ? 15 : 12.5).attr('font-weight', kind === 'hq' ? 600 : 500).text(name);
+  };
+  cities.forEach(([n, c], i) => dot(n, c, 'city', i));
+  xb.forEach(([n, c], i) => dot(n, c, 'xb', i));
+  dot(HQ.name, HQ.c, 'hq', 0);
+}
+
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(t => { world = t; draw(); });
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => world && draw(), 150); });
+addEventListener('message', e => { if (e.data && e.data.geaTheme && THEMES[e.data.geaTheme] && e.data.geaTheme !== theme) { theme = e.data.geaTheme; if (world) draw(); } });
+</script>
+</body>
+</html>
