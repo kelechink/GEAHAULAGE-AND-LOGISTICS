@@ -45,6 +45,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('forms', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('tracking', static fn (Request $request): Limit => Limit::perMinute(30)->by($request->ip()));
         // One open tracking page polls every 15 s (4/min); allow a few tabs per visitor.
+        // Driver app: 5 PIN attempts a minute per phone and IP; generous limit for queued uploads.
+        RateLimiter::for('driver-login', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip().'|'.$request->input('phone')));
+        RateLimiter::for('driver-api', static fn (Request $request): Limit => Limit::perMinute(120)->by((string) ($request->user()?->getAuthIdentifier() ?? $request->ip())));
         RateLimiter::for('tracking-poll', static fn (Request $request): Limit => Limit::perMinute(20)->by($request->ip()));
     }
 }

@@ -115,6 +115,12 @@ class Shipment extends Model
         return $this->hasMany(ProofOfDelivery::class);
     }
 
+    /** @return HasMany<DriverIssue, $this> */
+    public function issues(): HasMany
+    {
+        return $this->hasMany(DriverIssue::class);
+    }
+
     /** @return HasMany<TrackingSubscription, $this> */
     public function subscriptions(): HasMany
     {

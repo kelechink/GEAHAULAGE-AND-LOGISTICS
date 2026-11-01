@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GEA Driver</string>
+    <string name="tracking_channel">Trip tracking</string>
+    <string name="tracking_title">Trip tracking is on</string>
+    <string name="tracking_body">GEA can see your truck\'s location while this trip is active.</string>
+</resources>

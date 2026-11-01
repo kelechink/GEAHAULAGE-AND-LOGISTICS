@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Database\Factories\DriverFactory;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -23,22 +26,39 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Carbon|null $licence_expires_on
  * @property bool $has_smartphone
  * @property bool $is_active
+ * @property string|null $pin_hash
+ * @property Carbon|null $app_last_seen_at
+ * @property string|null $app_version
  * @property-read Truck|null $truck
  * @property-read User|null $user
+ *
+ * Drivers sign in to the Android app with phone + PIN and get a Sanctum token with the "driver" ability (PRD 13).
  */
-class Driver extends Model
+class Driver extends Model implements Authenticatable
 {
     /** @use HasFactory<DriverFactory> */
-    use HasFactory, LogsActivity;
+    use AuthenticatableTrait, HasApiTokens, HasFactory, LogsActivity;
 
     protected $fillable = ['user_id', 'truck_id', 'name', 'phone', 'licence_number', 'licence_expires_on', 'guarantor_name',
-        'guarantor_phone', 'photo_path', 'has_smartphone', 'is_active'];
+        'guarantor_phone', 'photo_path', 'has_smartphone', 'is_active', 'app_last_seen_at', 'app_version'];
+
+    protected $hidden = ['pin_hash'];
 
     protected $attributes = ['is_active' => true, 'has_smartphone' => false];
 
     protected function casts(): array
     {
-        return ['licence_expires_on' => 'date', 'has_smartphone' => 'boolean', 'is_active' => 'boolean'];
+        return ['licence_expires_on' => 'date', 'has_smartphone' => 'boolean', 'is_active' => 'boolean', 'app_last_seen_at' => 'datetime'];
+    }
+
+    public function getAuthPassword(): string
+    {
+        return (string) $this->getAttribute('pin_hash');
+    }
+
+    public function getRememberTokenName(): string
+    {
+        return ''; // drivers never use "remember me"
     }
 
     /** @return BelongsTo<Truck, $this> */

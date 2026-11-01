@@ -238,7 +238,7 @@ class ShipmentResource extends Resource
 
     public static function getRelations(): array
     {
-        return [RelationManagers\EventsRelationManager::class];
+        return [RelationManagers\EventsRelationManager::class, RelationManagers\IssuesRelationManager::class];
     }
 
     public static function getPages(): array

@@ -10,9 +10,11 @@ use App\Filament\Resources\DriverResource\Pages;
 use App\Models\Driver;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class DriverResource extends Resource
 {
@@ -66,9 +68,25 @@ class DriverResource extends Resource
                 Tables\Columns\TextColumn::make('truck.registration')->label('Usual truck')->placeholder('—'),
                 Tables\Columns\IconColumn::make('has_smartphone')->label('App')->boolean(),
                 Tables\Columns\TextColumn::make('licence_expires_on')->label('Licence expires')->date('j M Y')->color(fn ($state): ?string => $state !== null && $state->lte(now()->addDays(30)) ? 'danger' : null),
+                Tables\Columns\TextColumn::make('app_last_seen_at')->label('App last seen')->since()->placeholder('Never')
+                    ->description(fn (Driver $record): ?string => $record->app_version !== null ? 'v'.$record->app_version : null),
                 Tables\Columns\IconColumn::make('is_active')->label('Active')->boolean(),
             ])
-            ->actions([Tables\Actions\EditAction::make()]);
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                // Operations sets a 4 to 6 digit PIN and reads it to the driver; it is stored hashed (PRD 13).
+                Tables\Actions\Action::make('setPin')->label('Set app PIN')->icon('heroicon-o-key')
+                    ->visible(fn (): bool => self::allows(Permission::DriversManage))
+                    ->form([
+                        Forms\Components\TextInput::make('pin')->label('New PIN')->password()->revealable()->required()
+                            ->regex('/^\d{4,6}$/')->validationMessages(['regex' => 'Use 4 to 6 digits.']),
+                    ])
+                    ->action(function (Driver $record, array $data): void {
+                        $record->forceFill(['pin_hash' => Hash::make($data['pin'])])->save();
+                        $record->tokens()->delete(); // sign out the old phone
+                        Notification::make()->success()->title("PIN set for {$record->name}. Old app sessions were signed out.")->send();
+                    }),
+            ]);
     }
 
     public static function getPages(): array

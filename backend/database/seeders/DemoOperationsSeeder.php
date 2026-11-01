@@ -17,6 +17,7 @@ use App\Models\Shipment;
 use App\Models\Truck;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 
 /**
@@ -54,7 +55,7 @@ class DemoOperationsSeeder extends Seeder
         $names = ['Musa Abdullahi', 'Chukwuma Obi', 'Babatunde Ade', 'Ibrahim Yusuf', 'Emeka Nnaji', 'Sani Garba',
             'Olumide Bello', 'Peter Okon', 'Usman Lawal', 'Segun Ajayi', 'Godspower Eze', 'Bala Mohammed'];
         foreach ($names as $i => $name) {
-            Driver::query()->create([
+            $driver = Driver::query()->create([
                 'name' => $name,
                 'phone' => '2348'.str_pad((string) (31100000 + $i * 104729), 9, '0', STR_PAD_LEFT),
                 'licence_number' => sprintf('LAG%05dAA%02d', 10234 + $i * 17, 20 + $i),
@@ -63,6 +64,9 @@ class DemoOperationsSeeder extends Seeder
                 'has_smartphone' => $i < 8,
                 'guarantor_name' => 'Guarantor '.($i + 1),
             ]);
+            if ($i < 8) {
+                $driver->forceFill(['pin_hash' => Hash::make('1234')])->save(); // demo app PIN, local only
+            }
         }
 
         $routes = [['Apapa', 'Kano'], ['Ikeja', 'Abuja'], ['Apapa', 'Port Harcourt'], ['Lagos', 'Onitsha'], ['Ikeja', 'Ibadan'],
