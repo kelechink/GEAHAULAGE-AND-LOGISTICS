@@ -37,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
         // Website forms: no paid captcha, so a honeypot plus a per-IP limit (PRD 7).
         RateLimiter::for('forms', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('tracking', static fn (Request $request): Limit => Limit::perMinute(30)->by($request->ip()));
+        // One open tracking page polls every 15 s (4/min); allow a few tabs per visitor.
+        RateLimiter::for('tracking-poll', static fn (Request $request): Limit => Limit::perMinute(20)->by($request->ip()));
     }
 }

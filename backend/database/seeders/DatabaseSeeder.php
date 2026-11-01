@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([RolesAndPermissionsSeeder::class, WebsiteContentSeeder::class]);
+        $this->call([RolesAndPermissionsSeeder::class, WebsiteContentSeeder::class, PlacesSeeder::class]);
 
         $demoUsers = [
             Role::SuperAdmin->value => ['FigureWeb Admin', 'admin@example.test'],
@@ -39,6 +39,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Sales Officer 2 (demo)', 'password' => 'password', 'email_verified_at' => now()],
         )->syncRoles([Role::Sales->value]);
 
-        $this->call(DemoCrmSeeder::class);
+        $this->call([DemoCrmSeeder::class, DemoOperationsSeeder::class]);
     }
 }

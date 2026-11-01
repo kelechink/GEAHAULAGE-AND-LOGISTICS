@@ -21,3 +21,5 @@ Route::get('/careers', [CareersController::class, 'show'])->name('careers');
 Route::post('/careers', [CareersController::class, 'store'])->middleware('throttle:forms')->name('careers.store');
 
 Route::get('/track', [TrackController::class, 'search'])->middleware('throttle:tracking')->name('track');
+Route::get('/track/{code}', [TrackController::class, 'show'])->middleware('throttle:tracking')->name('track.show');
+Route::post('/track/{code}/subscribe', [TrackController::class, 'subscribe'])->middleware('throttle:forms')->name('track.subscribe');

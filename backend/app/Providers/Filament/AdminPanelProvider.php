@@ -44,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
                 'gray' => Color::Slate,
             ])
             ->font('Barlow')
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->renderHook(PanelsRenderHook::HEAD_END, fn (): string => '<link rel="stylesheet" href="'.asset('css/admin.css').'?v='.filemtime(public_path('css/admin.css')).'">')
             ->navigationGroups([
                 NavigationGroup::make('CRM'),

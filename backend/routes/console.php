@@ -15,3 +15,8 @@ Schedule::command('queue:work --stop-when-empty --tries=3 --max-time=50')
 Schedule::command('activitylog:clean')->daily();
 
 Schedule::command('crm:mark-missed-follow-ups')->hourly();
+
+// Hybrid tracking (PRD 8)
+Schedule::command('tracking:poll-connectors')->everyMinute()->withoutOverlapping();
+Schedule::command('tracking:flag-stale')->everyFiveMinutes();
+Schedule::command('tracking:downsample')->dailyAt('02:30');
