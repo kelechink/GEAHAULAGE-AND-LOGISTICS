@@ -99,6 +99,7 @@ Use `APP_URL=https://staging.geahaulageandlogistics.com` and a separate database
 ```bash
 php artisan migrate --force
 php artisan db:seed --class=RolesAndPermissionsSeeder --force
+php artisan db:seed --class=WebsiteContentSeeder --force
 php artisan storage:link
 php artisan filament:optimize
 php artisan optimize
@@ -112,6 +113,8 @@ php artisan gea:make-admin "FigureWeb Admin" admin@figureweb.ng
 
 It asks for the password. Do **not** run the full `DatabaseSeeder` in production: it creates demo users.
 
+`WebsiteContentSeeder` adds the 8 services, FAQs and career roles from the v3 design. It never overwrites rows staff have edited, so it is safe to run again after an update.
+
 ## 7. Cron (scheduler and queue)
 
 In **Cron Jobs**, add one job that runs every minute:
@@ -124,7 +127,19 @@ Use the PHP binary path for the version you selected (`which php` over SSH, or e
 
 The scheduler runs `queue:work --stop-when-empty` every minute, so queued jobs (emails, notifications) are processed without a long-running worker.
 
-## 8. Permissions and security
+## 8. Compression and caching
+
+`public/.htaccess` turns on Brotli or gzip compression and one-year caching for versioned CSS, JS, fonts, images and videos. Check it works after deploying:
+
+```bash
+curl -sI -H "Accept-Encoding: gzip" https://geahaulageandlogistics.com/css/site.css | grep -iE "content-encoding|cache-control"
+```
+
+You should see `content-encoding: gzip` (or `br`) and `cache-control: public, max-age=31536000, immutable`. If not, ask the host to enable `mod_deflate` and `mod_headers`. On LiteSpeed, compression is usually on by default.
+
+Mobile Lighthouse on the home page, measured locally with compression on: performance 99, accessibility 100, best practices 100, SEO 100, LCP about 2.0 s.
+
+## 9. Permissions and security
 
 ```bash
 chmod -R 775 storage bootstrap/cache
@@ -134,16 +149,17 @@ chmod -R 775 storage bootstrap/cache
 - `APP_DEBUG=false` in production.
 - Turn on **Force HTTPS Redirect** for the domain in cPanel.
 
-## 9. Updating
+## 10. Updating
 
 ```bash
 cd ~/gea-platform && git pull
 cd backend && composer install --no-dev --optimize-autoloader
 php artisan migrate --force
+php artisan db:seed --class=WebsiteContentSeeder --force
 php artisan optimize:clear && php artisan optimize && php artisan filament:optimize
 ```
 
-## 10. Backups
+## 11. Backups
 
 Use cPanel/JetBackup daily backups of the account and database, plus an off-server copy (PRD Section 16). Phase 7 adds `spatie/laravel-backup` and a tested restore.
 

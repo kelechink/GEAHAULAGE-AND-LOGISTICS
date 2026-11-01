@@ -2,9 +2,15 @@
 
 This repo holds the GEA Logistics Platform (`PRD.md`): a Laravel app in `backend/` (website, back office, API), with the driver app and docs to follow. See `CLAUDE.md` for conventions and `docs/deploy-cpanel.md` for deployment.
 
-## Interim static site
+## Website (Phase 1)
 
-Until Phase 1 ports the v3 design into Laravel, the repo root also holds a static one-page site for GEA Haulage and Logistics (RC 9198613), built by FigureWeb.
+The public website is now part of the Laravel app in `backend/`, ported from the approved "GEA Website v3" design in `design-draft/`. Staff edit its content in the admin under **Content**. See `backend/README.md` to run it.
+
+Still needed from GEA for the website: the logo files (`logo-blue.png`, `logo-white.png`; the site shows a text wordmark until they are added to `backend/public/assets/img/`), confirmation of cross-border coverage, proof of any credentials beyond CAC registration, client logos with permission, legal review of the privacy policy and terms, and licence confirmation for the stock videos.
+
+## Earlier static site
+
+Before Phase 1, the repo root held a static one-page site for GEA Haulage and Logistics (RC 9198613), built by FigureWeb.
 Target domain: geahaulageandlogistics.com
 
 ### Files

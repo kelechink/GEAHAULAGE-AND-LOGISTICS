@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /portal
+
+Sitemap: https://geahaulageandlogistics.com/sitemap.xml
