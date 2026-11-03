@@ -20,7 +20,10 @@ class AuthController extends Controller
 {
     public function showLogin(): View
     {
-        return view('site.portal.login');
+        $user = Auth::user();
+        $staffName = $user instanceof User && ! $user->hasRole(Role::Customer->value) ? $user->name : null;
+
+        return view('site.portal.login', ['staffName' => $staffName]);
     }
 
     public function login(Request $request): RedirectResponse
@@ -43,7 +46,11 @@ class AuthController extends Controller
         Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
 
-        return redirect()->intended(route('portal.home'));
+        // Only return to a portal page: a link saved from the staff back office must not send a customer to /admin.
+        $intended = $request->session()->pull('url.intended');
+        $target = is_string($intended) && str_starts_with($intended, url('/portal')) ? $intended : route('portal.home');
+
+        return redirect()->to($target);
     }
 
     public function logout(Request $request): RedirectResponse
