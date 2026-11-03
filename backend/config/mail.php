@@ -115,7 +115,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
-    // Optional: send invoices from billing@ once the whole domain is authenticated with the mail provider.
-    'billing_from' => env('MAIL_BILLING_FROM'),
+    // Send each email from its team mailbox (App\Support\Senders). Set false to send everything from
+    // MAIL_FROM_ADDRESS, e.g. until every mailbox is a verified sender with Brevo.
+    'per_mailbox_senders' => (bool) env('MAIL_PER_MAILBOX_SENDERS', true),
 
 ];

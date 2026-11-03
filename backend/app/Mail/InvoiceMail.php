@@ -6,18 +6,17 @@ namespace App\Mail;
 
 use App\Domain\Finance\Documents\DocumentRenderer;
 use App\Models\Finance\Invoice;
-use App\Settings\WebsiteSettings;
 use App\Support\Money;
+use App\Support\Senders;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-/** Invoice delivery and payment reminders with the PDF attached (PRD 10.3). Replies go to billing@. */
+/** Invoice delivery and payment reminders with the PDF attached (PRD 10.3). Sent from billing@. */
 class InvoiceMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
@@ -30,10 +29,8 @@ class InvoiceMail extends Mailable implements ShouldQueue
         $n = $this->invoice->displayNumber();
 
         return new Envelope(
-            // Sent from a sender verified with the mail provider (MAIL_FROM_ADDRESS, e.g. info@) unless MAIL_BILLING_FROM
-            // is set; replies always go to the billing mailbox.
-            from: new Address((string) (config('mail.billing_from') ?: config('mail.from.address')), (string) config('mail.from.name')),
-            replyTo: [new Address(app(WebsiteSettings::class)->email_billing, 'GEA Accounts')],
+            from: Senders::from('billing', 'Accounts'),
+            replyTo: [Senders::replyTo('billing', 'Accounts')],
             subject: match ($this->kind) {
                 'due_soon' => "Reminder: invoice {$n} is due in 3 days",
                 'due_today' => "Invoice {$n} is due today",

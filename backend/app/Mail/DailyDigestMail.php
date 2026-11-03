@@ -6,6 +6,7 @@ namespace App\Mail;
 
 use App\Domain\Ai\DailyDigest;
 use App\Models\Ai\Digest;
+use App\Support\Senders;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -20,7 +21,7 @@ class DailyDigestMail extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'GEA morning briefing, '.$this->digest->day->format('l j M'));
+        return new Envelope(from: Senders::from('operations', 'Operations'), subject: 'GEA morning briefing, '.$this->digest->day->format('l j M'));
     }
 
     public function content(): Content

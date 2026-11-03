@@ -17,6 +17,7 @@ use App\Domain\Shipping\ShipmentService;
 use App\Enums\ExpenseCategory;
 use App\Enums\InvoiceStatus;
 use App\Enums\InvoiceTemplate;
+use App\Enums\LeadSource;
 use App\Enums\LeadStage;
 use App\Enums\PaymentMethod;
 use App\Enums\Role;
@@ -24,13 +25,18 @@ use App\Enums\ShipmentStage;
 use App\Enums\TrackingSource;
 use App\Filament\Resources\InvoiceResource\Pages\CreateInvoice;
 use App\Filament\Resources\InvoiceResource\Pages\ViewInvoice;
+use App\Mail\DailyDigestMail;
 use App\Mail\InvoiceMail;
+use App\Mail\NewLeadMail;
+use App\Mail\QuoteReceivedMail;
+use App\Mail\ShipmentUpdateMail;
+use App\Models\Ai\Digest;
 use App\Models\Customer;
 use App\Models\Finance\Expense;
 use App\Models\Finance\Invoice;
 use App\Models\MaintenanceRecord;
+use App\Models\Shipment;
 use App\Models\Truck;
-use App\Settings\WebsiteSettings;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
@@ -345,13 +351,24 @@ it('creates an invoice from the admin form with live-calculated totals', functio
     expect(Invoice::query()->sole()->total_kobo)->toBe(36_550_000);
 });
 
-it('sends invoices from the verified sender with replies to the billing mailbox', function () {
-    config(['mail.from.address' => 'info@geahaulageandlogistics.com', 'mail.billing_from' => null]);
-    $mail = new InvoiceMail(basicInvoice());
+it('sends each email from its team mailbox, or all from MAIL_FROM_ADDRESS when switched off', function () {
+    config(['mail.per_mailbox_senders' => true, 'mail.from.address' => 'info@geahaulageandlogistics.com']);
+    $invoice = basicInvoice();
+    $lead = app(LeadCaptureService::class)->quickAdd('Ada Obi', '08031234567', LeadSource::Phone);
+    $lead->contact->forceFill(['email' => 'ada@obifoods.ng'])->save();
+    $s = Shipment::factory()->create();
+    $event = $s->events()->create(['to_stage' => 'in_transit', 'source' => 'manual', 'is_public' => true, 'occurred_at' => now()]);
+    $digest = Digest::query()->create(['day' => now()->toDateString(), 'summary' => 'All quiet.', 'facts' => []]);
 
-    expect($mail->envelope()->from?->address)->toBe('info@geahaulageandlogistics.com')
-        ->and($mail->envelope()->replyTo[0]->address)->toBe(app(WebsiteSettings::class)->email_billing);
+    $from = fn ($mail): ?string => $mail->envelope()->from?->address;
+    expect($from(new InvoiceMail($invoice)))->toBe('billing@geahaulageandlogistics.com')
+        ->and($from(new QuoteReceivedMail('Ada')))->toBe('sales@geahaulageandlogistics.com')
+        ->and($from(new ShipmentUpdateMail($s, $event)))->toBe('support@geahaulageandlogistics.com')
+        ->and($from(new DailyDigestMail($digest, false)))->toBe('logistic@geahaulageandlogistics.com')
+        ->and($from(new NewLeadMail($lead->load('contact'))))->toBe('info@geahaulageandlogistics.com')
+        ->and((new NewLeadMail($lead))->envelope()->replyTo[0]->address)->toBe('ada@obifoods.ng');
 
-    config(['mail.billing_from' => 'billing@geahaulageandlogistics.com']);
-    expect((new InvoiceMail(basicInvoice()))->envelope()->from?->address)->toBe('billing@geahaulageandlogistics.com');
+    config(['mail.per_mailbox_senders' => false]);
+    expect($from(new InvoiceMail($invoice)))->toBe('info@geahaulageandlogistics.com')
+        ->and((new InvoiceMail($invoice))->envelope()->replyTo[0]->address)->toBe('billing@geahaulageandlogistics.com');
 });

@@ -6,6 +6,7 @@ namespace App\Mail;
 
 use App\Models\Shipment;
 use App\Models\ShipmentEvent;
+use App\Support\Senders;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -21,7 +22,8 @@ class ShipmentUpdateMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: "{$this->shipment->tracking_code}: {$this->event->to_stage?->label()}");
+        return new Envelope(from: Senders::from('support', 'Support'), replyTo: [Senders::replyTo('support', 'Support')],
+            subject: "{$this->shipment->tracking_code}: {$this->event->to_stage?->label()}");
     }
 
     public function content(): Content

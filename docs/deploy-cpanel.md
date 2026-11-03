@@ -93,9 +93,12 @@ MAIL_USERNAME=xxxxxx@smtp-brevo.com
 MAIL_PASSWORD=xsmtpsib-...
 MAIL_FROM_ADDRESS=info@geahaulageandlogistics.com
 MAIL_FROM_NAME="GEA Haulage and Logistics"
-# Invoices go out from MAIL_FROM_ADDRESS with replies to billing@. Once the whole domain is
-# authenticated in Brevo, set this to send them from billing@ instead:
-MAIL_BILLING_FROM=
+# Each email goes from its team mailbox (set in Content -> Website content):
+#   billing@  invoices and payment reminders     sales@     quote request replies
+#   support@  shipment tracking updates          logistic@  7am operations briefing
+#   info@     new-lead alerts, system emails
+# All five must be verified senders in Brevo. Set false to send everything from info@ meanwhile.
+MAIL_PER_MAILBOX_SENDERS=true
 
 # Website assistant (free tiers). Without keys the chat still takes leads with a form.
 GEMINI_API_KEY=...
@@ -114,7 +117,7 @@ BACKUP_SFTP_PASSWORD=...
 
 Use `APP_URL=https://staging.geahaulageandlogistics.com` and a separate database for staging.
 
-**Brevo sender domain:** in Brevo, go to Senders, Domains & Dedicated IPs → Domains and add `geahaulageandlogistics.com`. Add the DKIM, Brevo code and DMARC records it shows in cPanel → Zone Editor, then click Authenticate. Until then, only verified single senders work: all mail goes from `info@geahaulageandlogistics.com` (verified in Brevo → Senders), which is the default. Send a test with:
+**Brevo sender domain:** in Brevo, go to Senders, Domains & Dedicated IPs → Domains and add `geahaulageandlogistics.com`. Add the DKIM, Brevo code and DMARC records it shows in cPanel → Zone Editor, then click Authenticate. Until it is, add each of info@, sales@, support@, billing@ and logistic@ under Brevo → Senders (each gets a confirmation email), or set `MAIL_PER_MAILBOX_SENDERS=false` so everything goes from the verified info@. Replies still reach the right mailbox either way. Send a test with:
 
 ```bash
 php artisan tinker --execute 'Mail::raw("Test from the GEA platform", fn ($m) => $m->to("you@example.com")->subject("GEA mail test"));'

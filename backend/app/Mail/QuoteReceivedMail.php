@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Support\Senders;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -19,7 +20,7 @@ class QuoteReceivedMail extends Mailable implements ShouldQueue
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'We received your quote request');
+        return new Envelope(from: Senders::from('sales', 'Sales'), replyTo: [Senders::replyTo('sales', 'Sales')], subject: 'We received your quote request');
     }
 
     public function content(): Content
