@@ -1,6 +1,6 @@
 # Deploying to FigureWeb cPanel
 
-This guide deploys `backend/` (Laravel 11) to a cPanel shared-hosting account. It covers a staging subdomain first, then production on geahaulageandlogistics.com.
+This guide deploys `backend/` (Laravel 12) to a cPanel shared-hosting account. It covers a staging subdomain first, then production on geahaulageandlogistics.com.
 
 ## 1. Check the server
 
@@ -48,7 +48,7 @@ mv ~/public_html ~/public_html.bak && ln -s ~/gea-platform/backend/public ~/publ
 ### 4a. With SSH and git (preferred)
 
 ```bash
-cd ~ && git clone https://github.com/kelechink/GEAHAULAGE-AND-LOGISTICS.git gea-platform
+cd ~ && git clone -b main https://github.com/kelechink/GEAHAULAGE-AND-LOGISTICS.git gea-platform
 cd ~/gea-platform/backend
 composer install --no-dev --optimize-autoloader
 ```
@@ -95,13 +95,14 @@ MAIL_FROM_ADDRESS=info@geahaulageandlogistics.com
 MAIL_FROM_NAME="GEA Haulage and Logistics"
 # Each email goes from its team mailbox (set in Content -> Website content):
 #   billing@  invoices and payment reminders     sales@     quote request replies
-#   support@  shipment tracking updates          logistic@  7am operations briefing
+#   support@  tracking updates, portal invites   logistic@  booking emails, 7am briefing
 #   info@     new-lead alerts, system emails
 # All five must be verified senders in Brevo. Set false to send everything from info@ meanwhile.
 MAIL_PER_MAILBOX_SENDERS=true
 
 # Website assistant (free tiers). Without keys the chat still takes leads with a form.
 GEMINI_API_KEY=...
+GEMINI_MODEL=gemini-3.5-flash
 GROQ_API_KEY=...
 
 # Two-factor sign-in for /admin: always true outside a local demo
@@ -187,7 +188,7 @@ chmod -R 775 storage bootstrap/cache
 ## 10. Updating
 
 ```bash
-cd ~/gea-platform && git pull
+cd ~/gea-platform && git pull origin main
 cd backend && composer install --no-dev --optimize-autoloader
 php artisan migrate --force
 php artisan db:seed --class=WebsiteContentSeeder --force

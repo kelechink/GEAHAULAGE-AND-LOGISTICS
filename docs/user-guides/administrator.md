@@ -13,6 +13,7 @@ Everyone who uses `/admin` must set up two-factor sign-in with an authenticator 
 - **Company and tax:** company details, TIN, VAT, bank details on invoices, invoice footer, e-invoicing switch, quote validity.
 - **Integrations:** tracker connectors (generic webhook, Traccar). Each has its own secret. See `docs/connector-integration.md`.
 - **Import data:** CSV/Excel import of customers, trucks, drivers and routes. Templates are on the page. **Check file** first; nothing is saved until every row is valid. Re-importing updates matching records.
+- **Data requests:** export or erase one person's data on request (Nigeria Data Protection Act 2023).
 - **Audit log:** every change to shipments, invoices, payments, expenses and leads, with who and when.
 
 Large imports can also run over SSH: `php artisan gea:import trucks trucks.xlsx` checks, `--commit` saves.
@@ -26,6 +27,10 @@ Customers sign in at `/portal` (not `/admin`). Staff invite them from **CRM → 
 **Content** holds the website copy, services, FAQs and careers. **Assistant → Knowledge** is what the chat may say; it is seeded from the website and must be kept in step when services change.
 
 AI keys (`GEMINI_API_KEY`, `GROQ_API_KEY`) live only in `.env`. Without them the chat runs in "leave your details" mode. Daily usage shows on **Assistant → Conversations**.
+
+## Email senders
+
+Each email goes from its team mailbox (set in Content → Website content): billing@ for invoices, sales@ for quote replies, support@ for tracking updates and portal invitations, logistic@ for booking confirmations and the 7am briefing, info@ for new-lead alerts and system emails. All must be verified senders in Brevo, or set `MAIL_PER_MAILBOX_SENDERS=false` to send everything from info@ meanwhile.
 
 ## Monitoring and backups
 

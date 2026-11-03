@@ -9,7 +9,8 @@ You raise invoices, record payments and expenses, and run the finance reports. A
 - **Issue invoice** gives the next number, `GEA-INV-2026-00001`, with no gaps. Drafts have no number.
 - A discount over 10% needs Management to issue.
 - **Email** sends the PDF from billing@, with a download link that works for 30 days.
-- **Customer link (30 days)** gives a link to paste into WhatsApp. Anyone with the link can open that one invoice until it expires. **PDF** and **Word** download it. Select several invoices to download a ZIP.
+- **Customer link (30 days)** gives a link to paste into WhatsApp. Anyone with the link can open that one invoice until it expires.
+- **PDF** and **Word** download it. Select several invoices to download a ZIP.
 - Five layouts: Corporate Classic, Bold Navy, Haulage Trip, E-Invoice (with QR code) and Proforma.
 - Overdue invoices are marked every morning. Reminders go 3 days before the due date, on the due date, then every 7 days.
 
