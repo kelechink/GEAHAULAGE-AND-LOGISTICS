@@ -8,12 +8,14 @@ use App\Domain\Ai\AiGateway;
 use App\Domain\Ai\AiProvider;
 use App\Domain\Finance\EInvoice\EInvoiceProvider;
 use App\Domain\Finance\EInvoice\MockEInvoiceProvider;
+use App\Http\Responses\StaffLoginResponse;
 use App\Models\MaintenanceRecord;
 use App\Models\User;
 use App\Observers\MaintenanceRecordObserver;
 use App\Policies\ActivityPolicy;
 use App\Support\Senders;
 use App\View\Composers\SiteComposer;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         // FIRS e-invoicing: the mock adapter until GEA's compliance phase and credentials are confirmed (PRD 10.3).
         $this->app->bind(EInvoiceProvider::class, MockEInvoiceProvider::class);
         $this->app->bind(AiProvider::class, AiGateway::class);
+        // Staff sign-in returns only to back-office pages (never to a portal page saved in the session).
+        $this->app->bind(LoginResponse::class, StaffLoginResponse::class);
     }
 
     public function boot(): void

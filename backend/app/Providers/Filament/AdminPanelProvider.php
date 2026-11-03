@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\TwoFactorSetup;
 use App\Http\Middleware\EnsureTwoFactor;
+use App\Http\Middleware\StaffLoginOnly;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -22,6 +23,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -33,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn (): string => Blade::render('<div class="gea-topbar-theme" style="margin-inline-end:.75rem"><x-filament-panels::theme-switcher /></div>'))
             ->brandName('GEA Haulage and Logistics')
             ->brandLogo(asset('assets/img/logo-blue.png'))
             ->darkModeBrandLogo(asset('assets/img/logo-white.png'))
@@ -75,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                StaffLoginOnly::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

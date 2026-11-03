@@ -11,6 +11,7 @@ use App\Http\Controllers\Site\PageController;
 use App\Http\Controllers\Site\QuoteController;
 use App\Http\Controllers\Site\TrackController;
 use App\Http\Middleware\EnsureCustomer;
+use App\Http\Middleware\PortalGuest;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -40,7 +41,7 @@ Route::middleware(['signed', 'throttle:60,1'])->prefix('documents')->name('docum
 
 // Customer portal (PRD 6): shipments, proof of delivery, invoices and quotes for the customer's own account.
 Route::prefix('portal')->name('portal.')->group(function (): void {
-    Route::middleware('guest')->group(function (): void {
+    Route::middleware(PortalGuest::class)->group(function (): void {
         Route::get('/login', [PortalAuth::class, 'showLogin'])->name('login');
         Route::post('/login', [PortalAuth::class, 'login'])->middleware('throttle:forms')->name('login.attempt');
         Route::get('/forgot-password', [PortalAuth::class, 'showForgot'])->name('password.request');

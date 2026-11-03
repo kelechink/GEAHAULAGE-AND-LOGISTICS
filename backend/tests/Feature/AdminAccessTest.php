@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\Role;
+use Filament\Pages\Auth\Login;
 
 it('sends guests to the login page', function () {
     $this->get('/admin')->assertRedirect('/admin/login');
@@ -49,4 +50,18 @@ it('shows the audit log to management but not to sales', function () {
 it('only lets the super admin change company settings', function () {
     $this->actingAs($this->userWithRole(Role::SuperAdmin))->get('/admin/manage-company-settings')->assertOk();
     $this->actingAs($this->userWithRole(Role::Finance))->get('/admin/manage-company-settings')->assertForbidden();
+});
+
+it('signs a customer out and shows the staff sign-in form when they open the staff login', function () {
+    $this->actingAs($this->userWithRole(Role::Customer))->get('/admin/login')->assertRedirect('/admin/login');
+    $this->assertGuest();
+    $this->get('/admin/login')->assertOk();
+});
+
+it('sends staff to the back office after signing in, never to a portal page saved earlier', function () {
+    $this->userWithRole(Role::Operations, ['email' => 'ops@example.test', 'password' => 'GoodPassword123']);
+    session()->put('url.intended', url('/portal'));
+    Livewire\Livewire::test(Login::class)
+        ->set('data.email', 'ops@example.test')->set('data.password', 'GoodPassword123')
+        ->call('authenticate')->assertRedirect(url('/admin'));
 });
