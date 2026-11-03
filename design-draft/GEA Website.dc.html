@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6f7fa;color:#0e1838;font-family:Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1d3fb0;text-decoration:none}
+a:hover{color:#0f2470}
+input,select,textarea,button{font:inherit}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+<header style="position:sticky;top:0;z-index:10;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-bottom:1px solid #e3e7f0">
+  <div style="max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap">
+    <a href="#top" style="display:flex;align-items:baseline;gap:10px;color:#14298a">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:34px;letter-spacing:-0.5px;line-height:1">GEA</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;color:#1d3fb0">haulage and logistics</span>
+    </a>
+    <nav style="display:flex;align-items:center;gap:12px 28px;flex-wrap:wrap;font-weight:500;font-size:15px">
+      <a href="#about" style="color:#0e1838">About</a>
+      <a href="#services" style="color:#0e1838">Services</a>
+      <a href="#why" style="color:#0e1838">Why GEA</a>
+      <a href="#quote" style="background:#1d3fb0;color:#fff;padding:10px 18px;border-radius:4px;font-weight:600" style-hover="background:#14298a;color:#fff">Request a quote</a>
+    </nav>
+  </div>
+</header>
+
+<section id="top" style="background:#10226e;color:#fff">
+  <div style="max-width:1240px;margin:0 auto;padding:72px 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:56px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:3px;text-transform:uppercase;color:#9fb6ff">GEA Haulage and Logistics</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(44px,6.4vw,84px);line-height:0.95;letter-spacing:-0.5px;text-wrap:balance">Moving Goods, Building Trust, Delivering Excellence.</h1>
+      <p style="margin:0;font-size:18px;line-height:1.6;color:#d5defb;max-width:560px;text-wrap:pretty">GEA Haulage and Logistics is a transportation and logistics company committed to providing reliable, efficient, and professional haulage services.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#quote" style="background:#fff;color:#10226e;padding:15px 26px;border-radius:4px;font-weight:600;font-size:16px" style-hover="background:#dfe7ff;color:#10226e">Request a quote</a>
+        <a href="#services" style="border:1px solid rgba(255,255,255,0.45);color:#fff;padding:15px 26px;border-radius:4px;font-weight:600;font-size:16px" style-hover="border-color:#fff;color:#fff">Our services</a>
+      </div>
+    </div>
+    <div style="aspect-ratio:{{ heroAspect }};border-radius:6px;background-image:url(assets/fleet.png);background-repeat:no-repeat;background-size:{{ heroSize }};background-position:{{ heroPos }};box-shadow:0 30px 60px rgba(0,0,0,0.35)"></div>
+  </div>
+  <div style="background:#1d3fb0">
+    <div style="max-width:1240px;margin:0 auto;padding:18px 24px;display:flex;gap:8px 40px;flex-wrap:wrap;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:20px;letter-spacing:0.5px">
+      <span>Integrity</span><span>Reliability</span><span>Safety</span><span>Professionalism</span><span>Customer Satisfaction</span><span>Excellence</span>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:#fff">
+  <div style="max-width:1240px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">About us</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.02;color:#10226e;text-wrap:balance">Every delivery is a commitment.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">We understand that transportation is a vital part of every successful business, which is why we focus on delivering goods safely, on time, and with the highest level of responsibility.</p>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">Our company is built on the principles of integrity, professionalism, safety, and customer satisfaction. We aim to provide dependable logistics solutions that help businesses move their goods efficiently while building lasting relationships with our clients and partners.</p>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#10226e;font-weight:600;text-wrap:pretty">At GEA Haulage and Logistics, we believe that every delivery is a commitment, every client is a valued partner, and every journey is an opportunity to demonstrate excellence.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">Our story</div>
+      <p style="margin:0;font-size:22px;line-height:1.45;color:#10226e;font-weight:500;text-wrap:pretty">GEA Haulage and Logistics was established with a clear purpose: to provide dependable transportation and logistics services that businesses can trust.</p>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">Recognizing the importance of timely and secure goods transportation, we are committed to helping businesses overcome logistics challenges through professional service, careful planning, and a customer-focused approach.</p>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">Our journey is driven by a passion for service excellence and a determination to contribute to the growth of businesses through reliable haulage solutions. As we continue to grow, our commitment remains the same: to move goods responsibly, serve our customers faithfully, and build a reputation founded on trust and excellence.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f6f7fa">
+  <div style="max-width:1240px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+    <div style="background:#1d3fb0;color:#fff;padding:48px 40px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#c6d4ff">Our mission</div>
+      <p style="margin:0;font-size:21px;line-height:1.5;text-wrap:pretty">To provide safe, reliable, efficient, and cost-effective haulage and logistics services that meet our customers' needs, support business growth, and deliver exceptional value through professionalism and integrity.</p>
+    </div>
+    <div style="background:#10226e;color:#fff;padding:48px 40px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#9fb6ff">Our vision</div>
+      <p style="margin:0;font-size:21px;line-height:1.5;text-wrap:pretty">To become one of the most trusted and respected haulage and logistics companies in Nigeria, recognized for service excellence, operational efficiency, safety, and customer satisfaction.</p>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:0 auto;padding:96px 24px;display:flex;flex-direction:column;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">Our core values</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.02;color:#10226e">What we stand for.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:1px;background:#d9dfec;border:1px solid #d9dfec">
+      <sc-for list="{{ values }}" as="v" hint-placeholder-count="6">
+        <div style="background:#fff;padding:32px 28px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:#1d3fb0">{{ v.n }}</div>
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:28px;color:#10226e">{{ v.title }}</h3>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#3a4566">{{ v.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="background:#fff">
+  <div style="max-width:1240px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:64px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">Our services</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.02;color:#10226e;text-wrap:balance">Solutions tailored to your needs.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">GEA Haulage and Logistics aims to provide transportation and logistics solutions tailored to the needs of businesses and individuals, including:</p>
+      <div style="aspect-ratio:812/485;border-radius:6px;background-image:url(assets/fleet.png);background-repeat:no-repeat;background-size:206% auto;background-position:0% 0%"></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:baseline;padding:26px 0;border-bottom:1px solid #e3e7f0">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;color:#1d3fb0">{{ s.n }}</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(24px,2.4vw,30px);line-height:1.15;color:#10226e">{{ s.title }}</span>
+        </div>
+      </sc-for>
+      <p style="margin:24px 0 0;font-size:14px;line-height:1.6;color:#5c6787">Specific services are subject to the company's operational capacity and arrangements.</p>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="background:#10226e;color:#fff">
+  <div style="aspect-ratio:1672/446;width:100%;background-image:url(assets/fleet.png);background-repeat:no-repeat;background-size:100% auto;background-position:0% 100%"></div>
+  <div style="max-width:1240px;margin:0 auto;padding:88px 24px;display:flex;flex-direction:column;gap:44px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 64px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#9fb6ff">Why choose us</div>
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.02;text-wrap:balance">Why choose GEA Haulage and Logistics?</h2>
+      </div>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#d5defb;text-wrap:pretty">At GEA Haulage and Logistics, we understand that our customers need a logistics partner they can depend on. We strive to distinguish ourselves through:</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:0 40px">
+      <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="6">
+        <div style="display:flex;gap:16px;align-items:baseline;padding:22px 0;border-top:1px solid rgba(255,255,255,0.18)">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;color:#9fb6ff">{{ r.n }}</span>
+          <span style="font-size:19px;line-height:1.45;font-weight:500">{{ r.title }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:clamp(24px,2.6vw,32px);line-height:1.25;max-width:900px;text-wrap:balance">Our goal is not simply to transport goods but to provide peace of mind and confidence throughout the delivery process.</p>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div style="max-width:1000px;margin:0 auto;padding:104px 24px;display:flex;flex-direction:column;gap:24px;text-align:center;align-items:center">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">Our commitment</div>
+    <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(32px,4.4vw,56px);line-height:1.05;color:#10226e;text-wrap:balance">We are committed to delivering more than goods; we deliver trust, reliability, and value.</p>
+    <p style="margin:0;font-size:18px;line-height:1.7;color:#3a4566;max-width:720px;text-wrap:pretty">Every assignment we undertake is an opportunity to demonstrate our dedication to quality service and customer satisfaction.</p>
+    <p style="margin:0;font-size:18px;line-height:1.7;color:#3a4566;max-width:720px;text-wrap:pretty">At GEA Haulage and Logistics, we believe that successful logistics is built on trust, strengthened by professionalism, and sustained through consistent performance.</p>
+  </div>
+</section>
+
+<section id="quote" style="background:#f6f7fa;border-top:1px solid #e3e7f0">
+  <div style="max-width:1240px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:#1d3fb0">Request a quote</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1.02;color:#10226e;text-wrap:balance">Tell us what you need moved.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3a4566;text-wrap:pretty">GEA Haulage and Logistics is committed to becoming a dependable partner in the transportation and logistics industry. Through integrity, professionalism, and a customer-first approach, we aim to support businesses, strengthen commercial connections, and contribute to economic growth.</p>
+      <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid #d9dfec">
+        <span style="font-size:14px;color:#5c6787">Email</span>
+        <a href="mailto:info@geahaulageandlogistics.com" style="font-size:18px;font-weight:600">info@geahaulageandlogistics.com</a>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #d9dfec;border-radius:6px;padding:36px">
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px;padding:24px 0">
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:32px;color:#10226e">Thank you, {{ name }}.</h3>
+          <p style="margin:0;font-size:17px;line-height:1.6;color:#3a4566">Your request has been received. Our team will contact you shortly with a quote.</p>
+          <button onClick="{{ reset }}" style="align-self:flex-start;background:none;border:1px solid #1d3fb0;color:#1d3fb0;padding:12px 20px;border-radius:4px;font-weight:600;cursor:pointer" style-hover="background:#eef2ff">Send another request</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submit }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Full name<input name="name" required="" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Company<input name="company" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Phone<input name="phone" type="tel" required="" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Email<input name="email" type="email" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Pickup location<input name="from" required="" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Delivery location<input name="to" required="" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;outline:none" style-focus="border-color:#1d3fb0"></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Service
+            <select name="service" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff">
+              <sc-for list="{{ services }}" as="s" hint-placeholder-count="6"><option>{{ s.title }}</option></sc-for>
+            </select>
+          </label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:#3a4566">Cargo details<textarea name="details" rows="4" placeholder="Type of goods, weight or volume, preferred date" style="padding:12px 14px;border:1px solid #c9d1e3;border-radius:4px;font-size:16px;color:#0e1838;background:#fff;resize:vertical;outline:none" style-focus="border-color:#1d3fb0"></textarea></label>
+          <button type="submit" style="grid-column:1/-1;background:#1d3fb0;color:#fff;border:none;padding:16px 24px;border-radius:4px;font-weight:600;font-size:16px;cursor:pointer" style-hover="background:#14298a">Submit request</button>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0b1850;color:#c6d1f5">
+  <div style="max-width:1240px;margin:0 auto;padding:56px 24px 40px;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:28px;letter-spacing:1px;color:#fff">GEA HAULAGE AND LOGISTICS</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:20px">Moving Goods, Building Trust, Delivering Excellence.</span>
+      </div>
+      <nav style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px">
+        <a href="#about" style="color:#c6d1f5" style-hover="color:#fff">About</a>
+        <a href="#services" style="color:#c6d1f5" style-hover="color:#fff">Services</a>
+        <a href="#why" style="color:#c6d1f5" style-hover="color:#fff">Why GEA</a>
+        <a href="#quote" style="color:#c6d1f5" style-hover="color:#fff">Request a quote</a>
+      </nav>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.14);padding-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:#9aa8d6">
+      <span>© 2026 GEA Haulage and Logistics</span>
+      <span>geahaulageandlogistics.com</span>
+    </div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroImage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;truck&quot;,&quot;bus&quot;,&quot;boxes&quot;],&quot;default&quot;:&quot;truck&quot;,&quot;tsType&quot;:&quot;'truck'|'bus'|'boxes'&quot;}}">
+class Component extends DCLogic {
+  state = { submitted: false, name: '' };
+  renderVals() {
+    const crops = {
+      truck: { size: '198% auto', pos: '100% 0%', aspect: '844/485' },
+      boxes: { size: '206% auto', pos: '0% 0%', aspect: '812/485' },
+      bus: { size: '210% auto', pos: '35% 100%', aspect: '844/446' }
+    };
+    const c = crops[this.props.heroImage] || crops.truck;
+    const num = (a) => a.map((t, i) => ({ n: String(i + 1).padStart(2, '0'), ...(typeof t === 'string' ? { title: t } : t) }));
+    return {
+      heroSize: c.size, heroPos: c.pos, heroAspect: c.aspect,
+      values: num([
+        { title: 'Integrity', text: 'We conduct our business with honesty, transparency, and accountability.' },
+        { title: 'Reliability', text: 'We strive to ensure that every delivery is handled with care and responsibility.' },
+        { title: 'Safety', text: 'We prioritize the safe handling and transportation of goods throughout every journey.' },
+        { title: 'Professionalism', text: 'We maintain high standards in our operations, communication, and customer relationships.' },
+        { title: 'Customer Satisfaction', text: "We are committed to understanding our customers' needs and providing services that meet their expectations." },
+        { title: 'Excellence', text: 'We continuously seek better ways to improve our services and deliver outstanding results.' }
+      ]),
+      services: num([
+        'General haulage and goods transportation.',
+        'Commercial and industrial goods delivery.',
+        'Supply chain and logistics support.',
+        'Distribution and cargo movement.',
+        'Business-to-business transportation services.',
+        'Customized haulage solutions based on client requirements.'
+      ]),
+      reasons: num([
+        'Commitment to timely deliveries.',
+        'Careful handling and transportation of goods.',
+        'Professional customer service.',
+        'Dependable and flexible logistics solutions.',
+        'Strong business ethics and accountability.',
+        'A commitment to building long-term customer relationships.'
+      ]),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      name: this.state.name,
+      submit: (e) => {
+        e.preventDefault();
+        const n = new FormData(e.target).get('name') || '';
+        this.setState({ submitted: true, name: String(n).split(' ')[0] });
+      },
+      reset: () => this.setState({ submitted: false, name: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>

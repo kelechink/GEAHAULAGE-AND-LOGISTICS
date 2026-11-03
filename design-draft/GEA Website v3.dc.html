@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#070B18;color:#0e1838;font-family:Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:#0B1430;text-decoration:none}
+a:hover{color:#0f2470}
+input,select,textarea,button{font:inherit}
+::selection{background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430)}
+:focus-visible{outline:2px solid var(--signal,#E8A33D);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+<script src="./image-slot.js"></script>
+<title>GEA Haulage and Logistics | Haulage and trucking in Lagos, Nigeria and West Africa</title>
+<meta name="description" content="GEA Haulage and Logistics moves goods across Nigeria and West Africa with a fleet of 35 trucks from 5 to 30 tonnes: general haulage, containers, petroleum products, bulk cargo, heavy equipment, warehousing and freight forwarding.">
+<meta property="og:title" content="GEA Haulage and Logistics">
+<meta property="og:description" content="Moving Goods, Building Trust, Delivering Excellence. Haulage across Nigeria and West Africa.">
+<meta property="og:image" content="assets/hero-truck-poster.jpg">
+<link rel="icon" href="assets/logo-blue.png">
+</helmet>
+<div ref="{{ rootRef }}" style="min-height:100vh;display:flex;flex-direction:column;background:var(--bg,#f4f5f9);transition:background 0.5s ease">
+
+<header data-nav="" style="position:fixed;top:0;left:0;right:0;z-index:50;color:#fff;transition:background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:14px clamp(20px,4vw,32px);display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap">
+    <a href="#top" aria-label="GEA Haulage and Logistics" style="display:flex;align-items:center">
+      <img src="assets/logo-white.png" alt="GEA Haulage and Logistics" style="height:52px;width:auto;display:block">
+    </a>
+    <nav style="display:flex;align-items:center;gap:12px 32px;flex-wrap:wrap;font-weight:500;font-size:15px">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <a href="#about" style="color:#fff;opacity:0.85" style-hover="opacity:1;color:#fff">About</a>
+      <a href="#services" style="color:#fff;opacity:0.85" style-hover="opacity:1;color:#fff">Services</a>
+      <a href="#fleet" style="color:#fff;opacity:0.85" style-hover="opacity:1;color:#fff">Fleet</a>
+      <a href="#why" style="color:#fff;opacity:0.85" style-hover="opacity:1;color:#fff">Why GEA</a>
+      <a href="#track" style="color:#fff;opacity:0.85" style-hover="opacity:1;color:#fff">Track shipment</a>
+      </sc-if>
+      <button onClick="{{ toggleTheme }}" aria-label="Toggle dark mode" style="display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(255,255,255,0.35);color:#fff;padding:0 16px;min-height:44px;border-radius:2px;cursor:pointer;font-weight:500;font-size:14px;transition:border-color 0.3s ease" style-hover="border-color:#fff"><span style="width:14px;height:14px;border-radius:50%;border:1.5px solid #fff;background:{{ themeDot }};box-sizing:border-box"></span>{{ themeLabel }}</button>
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <a data-magnetic="" href="#quote" style="display:flex;align-items:center;gap:10px;background:#fff;color:#0B1430;padding:11px 20px;border-radius:2px;font-weight:600;transition:transform 0.3s ease" style-hover="transform:translateY(-2px);color:#0B1430">Request a quote<span style="width:8px;height:8px;border-radius:50%;background:var(--signal,#E8A33D)"></span></a>
+      <button onClick="{{ openLogin }}" aria-label="Staff login" style="background:transparent;border:none;color:#fff;opacity:0.45;font-size:12px;font-weight:500;padding:0 2px;min-height:44px;cursor:pointer" style-hover="opacity:0.8">Login</button>
+      </sc-if>
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ openMenu }}" aria-label="Open menu" aria-expanded="{{ menuOpen }}" style="min-height:44px;padding:0 18px;border-radius:2px;border:1px solid rgba(255,255,255,0.35);background:transparent;color:#fff;font-weight:600;cursor:pointer">Menu</button>
+      </sc-if>
+    </nav>
+  </div>
+  <div data-progress="" style="position:absolute;left:0;bottom:0;height:2px;width:0%;background:var(--signal,#E8A33D)"></div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-label="Menu" style="position:fixed;inset:0;z-index:60;background:#0B1430;color:#fff;display:flex;flex-direction:column;padding:14px 20px 40px;box-sizing:border-box">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <img src="assets/logo-white.png" alt="GEA Haulage and Logistics" style="height:48px;width:auto">
+      <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.35);background:transparent;color:#fff;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px;margin-top:auto;overflow-y:auto;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(32px,8vw,48px);line-height:1.1;text-transform:uppercase">
+      <a href="#about" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">About</a>
+      <a href="#services" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">Services</a>
+      <a href="#fleet" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">Fleet</a>
+      <a href="#why" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">Why GEA</a>
+      <a href="#track" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">Track shipment</a>
+      <a href="#faq" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">FAQ</a>
+      <a href="#careers" onClick="{{ closeMenu }}" style="color:#fff;padding:6px 0">Careers</a>
+      <a href="#quote" onClick="{{ closeMenu }}" style="color:var(--signal,#E8A33D);padding:6px 0">Request a quote</a>
+      <button onClick="{{ openLogin }}" style="align-self:flex-start;margin-top:18px;background:transparent;border:none;color:rgba(255,255,255,0.5);min-height:44px;padding:0;font-family:Barlow,sans-serif;font-weight:500;font-size:13px;text-transform:none;cursor:pointer">Login</button>
+    </nav>
+  </div>
+</sc-if>
+
+<sc-if value="{{ loginOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeLogin }}" style="position:fixed;inset:0;z-index:80;background:rgba(7,11,24,0.62);backdrop-filter:blur(6px);display:flex;justify-content:center;padding:24px;box-sizing:border-box;overflow-y:auto">
+    <div role="dialog" aria-modal="true" aria-labelledby="admin-login-title" onClick="{{ stop }}" style="margin:auto;width:100%;max-width:440px;background:var(--surface,#F8F8F9);color:var(--ink,#0B1430);border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,0.4);display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 28px;border-bottom:1px solid var(--line,rgba(11,20,48,0.12))">
+        <img src="assets/logo-blue.png" alt="GEA Haulage and Logistics" style="height:40px;width:auto;display:var(--logo-light,block)"><img src="assets/logo-white.png" alt="" aria-hidden="true" style="height:40px;width:auto;display:var(--logo-dark,none)">
+        <button onClick="{{ closeLogin }}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;background:none;border:1px solid var(--line-strong,rgba(11,20,48,0.24));color:var(--ink,#0B1430);cursor:pointer;font-size:15px">✕</button>
+      </div>
+      <sc-if value="{{ loginDone }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:36px 28px 32px;display:flex;flex-direction:column;gap:14px">
+          <h2 id="admin-login-title" style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;line-height:1;text-transform:uppercase">Signed in</h2>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:var(--body,#3D4458)">You're signed in as {{ loginEmail }}.</p>
+          <a href="Staff Dashboard.dc.html" style="margin-top:8px;min-height:52px;display:flex;align-items:center;justify-content:center;background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);border-radius:2px;font-weight:600;font-size:16px">Open staff dashboard</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ loginForm }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submitLogin }}" noValidate="" style="padding:32px 28px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <h2 id="admin-login-title" style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;line-height:1;text-transform:uppercase">Staff login</h2>
+            <p style="margin:0;font-size:15px;line-height:1.5;color:var(--muted,#5E6578)">For GEA staff. Manage shipments, quotes and tracking codes.</p>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Email<input name="email" type="email" autocomplete="username" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none" style-focus="border-color:var(--ink,#0B1430)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Password<input name="password" type="password" autocomplete="current-password" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none" style-focus="border-color:var(--ink,#0B1430)"></label>
+          <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="margin:0;font-size:14px;color:#B4232C;font-weight:500">{{ loginError }}</p>
+          </sc-if>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--body,#3D4458);min-height:44px;cursor:pointer"><input type="checkbox" name="remember" style="width:18px;height:18px;accent-color:#0B1430">Keep me signed in</label>
+            <a href="#" onClick="{{ forgot }}" style="font-size:14px;color:var(--accent,#1E3A8A);min-height:44px;display:flex;align-items:center">Forgot password?</a>
+          </div>
+          <button type="submit" disabled="{{ loginBusy }}" style="min-height:52px;background:var(--ink,#0B1430);color:var(--surface,#F8F8F9);border:none;border-radius:2px;font-weight:600;font-size:16px;cursor:pointer;opacity:{{ loginOpacity }}">{{ loginLabel }}</button>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<section id="top" style="position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#070B18;color:#fff">
+  <div data-hero-video="" style="position:absolute;left:0;top:0;width:100%;height:120%">
+    <video data-hero-vid="0" src="assets/hero-truck.mp4" poster="assets/hero-truck-poster.jpg" autoplay="" muted="" playsinline="" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92));transition:opacity 1.2s ease;opacity:1"></video>
+    <video data-hero-vid="1" src="assets/truck-vehicle.mp4" poster="assets/truck-vehicle-poster.jpg" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92));transition:opacity 1.2s ease;opacity:0" preload="none"></video>
+    <video data-hero-vid="2" src="assets/people.mp4" poster="assets/people-poster.jpg" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92));transition:opacity 1.2s ease;opacity:0" preload="none"></video>
+    <div style="position:absolute;inset:0;background:#1E3A8A;mix-blend-mode:color;opacity:var(--tint,0.3);pointer-events:none"></div>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,11,24,0.55) 0%,rgba(7,11,24,0.15) 35%,rgba(7,11,24,0.85) 100%)"></div>
+  <div style="position:relative;max-width:1400px;width:100%;box-sizing:border-box;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px) 48px;display:flex;flex-direction:column;gap:40px">
+        <h1 data-hero-h1="" style="will-change:transform;margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,11vw,168px);line-height:0.86;letter-spacing:-1px;text-transform:uppercase;display:flex;flex-direction:column">
+      <span style="overflow:hidden;display:block;padding-bottom:0.04em"><span data-hero-line="" style="display:block">Moving Goods,</span></span>
+      <span style="overflow:hidden;display:block;padding-bottom:0.04em"><span data-hero-line="" style="display:block">Building Trust,</span></span>
+      <span style="overflow:hidden;display:block;padding-bottom:0.04em"><span data-hero-line="" style="display:block">Delivering Excellence.</span></span>
+    </h1>
+    <div data-hero-fade="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.2);padding-top:28px">
+      <p style="margin:0;font-size:18px;line-height:1.6;color:#C9CEDA;max-width:520px;text-wrap:pretty">GEA Haulage and Logistics is a transportation and logistics company committed to providing reliable, efficient, and professional haulage services.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;gap:6px;align-items:center;margin-right:12px">
+          <button onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;cursor:pointer;font-size:12px;margin-right:8px;display:flex;align-items:center;justify-content:center">{{ playIcon }}</button>
+          <span style="width:44px;height:3px;border-radius:2px;background:rgba(255,255,255,0.25);overflow:hidden;display:block"><span data-seg="0" style="display:block;height:100%;width:0%;background:#fff"></span></span>
+          <span style="width:44px;height:3px;border-radius:2px;background:rgba(255,255,255,0.25);overflow:hidden;display:block"><span data-seg="1" style="display:block;height:100%;width:0%;background:#fff"></span></span>
+          <span style="width:44px;height:3px;border-radius:2px;background:rgba(255,255,255,0.25);overflow:hidden;display:block"><span data-seg="2" style="display:block;height:100%;width:0%;background:#fff"></span></span>
+        </div>
+        <a data-magnetic="" href="#quote" style="background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);padding:17px 30px;border-radius:2px;font-weight:600;font-size:16px;transition:transform 0.3s ease, background 0.3s ease" style-hover="background:#fff;color:#0B1430">Request a quote</a>
+        <a data-magnetic="" href="#services" style="border:1px solid rgba(255,255,255,0.4);color:#fff;padding:17px 30px;border-radius:2px;font-weight:600;font-size:16px;transition:border-color 0.3s ease" style-hover="border-color:#fff;color:#fff">Our services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="track" style="background:var(--surface,#fff);border-bottom:1px solid var(--line,#d5dbea);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(28px,4vw,40px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:28px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px 48px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--accent,var(--signal,#E8A33D))">Shipment tracking</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(30px,3vw,42px);line-height:1;text-transform:uppercase;color:var(--ink,#0d1d5c)">Track your shipment</span>
+      </div>
+      <form onSubmit="{{ onTrack }}" style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:8px;background:var(--bg,#f3f5fa);border:1px solid var(--line,#d5dbea);border-radius:2px;padding:6px 6px 6px 24px">
+          <span style="width:10px;height:10px;border-radius:50%;border:2px solid var(--accent,var(--signal,#E8A33D));flex-shrink:0"></span>
+          <input name="code" placeholder="Enter tracking code, e.g. GEA-240173" autocomplete="off" style="flex:1;min-width:0;border:none;background:transparent;outline:none;font-size:17px;padding:12px 4px;color:var(--ink,#0d1d5c);letter-spacing:0.5px">
+          <button data-magnetic="" type="submit" style="background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);border:none;padding:14px 26px;border-radius:2px;font-weight:600;font-size:16px;cursor:pointer;transition:background 0.3s ease" style-hover="background:#ECEEF3;color:#0B1430">Track</button>
+        </div>
+        <button type="button" onClick="{{ tryDemo }}" style="align-self:flex-start;background:none;border:none;padding:14px 0 14px 24px;color:var(--muted,#5d6789);font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Try a sample code</button>
+      </form>
+    </div>
+    <sc-if value="{{ trackMissing }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 24px;border-radius:4px;background:var(--bg,#f3f5fa);color:var(--body,#3b4668);font-size:16px">
+        <span>We couldn't find <strong style="color:var(--ink,#0d1d5c)">{{ trackCode }}</strong>. Check the code on your waybill (format GEA-000000) or email support@geahaulageandlogistics.com.</span>
+        <button onClick="{{ clearTrack }}" style="background:none;border:1px solid var(--line-strong,#bfc8e0);color:var(--ink,#0d1d5c);padding:0 18px;min-height:44px;border-radius:2px;cursor:pointer">Clear</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ trackFound }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:28px;padding:clamp(20px,4vw,32px);border-radius:4px;background:var(--bg,#f3f5fa);border:1px solid var(--line,#d5dbea)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:14px;color:var(--muted,#5d6789)">Tracking code {{ trackCode }}</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(28px,3vw,40px);line-height:1;text-transform:uppercase;color:var(--ink,#0d1d5c)">{{ trackFrom }} → {{ trackTo }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);padding:9px 16px;border-radius:2px;font-weight:600;font-size:15px">{{ trackStatus }}</span>
+            <button onClick="{{ clearTrack }}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;background:none;border:1px solid var(--line-strong,#bfc8e0);color:var(--ink,#0d1d5c);cursor:pointer;font-size:16px">✕</button>
+          </div>
+        </div>
+        <div style="position:relative;height:4px;border-radius:2px;background:var(--line,#d5dbea);overflow:hidden">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:{{ trackPct }};background:var(--signal,#E8A33D);transition:width 1s cubic-bezier(.2,.7,.2,1)"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:20px">
+          <sc-for list="{{ trackSteps }}" as="st" hint-placeholder-count="5">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="width:12px;height:12px;border-radius:50%;margin-top:4px;flex-shrink:0;background:{{ st.dot }};box-shadow:{{ st.ring }}"></span>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-weight:600;font-size:16px;color:{{ st.color }}">{{ st.label }}</span>
+                <span style="font-size:14px;color:var(--muted,#5d6789)">{{ st.date }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<div style="background:var(--band,#0B1430);color:var(--band-ink,#ECEEF3);overflow:hidden;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.15)">
+  <div data-marquee="" style="display:flex;width:max-content;gap:56px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(26px,3vw,40px);text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap">
+    <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="12">
+      <span style="display:flex;align-items:center;gap:56px">{{ m }}<span style="width:12px;height:12px;background:var(--signal,#E8A33D);transform:rotate(45deg)"></span></span>
+    </sc-for>
+  </div>
+</div>
+
+<section id="about" style="background:var(--bg,#f4f5f9);overflow:hidden">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,80px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,var(--signal,#E8A33D))">About us</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;color:var(--ink,#0B1430);text-wrap:balance">Every delivery is a commitment.</h2>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--body,#3a4566);text-wrap:pretty">We understand that transportation is a vital part of every successful business, which is why we focus on delivering goods safely, on time, and with the highest level of responsibility.</p>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--body,#3a4566);text-wrap:pretty">Our company is built on the principles of integrity, professionalism, safety, and customer satisfaction. We aim to provide dependable logistics solutions that help businesses move their goods efficiently while building lasting relationships with our clients and partners.</p>
+      <p style="margin:0;font-size:20px;line-height:1.55;color:var(--ink,#0B1430);font-weight:600;padding-left:22px;border-left:3px solid var(--signal,#E8A33D);text-wrap:pretty">At GEA Haulage and Logistics, we believe that every delivery is a commitment, every client is a valued partner, and every journey is an opportunity to demonstrate excellence.</p>
+    </div>
+    <div style="position:relative">
+      <div data-tilt="7" style="position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#0B1430"><div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+        <video data-parallax="0.12" src="assets/people.mp4" poster="assets/people-poster.jpg" muted="" loop="" playsinline="" style="position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92))" preload="none" data-lazy=""></video>
+        <div style="position:absolute;inset:0;background:#1E3A8A;mix-blend-mode:color;opacity:var(--tint,0.3);pointer-events:none"></div>
+      </div>
+      <div data-float="" style="position:absolute;left:clamp(-28px,-2vw,-8px);bottom:40px;background:var(--surface,#fff);border-radius:4px;padding:22px 26px;box-shadow:0 30px 60px rgba(11,20,48,0.18);display:flex;flex-direction:column;gap:4px">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;color:var(--ink,#0B1430);text-transform:uppercase;line-height:1">Safe. Fast. Reliable.</span>
+        <span style="font-size:14px;color:var(--muted,#5c6787)">GEA Haulage and Logistics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;background:var(--band,#0B1430);color:var(--band-ink,#fff);overflow:hidden">
+  <div data-spot="" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 0.6s ease"></div>
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:26px;position:sticky;top:120px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#E8A33D)">Our story</div>
+      <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(32px,3.4vw,50px);line-height:1.05;text-wrap:balance">GEA Haulage and Logistics was established with a clear purpose: to provide dependable transportation and logistics services that businesses can trust.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <p style="margin:0;font-size:19px;line-height:1.7;color:var(--band-body,#C9CEDA);text-wrap:pretty">Recognizing the importance of timely and secure goods transportation, we are committed to helping businesses overcome logistics challenges through professional service, careful planning, and a customer-focused approach.</p>
+      <p style="margin:0;font-size:19px;line-height:1.7;color:var(--band-body,#C9CEDA);text-wrap:pretty">Our journey is driven by a passion for service excellence and a determination to contribute to the growth of businesses through reliable haulage solutions. As we continue to grow, our commitment remains the same: to move goods responsibly, serve our customers faithfully, and build a reputation founded on trust and excellence.</p>
+      <div data-tilt="5" style="position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:clamp(24px,4vw,36px);border-radius:4px;background:var(--band-card,rgba(255,255,255,0.05));border:1px solid var(--band-line,rgba(255,255,255,0.14));margin-top:24px;transition:transform 0.5s ease"><div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--band-body,#C9CEDA)">Our mission</span>
+        <p style="margin:0;font-size:21px;line-height:1.5;text-wrap:pretty">To provide safe, reliable, efficient, and cost-effective haulage and logistics services that meet our customers' needs, support business growth, and deliver exceptional value through professionalism and integrity.</p>
+      </div>
+      <div data-tilt="5" style="position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:clamp(24px,4vw,36px);border-radius:4px;background:var(--band-card,#fff);color:var(--band-ink,#0B1430);transition:transform 0.5s ease"><div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--accent,#1E3A8A)">Our vision</span>
+        <p style="margin:0;font-size:21px;line-height:1.5;text-wrap:pretty">To become one of the most trusted and respected haulage and logistics companies in Nigeria, recognized for service excellence, operational efficiency, safety, and customer satisfaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="background:var(--bg,#f4f5f9)">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:64px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 80px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="font-weight:600;font-size:17px;color:var(--accent,var(--signal,#E8A33D))">Our services</div>
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;color:var(--ink,#0B1430);text-wrap:balance">Solutions tailored to your needs.</h2>
+      </div>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--body,#3a4566);text-wrap:pretty">GEA Haulage and Logistics aims to provide transportation and logistics solutions tailored to the needs of businesses and individuals, including:</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px 64px;align-items:start">
+      <div style="display:flex;flex-direction:column;border-top:1px solid var(--line,#d3d9ea)">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+          <div role="button" tabIndex="0" aria-pressed="{{ s.on }}" onMouseEnter="{{ s.activate }}" onFocus="{{ s.activate }}" onClick="{{ s.activate }}" style="display:grid;grid-template-columns:1fr 24px;gap:16px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line,#d3d9ea);cursor:pointer;transition:padding 0.4s ease, background 0.4s ease;background:{{ s.bg }};padding-left:{{ s.pad }}">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(24px,2.4vw,34px);line-height:1.1;text-transform:uppercase;color:{{ s.color }};transition:color 0.3s ease">{{ s.title }}</span>
+            <span style="width:14px;height:14px;border-radius:50%;justify-self:end;background:{{ s.dotBg }};transition:background 0.3s ease, transform 0.4s ease;transform:{{ s.rot }}"></span>
+          </div>
+        </sc-for>
+        <p style="margin:24px 0 0;font-size:14px;line-height:1.6;color:var(--muted,#5c6787)">Specific services are subject to the company's operational capacity and arrangements.</p>
+      </div>
+      <div data-tilt="7" style="position:sticky;top:110px;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:#0B1430"><div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+        <sc-for list="{{ media }}" as="m" hint-placeholder-count="1">
+          <div style="position:absolute;inset:0;opacity:{{ m.opacity }};transform:{{ m.scale }};transition:opacity 0.7s ease, transform 1.2s cubic-bezier(.2,.7,.2,1)">
+            <sc-if value="{{ m.isVideo }}" hint-placeholder-val="{{ false }}">
+              <video data-kb="" data-lazy="" src="{{ m.src }}" poster="{{ m.poster }}" preload="none" muted="" loop="" playsinline="" style="width:100%;height:100%;object-fit:cover;display:block;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92))"></video>
+            </sc-if>
+            <sc-if value="{{ m.isImage }}" hint-placeholder-val="{{ false }}">
+              <div data-kb="" style="width:100%;height:100%;will-change:transform;background-image:url(assets/fleet.png);background-repeat:no-repeat;background-size:{{ m.size }};background-position:{{ m.pos }}"></div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div style="position:absolute;inset:0;background:#1E3A8A;mix-blend-mode:color;opacity:var(--tint,0.3);pointer-events:none"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:28px;background:linear-gradient(0deg,rgba(7,11,24,0.85),rgba(7,11,24,0));color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:16px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;line-height:1.05;max-width:80%">{{ activeTitle }}</span>
+          <a href="{{ activeHref }}" style="flex-shrink:0;min-height:44px;padding:0 16px;display:flex;align-items:center;background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);border-radius:2px;font-weight:600;font-size:15px;pointer-events:auto" style-hover="color:var(--on-signal,#0B1430)">View service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fleet" style="background:var(--band,#0B1430);color:var(--band-ink,#ECEEF3);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px clamp(40px,6vw,80px);align-items:end">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="font-weight:600;font-size:17px;color:var(--accent,#E8A33D)">Fleet and coverage</div>
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;text-wrap:balance">Across Nigeria and West Africa.</h2>
+      </div>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--band-body,#C9CEDA);text-wrap:pretty">Our trucks move cargo between states across Nigeria and across borders into West Africa, with capacity from light loads to heavy haulage.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0 40px">
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))">
+          <span data-count="35" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,7vw,104px);line-height:0.9;text-transform:uppercase;color:var(--band-ink,#ECEEF3)">35</span>
+          <span style="font-size:17px;line-height:1.5;color:var(--band-body,#C9CEDA)">Trucks in our fleet</span>
+        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,7vw,104px);line-height:0.9;text-transform:uppercase;color:var(--band-ink,#ECEEF3)">5–30 t</span>
+          <span style="font-size:17px;line-height:1.5;color:var(--band-body,#C9CEDA)">Capacity per truck</span>
+        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,7vw,104px);line-height:0.9;text-transform:uppercase;color:var(--band-ink,#ECEEF3)">36 + FCT</span>
+          <span style="font-size:17px;line-height:1.5;color:var(--band-body,#C9CEDA)">Nigerian states we can reach, plus cross-border West Africa</span>
+        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:28px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,7vw,104px);line-height:0.9;text-transform:uppercase;color:var(--band-ink,#ECEEF3)">2020</span>
+          <span style="font-size:17px;line-height:1.5;color:var(--band-body,#C9CEDA)">Year founded · RC 9198613</span>
+        </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div data-tilt="3" style="position:relative;width:100%;aspect-ratio:16/10;min-height:340px;border-radius:4px;overflow:hidden;border:1px solid var(--band-line,rgba(255,255,255,0.14));background:var(--map-water,#070B18)">
+        <div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+        <iframe data-map="" src="coverage-map.html" title="GEA coverage map: Nigeria and West African corridors" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
+      </div>
+      <div style="display:flex;gap:10px 28px;flex-wrap:wrap;font-size:15px;color:var(--band-body,#C9CEDA)">
+        <span style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:0;border-top:2px dashed #E8A33D"></span>Interstate routes from Lagos</span>
+        <span style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:0;border-top:2px dashed #8EA6E8"></span>Cross-border corridors</span>
+        <span style="color:var(--band-muted,#8C93A6)">Routes shown are indicative.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface,#fff)">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:56px">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,var(--signal,#E8A33D))">Our core values</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;color:var(--ink,#0B1430)">What we stand for.</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--line,#d5dbea)">
+      <sc-for list="{{ values }}" as="v" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px 56px;align-items:baseline;padding:34px 0;border-bottom:1px solid var(--line,#d5dbea)">
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(32px,3.6vw,54px);line-height:1;text-transform:uppercase;color:var(--ink,#0B1430)">{{ v.title }}</h3>
+          <p style="margin:0;font-size:18px;line-height:1.6;color:var(--body,#3a4566);max-width:560px;text-wrap:pretty">{{ v.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="clients" style="background:var(--bg,#EDEEF1);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px clamp(40px,6vw,80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#1E3A8A)">Clients and partners</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(36px,4vw,56px);line-height:0.95;text-transform:uppercase;color:var(--ink,#0B1430);text-wrap:balance">Businesses that trust GEA with their cargo.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr));gap:12px">
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-1" shape="rect" fit="contain" placeholder="Client logo 1"></image-slot></div>
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-2" shape="rect" fit="contain" placeholder="Client logo 2"></image-slot></div>
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-3" shape="rect" fit="contain" placeholder="Client logo 3"></image-slot></div>
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-4" shape="rect" fit="contain" placeholder="Client logo 4"></image-slot></div>
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-5" shape="rect" fit="contain" placeholder="Client logo 5"></image-slot></div>
+        <div style="height:96px;background:var(--surface,#F8F8F9);border:1px solid var(--line,rgba(11,20,48,0.12));border-radius:4px;overflow:hidden"><image-slot id="client-logo-6" shape="rect" fit="contain" placeholder="Client logo 6"></image-slot></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#1E3A8A)">Registration and credentials</div>
+      <div style="display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line,rgba(11,20,48,0.12))">
+          <div style="width:72px;height:72px;border-radius:4px;overflow:hidden;border:1px solid var(--line,rgba(11,20,48,0.12));background:var(--surface,#F8F8F9)"><image-slot id="cred-cac" shape="rect" fit="contain" placeholder="Badge"></image-slot></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:17px;color:var(--ink,#0B1430)">CAC registration</span><span style="font-size:14px;color:var(--muted,#5E6578)">RC 9198613</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line,rgba(11,20,48,0.12))">
+          <div style="width:72px;height:72px;border-radius:4px;overflow:hidden;border:1px solid var(--line,rgba(11,20,48,0.12));background:var(--surface,#F8F8F9)"><image-slot id="cred-insurance" shape="rect" fit="contain" placeholder="Badge"></image-slot></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:17px;color:var(--ink,#0B1430)">Goods-in-transit insurance</span><span style="font-size:14px;color:var(--muted,#5E6578)">Certificate</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line,rgba(11,20,48,0.12))">
+          <div style="width:72px;height:72px;border-radius:4px;overflow:hidden;border:1px solid var(--line,rgba(11,20,48,0.12));background:var(--surface,#F8F8F9)"><image-slot id="cred-licence" shape="rect" fit="contain" placeholder="Badge"></image-slot></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:17px;color:var(--ink,#0B1430)">Haulage operating licence</span><span style="font-size:14px;color:var(--muted,#5E6578)">Licence</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line,rgba(11,20,48,0.12))">
+          <div style="width:72px;height:72px;border-radius:4px;overflow:hidden;border:1px solid var(--line,rgba(11,20,48,0.12));background:var(--surface,#F8F8F9)"><image-slot id="cred-membership" shape="rect" fit="contain" placeholder="Badge"></image-slot></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;font-size:17px;color:var(--ink,#0B1430)">Industry membership</span><span style="font-size:14px;color:var(--muted,#5E6578)">Association</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="position:relative;overflow:hidden;background:#070B18;color:#fff">
+  <video data-parallax="0.18" src="assets/truck-vehicle.mp4" poster="assets/truck-vehicle-poster.jpg" muted="" loop="" playsinline="" style="position:absolute;left:0;top:-15%;width:100%;height:130%;object-fit:cover;filter:var(--grade,saturate(0.8) contrast(1.08) brightness(0.92))" preload="none" data-lazy=""></video>
+  <div style="position:absolute;inset:0;background:#1E3A8A;mix-blend-mode:color;opacity:var(--tint,0.3);pointer-events:none"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,11,24,0.94) 0%,rgba(7,11,24,0.78) 55%,rgba(7,11,24,0.45) 100%)"></div>
+  <div data-spot="" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 0.6s ease"></div>
+  <div style="position:relative;max-width:1400px;margin:0 auto;padding:clamp(96px,12vw,160px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:56px">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:820px">
+      <div style="font-weight:600;font-size:17px;color:var(--signal,#E8A33D)">Why GEA</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;text-wrap:balance">Why choose GEA Haulage and Logistics?</h2>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:#C9CEDA;text-wrap:pretty">At GEA Haulage and Logistics, we understand that our customers need a logistics partner they can depend on. We strive to distinguish ourselves through:</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:0 48px">
+      <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="6">
+        <div style="display:flex;gap:18px;align-items:baseline;padding:26px 0;border-top:1px solid rgba(255,255,255,0.22)">
+          <span style="font-size:20px;line-height:1.45;font-weight:500">{{ r.title }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(26px,2.8vw,38px);line-height:1.2;max-width:960px;text-wrap:balance">Our goal is not simply to transport goods but to provide peace of mind and confidence throughout the delivery process.</p>
+  </div>
+</section>
+
+<section data-words-section="" style="background:var(--bg,#f4f5f9)">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(96px,12vw,160px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:36px">
+    <div style="font-weight:600;font-size:17px;color:var(--accent,var(--signal,#E8A33D))">Our commitment</div>
+    <p style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,5.4vw,80px);line-height:1;text-transform:uppercase;color:var(--ink,#0B1430);display:flex;flex-wrap:wrap;gap:0 0.22em">
+      <sc-for list="{{ commitWords }}" as="w" hint-placeholder-count="16"><span data-word="" style="transition:opacity 0.2s linear">{{ w }}</span></sc-for>
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;padding-top:24px">
+      <p style="margin:0;font-size:19px;line-height:1.7;color:var(--body,#3a4566);text-wrap:pretty">Every assignment we undertake is an opportunity to demonstrate our dedication to quality service and customer satisfaction.</p>
+      <p style="margin:0;font-size:19px;line-height:1.7;color:var(--body,#3a4566);text-wrap:pretty">At GEA Haulage and Logistics, we believe that successful logistics is built on trust, strengthened by professionalism, and sustained through consistent performance.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="background:var(--surface,#F8F8F9);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px clamp(40px,6vw,80px);align-items:end">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="font-weight:600;font-size:17px;color:var(--accent,#1E3A8A)">How it works</div>
+        <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;color:var(--ink,#0B1430);text-wrap:balance">From quote to delivery in four steps.</h2>
+      </div>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--body,#3D4458);text-wrap:pretty">One point of contact from the first call to the signed delivery note.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0 32px;counter-reset:none">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:14px;padding:28px 0 8px;border-top:2px solid var(--ink,#0B1430)">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--accent,#1E3A8A)">Step {{ st.n }}</span>
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(28px,2.6vw,36px);line-height:1;text-transform:uppercase;color:var(--ink,#0B1430)">{{ st.title }}</h3>
+          <p style="margin:0;font-size:17px;line-height:1.6;color:var(--body,#3D4458);text-wrap:pretty">{{ st.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="careers" style="background:var(--band,#0B1430);color:var(--band-ink,#ECEEF3);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px clamp(40px,6vw,80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#E8A33D)">Careers</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;text-wrap:balance">Drive with GEA.</h2>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--band-body,#C9CEDA);text-wrap:pretty">We are growing our team of professional drivers and support staff. If you take safety seriously and know Nigeria's roads, we want to hear from you.</p>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ roles }}" as="ro" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;line-height:1.05">{{ ro.title }}</span>
+            <span style="font-size:16px;line-height:1.6;color:var(--band-body,#C9CEDA)">{{ ro.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div data-tilt="3" style="position:relative;background:var(--surface,#F8F8F9);color:var(--ink,#0B1430);border-radius:4px;padding:clamp(24px,5vw,40px);box-shadow:0 40px 80px rgba(0,0,0,0.25)">
+      <div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+      <sc-if value="{{ applied }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px;padding:24px 0">
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:38px;text-transform:uppercase">Application received</h3>
+          <p style="margin:0;font-size:17px;line-height:1.6;color:var(--body,#3D4458)">Thank you, {{ applicant }}. Our operations team will call you if your profile matches an opening.</p>
+          <button onClick="{{ resetApply }}" style="align-self:flex-start;min-height:44px;padding:0 20px;background:none;border:1px solid var(--line-strong,rgba(11,20,48,0.24));color:var(--ink,#0B1430);border-radius:2px;font-weight:600;cursor:pointer">Submit another application</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notApplied }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submitApply }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px">
+          <h3 style="grid-column:1/-1;margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:32px;text-transform:uppercase;line-height:1">Apply now</h3>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Full name<input name="name" required="" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Phone<input name="phone" type="tel" required="" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Role<select name="role" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px"><sc-for list="{{ roles }}" as="ro" hint-placeholder-count="4"><option>{{ ro.title }}</option></sc-for></select></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Years of experience<input name="years" type="number" min="0" max="50" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none"></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">Driver's licence class (drivers only)<input name="licence" placeholder="As shown on your FRSC licence" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;outline:none"></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:var(--body,#3D4458)">About you<textarea name="about" rows="3" placeholder="Routes you know, trucks you have driven, current location" style="padding:13px 14px;border:1px solid var(--line-strong,rgba(11,20,48,0.24));border-radius:2px;background:var(--bg,#EDEEF1);color:var(--ink,#0B1430);font-size:16px;resize:vertical;outline:none"></textarea></label>
+          <button data-magnetic="" type="submit" style="grid-column:1/-1;min-height:56px;background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);border:none;border-radius:2px;font-weight:600;font-size:17px;cursor:pointer">Send application</button>
+          <p style="grid-column:1/-1;margin:0;font-size:13px;line-height:1.5;color:var(--muted,#5E6578)">We use your details only to assess your application. See our <a href="Legal.dc.html#privacy" style="color:var(--accent,#1E3A8A)">privacy policy</a>.</p>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--bg,#EDEEF1);transition:background 0.5s ease">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px clamp(40px,6vw,80px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#1E3A8A)">Questions</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(44px,5.6vw,84px);line-height:0.92;text-transform:uppercase;color:var(--ink,#0B1430)">Frequently asked.</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:var(--body,#3D4458)">Can't find your answer? Call or WhatsApp us on <a href="tel:+2348162163235" style="color:var(--ink,#0B1430);font-weight:600">0816 216 3235</a>.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--line-strong,rgba(11,20,48,0.24))">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid var(--line-strong,rgba(11,20,48,0.24))">
+          <button onClick="{{ q.toggle }}" aria-expanded="{{ q.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;min-height:44px;background:none;border:none;text-align:left;cursor:pointer;color:var(--ink,#0B1430)">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);line-height:1.15">{{ q.q }}</span>
+            <span aria-hidden="true" style="flex-shrink:0;width:28px;height:28px;position:relative;transition:transform 0.4s cubic-bezier(.2,.7,.2,1);transform:{{ q.rot }}"><span style="position:absolute;left:4px;right:4px;top:13px;height:2px;background:currentColor"></span><span style="position:absolute;top:4px;bottom:4px;left:13px;width:2px;background:currentColor"></span></span>
+          </button>
+          <div style="display:grid;grid-template-rows:{{ q.rows }};transition:grid-template-rows 0.45s cubic-bezier(.2,.7,.2,1)">
+            <div style="overflow:hidden">
+              <p style="margin:0;padding:0 48px 26px 0;font-size:17px;line-height:1.7;color:var(--body,#3D4458);text-wrap:pretty">{{ q.a }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="quote" style="background:var(--band,#0B1430);color:var(--band-ink,#fff);position:relative;overflow:hidden">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(80px,11vw,140px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,72px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div style="font-weight:600;font-size:17px;color:var(--accent,#E8A33D)">Request a quote</div>
+      <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(48px,6.4vw,104px);line-height:0.9;text-transform:uppercase;text-wrap:balance">Ready to move your goods?</h2>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:var(--band-body,#C9CEDA);text-wrap:pretty">GEA Haulage and Logistics is committed to becoming a dependable partner in the transportation and logistics industry. Through integrity, professionalism, and a customer-first approach, we aim to support businesses, strengthen commercial connections, and contribute to economic growth.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0 32px;padding-top:12px">
+        <a href="tel:+2348162163235" style="display:flex;flex-direction:column;gap:4px;color:var(--band-ink,#fff);padding:16px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:14px;color:var(--band-muted,#8C93A6)">Call</span><span style="font-size:19px;font-weight:600;overflow-wrap:anywhere">0816 216 3235</span></a>
+        <a href="https://wa.me/2348162163235" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:4px;color:var(--band-ink,#fff);padding:16px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:14px;color:var(--band-muted,#8C93A6)">WhatsApp</span><span style="font-size:19px;font-weight:600;overflow-wrap:anywhere">0816 216 3235</span></a>
+        <a href="mailto:info@geahaulageandlogistics.com" style="display:flex;flex-direction:column;gap:4px;color:var(--band-ink,#fff);padding:16px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:14px;color:var(--band-muted,#8C93A6)">Email</span><span style="font-size:19px;font-weight:600;overflow-wrap:anywhere">info@geahaulageandlogistics.com</span></a>
+        <a href="https://maps.google.com/?q=Plot+6+Block+48+Olueasanya+Street+off+AIT+Road+Kola+Alagbado+Ifako-Ijaye+Lagos" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:4px;color:var(--band-ink,#fff);padding:16px 0;border-top:1px solid var(--band-line,rgba(255,255,255,0.14))" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:14px;color:var(--band-muted,#8C93A6)">Office</span><span style="font-size:19px;font-weight:600;overflow-wrap:anywhere">Plot 6, Block 48, Olueasanya Street, off AIT Road, Kola Alagbado, Ifako-Ijaye, Lagos</span></a>
+      </div>
+      <div style="display:flex;flex-direction:column;padding-top:8px">
+        <span style="font-weight:600;font-size:17px;color:var(--band-ink,#fff);padding-bottom:10px">Reach the right team</span>
+        <a href="mailto:sales@geahaulageandlogistics.com" style="display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:12px 0;min-height:44px;box-sizing:border-box;border-top:1px solid var(--band-line,rgba(255,255,255,0.14));color:var(--band-ink,#fff)" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:15px;color:var(--band-muted,#8C93A6)">Quotes and new business</span><span style="font-size:16px;font-weight:600;overflow-wrap:anywhere">sales@geahaulageandlogistics.com</span></a>
+        <a href="mailto:logistic@geahaulageandlogistics.com" style="display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:12px 0;min-height:44px;box-sizing:border-box;border-top:1px solid var(--band-line,rgba(255,255,255,0.14));color:var(--band-ink,#fff)" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:15px;color:var(--band-muted,#8C93A6)">Bookings and operations</span><span style="font-size:16px;font-weight:600;overflow-wrap:anywhere">logistic@geahaulageandlogistics.com</span></a>
+        <a href="mailto:support@geahaulageandlogistics.com" style="display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:12px 0;min-height:44px;box-sizing:border-box;border-top:1px solid var(--band-line,rgba(255,255,255,0.14));color:var(--band-ink,#fff)" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:15px;color:var(--band-muted,#8C93A6)">Tracking and delivery support</span><span style="font-size:16px;font-weight:600;overflow-wrap:anywhere">support@geahaulageandlogistics.com</span></a>
+        <a href="mailto:billing@geahaulageandlogistics.com" style="display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;padding:12px 0;min-height:44px;box-sizing:border-box;border-top:1px solid var(--band-line,rgba(255,255,255,0.14));color:var(--band-ink,#fff)" style-hover="color:var(--band-ink,#fff);opacity:0.8"><span style="font-size:15px;color:var(--band-muted,#8C93A6)">Invoices and payments</span><span style="font-size:16px;font-weight:600;overflow-wrap:anywhere">billing@geahaulageandlogistics.com</span></a>
+      </div>
+    </div>
+    <div data-tilt="4" style="position:relative;background:var(--surface,#fff);color:var(--ink,#0e1838);border-radius:4px;padding:clamp(24px,5vw,40px);box-shadow:0 40px 80px rgba(0,0,0,0.3)"><div data-glare="" aria-hidden="true" style="position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.5s ease;border-radius:inherit"></div>
+      <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;padding:32px 0">
+          <span style="width:56px;height:56px;border-radius:50%;background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);display:flex;align-items:center;justify-content:center;font-size:26px">✓</span>
+          <h3 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px;text-transform:uppercase;color:var(--ink,#0B1430)">Thank you, {{ name }}.</h3>
+          <p style="margin:0;font-size:17px;line-height:1.6;color:var(--body,#3a4566)">Your request has been received. Our team will contact you shortly with a quote.</p>
+          <button onClick="{{ reset }}" style="align-self:flex-start;background:none;border:1px solid var(--signal,#E8A33D);color:var(--accent,var(--signal,#E8A33D));padding:13px 22px;border-radius:2px;font-weight:600;cursor:pointer" style-hover="background:rgba(11,20,48,0.06)">Send another request</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submit }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Full name<input name="name" required="" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Company<input name="company" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Phone<input name="phone" type="tel" required="" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Email<input name="email" type="email" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Pickup location<input name="from" required="" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Delivery location<input name="to" required="" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Service
+            <select name="service" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;outline:none;text-transform:none;letter-spacing:0">
+              <sc-for list="{{ services }}" as="s" hint-placeholder-count="6"><option>{{ s.title }}</option></sc-for>
+            </select>
+          </label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted,#5c6787)">Cargo details<textarea name="details" rows="3" placeholder="Type of goods, weight or volume, preferred date" style="padding:12px 0;border:none;border-bottom:1px solid var(--line,#c9d1e3);font-size:17px;color:var(--ink,#0e1838);background:transparent;resize:vertical;outline:none;text-transform:none;letter-spacing:0" style-focus="border-bottom-color:var(--accent,#E8A33D)"></textarea></label>
+          <button data-magnetic="" type="submit" style="grid-column:1/-1;display:flex;justify-content:center;align-items:center;background:var(--signal,#E8A33D);color:var(--on-signal,#0B1430);border:none;padding:20px 28px;border-radius:2px;font-weight:600;font-size:17px;cursor:pointer;transition:background 0.3s ease, transform 0.3s ease;margin-top:8px" style-hover="background:var(--band,#0B1430);color:var(--band-ink,#fff)">Send quote request</button>
+          <p style="grid-column:1/-1;margin:0;font-size:13px;line-height:1.5;color:var(--muted,#5E6578)">We use your details only to respond to this request. See our <a href="Legal.dc.html#privacy" style="color:var(--accent,#1E3A8A)">privacy policy</a>.</p>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--band-deep,#070B18);color:var(--band-muted,#B3BACB);overflow:hidden">
+  <div style="max-width:1400px;margin:0 auto;padding:clamp(56px,8vw,80px) clamp(20px,4vw,32px) 32px;display:flex;flex-direction:column;gap:56px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <img src="assets/logo-blue.png" alt="GEA Haulage and Logistics" style="height:96px;width:auto;align-self:flex-start;display:var(--logo-light,block)"><img src="assets/logo-white.png" alt="" aria-hidden="true" style="height:96px;width:auto;align-self:flex-start;display:var(--logo-dark,none)">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(26px,2.6vw,36px);line-height:1.1;color:var(--band-ink,#fff);text-transform:uppercase;max-width:560px">Moving Goods, Building Trust, Delivering Excellence.</span>
+      </div>
+      <nav style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px">
+        <a href="#fleet" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Fleet</a>
+        <a href="#faq" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">FAQ</a>
+        <a href="#careers" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Careers</a>
+        <a href="Legal.dc.html#privacy" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Privacy policy</a>
+        <a href="Legal.dc.html#terms" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Terms of service</a>
+        <a href="#about" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">About</a>
+        <a href="#services" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Services</a>
+        <a href="#why" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Why GEA</a>
+        <a href="#quote" style="color:var(--band-muted,#B3BACB)" style-hover="color:var(--band-ink,#fff)">Request a quote</a>
+      </nav>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:4px 24px;font-size:15px">
+          <a href="Service.dc.html?s=general-haulage" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">General haulage</a>
+          <a href="Service.dc.html?s=container-haulage" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Container haulage</a>
+          <a href="Service.dc.html?s=petroleum-haulage" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Petroleum haulage</a>
+          <a href="Service.dc.html?s=bulk-dry-cargo" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Bulk and dry cargo</a>
+          <a href="Service.dc.html?s=heavy-equipment" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Heavy equipment</a>
+          <a href="Service.dc.html?s=warehousing" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Warehousing</a>
+          <a href="Service.dc.html?s=freight-forwarding" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Freight forwarding</a>
+          <a href="Service.dc.html?s=interstate-deliveries" style="color:var(--band-muted,#B3BACB);min-height:32px;display:flex;align-items:center" style-hover="color:var(--band-ink,#fff)">Interstate deliveries</a>
+        </div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,15.5vw,300px);line-height:0.8;letter-spacing:-4px;color:transparent;-webkit-text-stroke:1.5px var(--band-stroke,rgba(255,255,255,0.16));text-transform:uppercase;white-space:nowrap">GEA Haulage</div>
+    <div style="border-top:1px solid var(--band-line,rgba(255,255,255,0.14));padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--band-muted,#8C93A6)">
+      <span>© 2026 GEA Haulage and Logistics · RC 9198613</span>
+      <span>Plot 6, Block 48, Olueasanya Street, off AIT Road, Kola Alagbado, Lagos · <a href="tel:+2348162163235" style="color:inherit">0816 216 3235</a> · <a href="mailto:info@geahaulageandlogistics.com" style="color:inherit">info@geahaulageandlogistics.com</a></span>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/2348162163235" target="_blank" rel="noopener" aria-label="Chat with GEA on WhatsApp" style="position:fixed;right:clamp(14px,3vw,28px);bottom:clamp(14px,3vw,28px);z-index:45;display:flex;align-items:center;gap:10px;min-height:52px;padding:0 20px 0 16px;background:#0B1430;color:#fff;border-radius:2px;font-weight:600;font-size:15px;box-shadow:0 18px 40px rgba(7,11,24,0.35);border:1px solid rgba(255,255,255,0.12)" style-hover="color:#fff;background:#16214A"><span style="width:12px;height:12px;border-radius:50%;background:#25D366;box-shadow:0 0 0 4px rgba(37,211,102,0.25)"></span>WhatsApp us</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signal&quot;,&quot;cobalt&quot;,&quot;ivory&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;'signal'|'cobalt'|'ivory'&quot;,&quot;section&quot;:&quot;Colour&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;,&quot;section&quot;:&quot;Colour&quot;},&quot;grade&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;natural&quot;,&quot;brand&quot;,&quot;cinematic&quot;],&quot;default&quot;:&quot;brand&quot;,&quot;tsType&quot;:&quot;'natural'|'brand'|'cinematic'&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;heroVideo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;truck&quot;,&quot;vehicle&quot;,&quot;people&quot;],&quot;default&quot;:&quot;truck&quot;,&quot;tsType&quot;:&quot;'truck'|'vehicle'|'people'&quot;,&quot;section&quot;:&quot;Video&quot;},&quot;introCurtain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { submitted: false, name: '', active: 0, paused: false, menuOpen: false, mobile: typeof window !== 'undefined' && window.innerWidth < 1200, theme: (() => { try { return localStorage.getItem('gea-theme'); } catch (e) { return null; } })() || this.props.theme || 'light' };
+
+  static THEMES = {
+    light: { '--bg': '#EDEEF1', '--surface': '#F8F8F9', '--ink': '#0B1430', '--body': '#3D4458', '--muted': '#5E6578', '--accent': '#1E3A8A', '--line': 'rgba(11,20,48,0.12)', '--line-strong': 'rgba(11,20,48,0.24)', '--logo-light': 'block', '--logo-dark': 'none', '--map-water': '#F8F9FB', '--band': '#FFFFFF', '--band-deep': '#E2E4EA', '--band-ink': '#0B1430', '--band-body': '#3D4458', '--band-muted': '#5E6578', '--band-line': 'rgba(11,20,48,0.14)', '--band-card': '#EDEEF1', '--band-stroke': 'rgba(11,20,48,0.14)' },
+    dark: { '--bg': '#070B18', '--surface': '#0E1424', '--ink': '#ECEEF3', '--body': '#A9B0C2', '--muted': '#7F879B', '--accent': '#E8B65A', '--line': 'rgba(236,238,243,0.1)', '--line-strong': 'rgba(236,238,243,0.24)', '--logo-light': 'none', '--logo-dark': 'block', '--map-water': '#070B18', '--band': '#0B1430', '--band-deep': '#070B18', '--band-ink': '#ECEEF3', '--band-body': '#C9CEDA', '--band-muted': '#8C93A6', '--band-line': 'rgba(255,255,255,0.14)', '--band-card': 'rgba(255,255,255,0.05)', '--band-stroke': 'rgba(255,255,255,0.16)' }
+  };
+  static PALETTES = {
+    signal: { '--signal': '#E8A33D', '--on-signal': '#0B1430' },
+    cobalt: { '--signal': '#3E63DD', '--on-signal': '#FFFFFF' },
+    ivory: { '--signal': '#ECEEF3', '--on-signal': '#0B1430' }
+  };
+  static GRADES = {
+    natural: { '--grade': 'none', '--tint': '0' },
+    brand: { '--grade': 'saturate(0.7) contrast(1.1) brightness(0.88)', '--tint': '0.22' },
+    cinematic: { '--grade': 'saturate(0.45) contrast(1.2) brightness(0.8)', '--tint': '0.35' }
+  };
+
+  _applyTheme() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const vars = { ...Component.THEMES[this.state.theme] || Component.THEMES.light, ...Component.GRADES[this.props.grade] || Component.GRADES.brand, ...Component.PALETTES[this.props.palette] || Component.PALETTES.signal };
+    Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
+    this._appliedTheme = this.state.theme;
+    const map = root.querySelector('[data-map]');
+    if (map) {
+      const send = () => { try { map.contentWindow.postMessage({ geaTheme: this.state.theme }, '*'); } catch (e) {} };
+      send();
+      if (!map._themeHook) { map._themeHook = true; map.addEventListener('load', () => map.contentWindow.postMessage({ geaTheme: this.state.theme }, '*')); }
+    }
+    this._appliedGrade = this.props.grade;
+    this._appliedPalette = this.props.palette;
+    document.body.style.background = '#070B18';
+  }
+
+  _lite() {
+    const c = navigator.connection;
+    return !!(c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || '')));
+  }
+
+  _startPlaylist() {
+    const root = this.rootRef.current;
+    const vids = Array.from(root.querySelectorAll('[data-hero-vid]'));
+    const segs = Array.from(root.querySelectorAll('[data-seg]'));
+    if (!vids.length) return;
+    if (this._lite()) { vids.forEach((v, j) => { v.removeAttribute('autoplay'); v.pause(); v.style.opacity = j === 0 ? '1' : '0'; }); return; }
+    vids.forEach((v, j) => v.addEventListener('playing', () => { const nx = vids[(j + 1) % vids.length]; if (nx.preload !== 'auto') { nx.preload = 'auto'; nx.load(); } }));
+    const order = { truck: 0, vehicle: 1, people: 2 };
+    let cur = order[this.props.heroVideo] ?? 0;
+    const show = (i) => {
+      cur = i;
+      vids.forEach((v, j) => {
+        v.muted = true;
+        v.style.opacity = j === i ? '1' : '0';
+        if (j === i) { v.currentTime = 0; v.play().catch(() => {}); }
+        else setTimeout(() => { if (cur !== j) v.pause(); }, 1300);
+      });
+      segs.forEach((s, j) => { s.style.width = j < i ? '100%' : '0%'; });
+    };
+    vids.forEach((v, j) => {
+      v.addEventListener('ended', () => { if (j === cur) show((cur + 1) % vids.length); });
+      v.addEventListener('timeupdate', () => { if (j === cur && v.duration && segs[j]) segs[j].style.width = (v.currentTime / v.duration * 100) + '%'; });
+    });
+    this._showHero = show;
+    show(cur);
+  }
+  rootRef = React.createRef();
+
+  componentDidMount() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const q = (s) => Array.from(root.querySelectorAll(s));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ease = 'cubic-bezier(.2,.7,.2,1)';
+    this._applyTheme();
+    this._startPlaylist();
+    this._playVideos();
+
+    const runHero = () => {
+      if (reduce) return;
+      q('[data-hero-line]').forEach((el, i) => el.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0)' }], { duration: 1200, delay: 120 * i, easing: ease, fill: 'both' }));
+      q('[data-hero-fade]').forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'none' }], { duration: 1000, delay: 500 + 150 * i, easing: ease, fill: 'both' }));
+    };
+
+    if ((this.props.introCurtain ?? true) && !reduce) {
+      const c = document.createElement('div');
+      c.style.cssText = 'position:fixed;inset:0;z-index:100;background:#0B1430;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:32px;box-sizing:border-box;font-family:"Barlow Condensed",sans-serif';
+      c.innerHTML = '<img src="assets/logo-white.png" alt="" style="height:64px;width:auto;align-self:flex-start"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px"><div style="font-weight:600;font-size:18px;letter-spacing:4px;text-transform:uppercase;color:#B3BACB">Safe. Fast. Reliable.</div><div data-count style="font-weight:800;font-size:clamp(96px,18vw,240px);line-height:0.8">00</div></div><div data-bar style="position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--signal,#E8A33D)"></div>';
+      document.body.appendChild(c);
+      this._curtain = c;
+      const cnt = c.querySelector('[data-count]'), bar = c.querySelector('[data-bar]');
+      const t0 = performance.now(), dur = 1300;
+      const tick = (t) => {
+        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        cnt.textContent = String(Math.round(e * 100)).padStart(2, '0');
+        bar.style.width = (e * 100) + '%';
+        if (p < 1) return requestAnimationFrame(tick);
+        runHero();
+        c.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }], { duration: 1000, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' }).onfinish = () => c.remove();
+      };
+      requestAnimationFrame(tick);
+    } else runHero();
+
+    if (!reduce) {
+      const paths = [
+        [{ transform: 'scale(1.02) translate(0,0)' }, { transform: 'scale(1.16) translate(-3%,-2%)' }],
+        [{ transform: 'scale(1.14) translate(2%,1%)' }, { transform: 'scale(1.03) translate(-2%,0)' }],
+        [{ transform: 'scale(1.04) translate(-2%,2%)' }, { transform: 'scale(1.15) translate(2%,-2%)' }]
+      ];
+      q('[data-kb]').forEach((el, i) => el.animate(paths[i % 3], { duration: 14000 + (i % 3) * 3000, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' }));
+      q('[data-float]').forEach(el => el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-14px)' }], { duration: 4200, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' }));
+    }
+
+    if (!reduce && window.matchMedia('(pointer: fine)').matches) this._initCursor3D(root);
+
+    if ('IntersectionObserver' in window) {
+      const counters = q('[data-count]');
+      const cio = new IntersectionObserver((ents) => ents.forEach(en => {
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        const el = en.target, to = +el.dataset.count, t0 = performance.now();
+        if (reduce) return;
+        const step = (t) => { const p = Math.min(1, (t - t0) / 1600); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+        requestAnimationFrame(step);
+      }), { threshold: 0.6 });
+      counters.forEach(el => cio.observe(el));
+      this._cio = cio;
+    }
+
+    const mq = root.querySelector('[data-marquee]');
+    if (mq && !reduce) mq.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }], { duration: 40000, iterations: Infinity });
+
+    if (!reduce && 'IntersectionObserver' in window) {
+      const els = q('[data-reveal]');
+      els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(48px)'; });
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          const el = en.target;
+          const sibs = Array.from(el.parentNode.children).filter(c => c.hasAttribute('data-reveal'));
+          const d = Math.max(0, sibs.indexOf(el)) * 90;
+          el.animate([{ opacity: 0, transform: 'translateY(48px)' }, { opacity: 1, transform: 'none' }], { duration: 1000, delay: d, easing: ease, fill: 'backwards' });
+          el.style.opacity = ''; el.style.transform = '';
+          this._io.unobserve(el);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(el => this._io.observe(el));
+    }
+
+    const nav = root.querySelector('[data-nav]'), prog = root.querySelector('[data-progress]');
+    const hero = root.querySelector('[data-hero-video]');
+    const par = q('[data-parallax]');
+    const ws = root.querySelector('[data-words-section]');
+    const words = q('[data-word]');
+    this._onScroll = () => {
+      const y = window.scrollY, h = window.innerHeight;
+      const docH = document.documentElement.scrollHeight - h;
+      if (prog) prog.style.width = (docH > 0 ? (y / docH) * 100 : 0) + '%';
+      if (nav) {
+        const solid = y > 60;
+        nav.style.background = solid ? 'rgba(11,20,48,0.82)' : 'transparent';
+        nav.style.backdropFilter = solid ? 'blur(14px)' : 'none';
+      }
+      if (reduce) return;
+      if (hero && y < h * 1.2) hero.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+      par.forEach(el => {
+        const r = el.parentNode.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > h) return;
+        const off = (r.top + r.height / 2 - h / 2) * parseFloat(el.dataset.parallax || 0.1);
+        el.style.transform = 'translateY(' + (-off) + 'px)';
+      });
+      if (ws && words.length) {
+        const r = ws.getBoundingClientRect();
+        const p = Math.max(0, Math.min(1, (h * 0.85 - r.top) / (r.height * 0.6)));
+        const n = words.length;
+        words.forEach((w, i) => { w.style.opacity = String(0.14 + 0.86 * Math.max(0, Math.min(1, p * n * 1.1 - i))); });
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onScroll);
+    this._onResize = () => { const m = window.innerWidth < 1200; if (m !== this.state.mobile) this.setState({ mobile: m, menuOpen: m && this.state.menuOpen }); };
+    window.addEventListener('resize', this._onResize);
+    this._onKey = (e) => { if (e.key === 'Escape' && (this.state.loginOpen || this.state.menuOpen)) this.setState({ loginOpen: false, menuOpen: false }); };
+    window.addEventListener('keydown', this._onKey);
+    this._onResize();
+    this._onScroll();
+  }
+
+  componentDidUpdate(prev) {
+    prev = prev || {};
+    if (prev.theme !== this.props.theme && this.props.theme && this.props.theme !== this.state.theme) this.setState({ theme: this.props.theme });
+    if (prev.heroVideo !== this.props.heroVideo && this._showHero) this._showHero({ truck: 0, vehicle: 1, people: 2 }[this.props.heroVideo] ?? 0);
+    if (this._appliedTheme !== this.state.theme || this._appliedGrade !== this.props.grade || this._appliedPalette !== this.props.palette) this._applyTheme();
+    this._playVideos();
+  }
+
+  _track(code) {
+    const c = String(code || '').trim().toUpperCase().replace(/\s+/g, '');
+    if (!c) return this.setState({ track: null });
+    if (!/^GEA-?\d{6}$/.test(c)) return this.setState({ track: { code: c, found: false } });
+    try {
+      const db = JSON.parse(localStorage.getItem('gea-dashboard') || 'null');
+      const norm = c.startsWith('GEA-') ? c : 'GEA-' + c.slice(3);
+      const hit = db && db.shipments.find(s => s.code === norm);
+      if (hit) {
+        const labels = ['Booking confirmed', 'Picked up at ' + hit.from, 'In transit', 'Arrived at ' + hit.to, 'Delivered'];
+        const up = new Date(hit.updated);
+        const dates = labels.map((_, i) => { const x = new Date(up); x.setDate(x.getDate() - (hit.status - i)); return x.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); });
+        return this.setState({ track: { code: norm, found: true, from: hit.from, to: hit.to, step: hit.status, labels, dates } });
+      }
+    } catch (e) {}
+    const d = c.replace(/\D/g, '').split('').map(Number);
+    const cities = ['Lagos', 'Abuja', 'Kano', 'Port Harcourt', 'Ibadan', 'Kaduna', 'Enugu', 'Onitsha', 'Benin City', 'Jos'];
+    const from = cities[d[0]], to = cities[(d[0] + 1 + d[1] % 9) % 10];
+    const step = d[5] % 5;
+    const base = new Date(2026, 10, 1);
+    const fmt = (off) => { const x = new Date(base); x.setDate(x.getDate() - 4 + off); return x.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+    const labels = ['Booking confirmed', 'Picked up at ' + from, 'In transit', 'Arrived at ' + to, 'Delivered'];
+    this.setState({ track: { code: c.startsWith('GEA-') ? c : 'GEA-' + c.slice(3), found: true, from, to, step, labels, dates: labels.map((_, i) => fmt(i)) } });
+  }
+
+  _initCursor3D(root) {
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const P = { x: innerWidth / 2, y: innerHeight / 2, cx: innerWidth / 2, cy: innerHeight / 2, rx: innerWidth / 2, ry: innerHeight / 2, active: false, hot: false, rs: 1 };
+    const ring = document.createElement('div');
+    ring.setAttribute('aria-hidden', 'true');
+    ring.style.cssText = 'position:fixed;left:0;top:0;width:38px;height:38px;margin:-19px 0 0 -19px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;z-index:200;mix-blend-mode:difference;opacity:0;transition:opacity 0.3s ease;will-change:transform';
+    document.body.appendChild(ring);
+    this._ring = ring;
+    const state = new WeakMap();
+    const get = (el) => { let s = state.get(el); if (!s) { s = { rx: 0, ry: 0, s: 1, tx: 0, ty: 0, gx: 50, gy: 50 }; state.set(el, s); el.style.transition = 'none'; el.style.willChange = 'transform'; } return s; };
+    this._onPointer = (e) => {
+      P.x = e.clientX; P.y = e.clientY; P.active = true;
+      P.hot = !!(e.target.closest && e.target.closest('a,button,[role="button"],input,select,textarea,label'));
+    };
+    this._onLeave = () => { P.active = false; };
+    window.addEventListener('pointermove', this._onPointer, { passive: true });
+    document.addEventListener('pointerleave', this._onLeave);
+    const loop = () => {
+      this._raf = requestAnimationFrame(loop);
+      const W = innerWidth, H = innerHeight;
+      P.cx = lerp(P.cx, P.x, 0.07); P.cy = lerp(P.cy, P.y, 0.07);
+      P.rx = lerp(P.rx, P.x, 0.2); P.ry = lerp(P.ry, P.y, 0.2);
+      P.rs = lerp(P.rs, P.hot ? 1.9 : 1, 0.15);
+      ring.style.opacity = P.active ? '1' : '0';
+      ring.style.transform = `translate3d(${P.rx}px,${P.ry}px,0) scale(${P.rs})`;
+      const nx = P.cx / W * 2 - 1, ny = P.cy / H * 2 - 1;
+      if (window.scrollY < H * 1.1) {
+        root.querySelectorAll('[data-hero-vid]').forEach(v => { v.style.transform = `scale(1.12) translate3d(${-nx * 2.2}%,${-ny * 2.2}%,0)`; });
+        const h1 = root.querySelector('[data-hero-h1]');
+        if (h1) h1.style.transform = `perspective(1400px) rotateY(${nx * 7}deg) rotateX(${-ny * 6}deg) translate3d(${nx * 18}px,${ny * 12}px,0)`;
+      }
+      root.querySelectorAll('[data-tilt]').forEach(el => {
+        const s = get(el), r = el.getBoundingClientRect();
+        if (r.bottom < -50 || r.top > H + 50) return;
+        const max = parseFloat(el.dataset.tilt) || 6;
+        const px = (P.x - r.left) / r.width, py = (P.y - r.top) / r.height;
+        const inside = P.active && px >= 0 && px <= 1 && py >= 0 && py <= 1;
+        s.rx = lerp(s.rx, inside ? (0.5 - py) * max * 2 : 0, 0.09);
+        s.ry = lerp(s.ry, inside ? (px - 0.5) * max * 2 : 0, 0.09);
+        s.s = lerp(s.s, inside ? 1.02 : 1, 0.09);
+        el.style.transform = `perspective(1200px) rotateX(${s.rx.toFixed(3)}deg) rotateY(${s.ry.toFixed(3)}deg) scale(${s.s.toFixed(4)})`;
+        el.style.boxShadow = `${(-s.ry * 2.2).toFixed(1)}px ${(s.rx * 2.2 + 24).toFixed(1)}px 60px rgba(7,11,24,${(0.08 + Math.abs(s.rx + s.ry) * 0.012).toFixed(3)})`;
+        const g = el.querySelector(':scope > [data-glare]');
+        if (g) {
+          if (inside) { s.gx = px * 100; s.gy = py * 100; }
+          g.style.opacity = inside ? '1' : '0';
+          g.style.background = `radial-gradient(520px circle at ${s.gx}% ${s.gy}%, rgba(255,255,255,0.2), rgba(255,255,255,0) 55%)`;
+        }
+      });
+      root.querySelectorAll('[data-magnetic]').forEach(el => {
+        const s = get(el), r = el.getBoundingClientRect();
+        const dx = P.x - (r.left + r.width / 2), dy = P.y - (r.top + r.height / 2);
+        const near = P.active && Math.hypot(dx, dy) < Math.max(r.width, r.height) * 0.9;
+        s.tx = lerp(s.tx, near ? dx * 0.28 : 0, 0.14);
+        s.ty = lerp(s.ty, near ? dy * 0.38 : 0, 0.14);
+        el.style.transform = `translate3d(${s.tx.toFixed(2)}px,${s.ty.toFixed(2)}px,0)`;
+      });
+      root.querySelectorAll('[data-spot]').forEach(sp => {
+        const r = sp.parentNode.getBoundingClientRect();
+        const inside = P.active && P.y > r.top && P.y < r.bottom;
+        sp.style.opacity = inside ? '1' : '0';
+        if (inside) sp.style.background = `radial-gradient(700px circle at ${P.cx - r.left}px ${P.cy - r.top}px, rgba(232,163,61,0.13), rgba(62,99,221,0.06) 40%, rgba(0,0,0,0) 70%)`;
+      });
+    };
+    loop();
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('pointermove', this._onPointer);
+    document.removeEventListener('pointerleave', this._onLeave);
+    if (this._ring) this._ring.remove();
+    window.removeEventListener('keydown', this._onKey);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    if (this._io) this._io.disconnect();
+    if (this._lazyIO) this._lazyIO.disconnect();
+    if (this._cio) this._cio.disconnect();
+    if (this._curtain) this._curtain.remove();
+  }
+
+  _playVideos() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    if (!this._lazyIO && 'IntersectionObserver' in window) {
+      this._lazyIO = new IntersectionObserver((ents) => ents.forEach(en => {
+        const v = en.target;
+        if (en.isIntersecting && !this._lite()) { if (v.preload !== 'auto') v.preload = 'auto'; v.muted = true; v.play().catch(() => {}); }
+        else if (!v.paused) v.pause();
+      }), { rootMargin: '200px 0px' });
+    }
+    if (this._lazyIO) {
+      root.querySelectorAll('video[data-lazy]').forEach(v => { if (!v._obs) { v._obs = true; v.loop = true; this._lazyIO.observe(v); } });
+      return;
+    }
+    requestAnimationFrame(() => root.querySelectorAll('video:not([data-hero-vid])').forEach(v => { v.muted = true; v.playsInline = true; if (v.paused) v.play().catch(() => {}); }));
+  }
+
+  renderVals() {
+    const num = (a) => a.map((t, i) => ({ n: String(i + 1).padStart(2, '0'), ...(typeof t === 'string' ? { title: t } : t) }));
+    const heroMap = { truck: 'assets/hero-truck.mp4', vehicle: 'assets/truck-vehicle.mp4', people: 'assets/people.mp4' };
+    const active = this.state.active;
+    const svcTitles = [
+      'General haulage and trucking',
+      'Container haulage',
+      'Petroleum products haulage',
+      'Bulk and dry cargo',
+      'Heavy equipment (lowbed and flatbed)',
+      'Warehousing and storage',
+      'Freight forwarding and clearing',
+      'Interstate deliveries'
+    ];
+    const mediaDefs = [
+      { isVideo: true, src: 'assets/hero-truck.mp4', poster: 'assets/hero-truck-poster.jpg' },
+      { isImage: true, size: '198% auto', pos: '100% 0%' },
+      { isImage: true, size: '206% auto', pos: '0% 0%' },
+      { isVideo: true, src: 'assets/truck-vehicle.mp4', poster: 'assets/truck-vehicle-poster.jpg' },
+      { isImage: true, size: '210% auto', pos: '40% 100%' },
+      { isVideo: true, src: 'assets/people.mp4', poster: 'assets/people-poster.jpg' },
+      { isImage: true, size: '206% auto', pos: '0% 0%' },
+      { isVideo: true, src: 'assets/hero-truck.mp4', poster: 'assets/hero-truck-poster.jpg' }
+    ];
+    const marqueeBase = ['Integrity', 'Reliability', 'Safety', 'Professionalism', 'Customer Satisfaction', 'Excellence'];
+    const commit = 'We are committed to delivering more than goods; we deliver trust, reliability, and value.';
+    return {
+      rootRef: this.rootRef,
+      roles: [
+        { title: 'Truck drivers', text: 'Interstate and cross-border drivers for trucks from 5 to 30 tonnes, including tankers, flatbeds and lowbeds.' },
+        { title: 'Drivers\u2019 assistants', text: 'Support drivers on long routes with loading, securing cargo and paperwork.' },
+        { title: 'Fleet mechanics', text: 'Keep our 35 trucks safe and on the road with preventive maintenance and repairs.' },
+        { title: 'Operations and office', text: 'Dispatch, customer service, billing and logistics coordination at our Lagos office.' }
+      ],
+      applied: !!this.state.applied,
+      notApplied: !this.state.applied,
+      applicant: this.state.applicant || '',
+      submitApply: (e) => { e.preventDefault(); const n = String(new FormData(e.target).get('name') || '').split(' ')[0]; this.setState({ applied: true, applicant: n }); },
+      resetApply: () => this.setState({ applied: false }),
+      steps: [
+        { n: 1, title: 'Request a quote', text: 'Tell us the cargo, pickup and delivery points, and preferred date by form, phone or WhatsApp.' },
+        { n: 2, title: 'Confirm and book', text: 'We match the right truck from our 5–30 tonne fleet and confirm price and schedule.' },
+        { n: 3, title: 'Pickup and tracking', text: 'Your goods are loaded with care and you receive a GEA tracking code for the journey.' },
+        { n: 4, title: 'Delivery', text: 'Cargo arrives at destination and delivery is confirmed with you.' }
+      ],
+      faqs: [
+        { q: 'What kind of cargo do you move?', a: 'General goods, containers, petroleum products, bulk and dry cargo, and heavy equipment on lowbed and flatbed trucks. We also offer warehousing, storage, freight forwarding and clearing.' },
+        { q: 'Do you deliver outside Lagos?', a: 'Yes. We run interstate deliveries across Nigeria and cross-border haulage into West Africa.' },
+        { q: 'What truck sizes are available?', a: 'Our fleet of 35 trucks covers capacities from 5 tonnes to 30 tonnes, so we can match the truck to your load.' },
+        { q: 'How do I get a quote?', a: 'Fill in the quote form on this page, email sales@geahaulageandlogistics.com, call 0816 216 3235, or message us on WhatsApp with your cargo details and route.' },
+        { q: 'How do I track my shipment?', a: 'Enter the GEA tracking code you received at booking in the tracking bar at the top of this page. For help, email support@geahaulageandlogistics.com.' },
+        { q: 'Where is your office?', a: 'Plot 6, Block 48, Olueasanya Street, off AIT Road, Kola Alagbado, Ifako-Ijaye, Lagos.' }
+      ].map((x, i) => {
+        const open = this.state.openFaq === i;
+        return { ...x, open, rows: open ? '1fr' : '0fr', rot: open ? 'rotate(45deg)' : 'rotate(0deg)', toggle: () => this.setState({ openFaq: open ? null : i }) };
+      }),
+      loginOpen: !!this.state.loginOpen,
+      loginDone: this.state.loginStatus === 'done',
+      loginForm: this.state.loginStatus !== 'done',
+      loginBusy: this.state.loginStatus === 'loading',
+      loginLabel: this.state.loginStatus === 'loading' ? 'Signing in…' : 'Sign in',
+      loginOpacity: this.state.loginStatus === 'loading' ? 0.7 : 1,
+      loginError: this.state.loginError || '',
+      loginEmail: this.state.loginEmail || '',
+      openLogin: () => this.setState({ loginOpen: true, menuOpen: false, loginStatus: 'idle', loginError: '' }),
+      closeLogin: () => this.setState({ loginOpen: false }),
+      stop: (e) => e.stopPropagation(),
+      forgot: (e) => { e.preventDefault(); this.setState({ loginError: 'Contact your GEA administrator to reset your password.' }); },
+      submitLogin: (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const email = String(fd.get('email') || '').trim(), pw = String(fd.get('password') || '');
+        if (!/^\S+@\S+\.\S+$/.test(email)) return this.setState({ loginError: 'Enter a valid email address.' });
+        if (pw.length < 6) return this.setState({ loginError: 'Enter your password (at least 6 characters).' });
+        this.setState({ loginStatus: 'loading', loginError: '' });
+        setTimeout(() => this.setState({ loginStatus: 'done', loginEmail: email }), 1100);
+      },
+      footerLogo: this.state.theme === 'dark' ? 'assets/logo-white.png' : 'assets/logo-blue.png',
+      desktop: !this.state.mobile,
+      mobile: this.state.mobile,
+      menuOpen: this.state.menuOpen,
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      playIcon: this.state.paused ? '▶' : '❚❚',
+      playLabel: this.state.paused ? 'Play background video' : 'Pause background video',
+      togglePlay: () => {
+        const root = this.rootRef.current;
+        const vids = root ? Array.from(root.querySelectorAll('[data-hero-vid]')) : [];
+        const cur = vids.find(v => v.style.opacity === '1');
+        const paused = !this.state.paused;
+        if (cur) paused ? cur.pause() : cur.play().catch(() => {});
+        this.setState({ paused });
+      },
+      toggleTheme: () => this.setState(s => { const theme = s.theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('gea-theme', theme); } catch (e) {} return { theme }; }),
+      themeLabel: this.state.theme === 'dark' ? 'Light' : 'Dark',
+      themeDot: this.state.theme === 'dark' ? '#fff' : 'transparent',
+      onTrack: (e) => { e.preventDefault(); this._track(new FormData(e.target).get('code')); },
+      tryDemo: () => this._track('GEA-240173'),
+      clearTrack: () => this.setState({ track: null }),
+      trackFound: !!(this.state.track && this.state.track.found),
+      trackMissing: !!(this.state.track && !this.state.track.found),
+      trackCode: this.state.track ? this.state.track.code : '',
+      trackFrom: this.state.track?.from || '',
+      trackTo: this.state.track?.to || '',
+      trackStatus: this.state.track?.found ? this.state.track.labels[this.state.track.step] : '',
+      trackPct: this.state.track?.found ? (this.state.track.step / 4 * 100) + '%' : '0%',
+      trackSteps: this.state.track?.found ? this.state.track.labels.map((l, i) => {
+        const st = this.state.track.step, done = i <= st;
+        return { label: l, date: done ? this.state.track.dates[i] : 'Pending', dot: done ? 'var(--signal,#E8A33D)' : 'var(--line-strong,#bfc8e0)', ring: i === st ? '0 0 0 6px rgba(232,163,61,0.28)' : 'none', color: done ? 'var(--ink,#0d1d5c)' : 'var(--muted,#5d6789)' };
+      }) : [],
+      heroSrc: heroMap[this.props.heroVideo] || heroMap.truck,
+      marquee: [...marqueeBase, ...marqueeBase],
+      commitWords: commit.split(' '),
+      values: num([
+        { title: 'Integrity', text: 'We conduct our business with honesty, transparency, and accountability.' },
+        { title: 'Reliability', text: 'We strive to ensure that every delivery is handled with care and responsibility.' },
+        { title: 'Safety', text: 'We prioritize the safe handling and transportation of goods throughout every journey.' },
+        { title: 'Professionalism', text: 'We maintain high standards in our operations, communication, and customer relationships.' },
+        { title: 'Customer Satisfaction', text: "We are committed to understanding our customers' needs and providing services that meet their expectations." },
+        { title: 'Excellence', text: 'We continuously seek better ways to improve our services and deliver outstanding results.' }
+      ]),
+      services: num(svcTitles).map((s, i) => {
+        const on = i === active;
+        return { ...s, activate: () => this.state.active !== i && this.setState({ active: i }),
+          on: on, bg: on ? 'var(--surface,#F8F8F9)' : 'transparent', pad: on ? '24px' : '8px', color: on ? 'var(--ink,#0B1430)' : 'var(--muted,#666D80)',
+          dotBg: on ? 'var(--signal,#E8A33D)' : 'var(--line-strong,rgba(11,20,48,0.24))', rot: on ? 'scale(1.5)' : 'scale(1)' };
+      }),
+      media: mediaDefs.map((m, i) => ({ isVideo: false, isImage: false, ...m, opacity: i === active ? 1 : 0, scale: i === active ? 'scale(1)' : 'scale(1.08)' })),
+      activeTitle: svcTitles[active],
+      activeHref: 'Service.dc.html?s=' + ['general-haulage', 'container-haulage', 'petroleum-haulage', 'bulk-dry-cargo', 'heavy-equipment', 'warehousing', 'freight-forwarding', 'interstate-deliveries'][active],
+      activeN: String(active + 1).padStart(2, '0'),
+      reasons: num([
+        'Commitment to timely deliveries.',
+        'Careful handling and transportation of goods.',
+        'Professional customer service.',
+        'Dependable and flexible logistics solutions.',
+        'Strong business ethics and accountability.',
+        'A commitment to building long-term customer relationships.'
+      ]),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      name: this.state.name,
+      submit: (e) => {
+        e.preventDefault();
+        const n = new FormData(e.target).get('name') || '';
+        this.setState({ submitted: true, name: String(n).split(' ')[0] });
+      },
+      reset: () => this.setState({ submitted: false, name: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>
