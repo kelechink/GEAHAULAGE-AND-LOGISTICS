@@ -40,7 +40,9 @@ return [
     // AI assistant (PRD 12.1). Free tiers; keys stay on the server.
     'gemini' => [
         'key' => env('GEMINI_API_KEY'),
-        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
+        'model' => env('GEMINI_MODEL', 'gemini-3.5-flash'),
+        // Tried in order when the main model is overloaded or retired (same key, same free tier).
+        'fallback_models' => env('GEMINI_FALLBACK_MODELS', 'gemini-3.5-flash-lite,gemini-flash-latest'),
     ],
 
     'groq' => [

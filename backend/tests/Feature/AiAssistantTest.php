@@ -274,3 +274,27 @@ it('shows the chat bubble on public pages and the inbox to staff', function () {
     $this->actingAs($sales)->get('/admin/ask')->assertForbidden();
     $this->actingAs($this->userWithRole(Role::Management))->get('/admin/knowledge-items')->assertOk()->assertSee('Fleet and capacity');
 });
+
+it('tries the next Gemini model when one is overloaded or retired', function () {
+    config(['services.gemini.model' => 'model-a', 'services.gemini.fallback_models' => 'model-b,model-c']);
+    Http::fake([
+        '*models/model-a:generateContent' => Http::response(['error' => ['message' => 'high demand']], 503),
+        '*models/model-b:generateContent' => Http::response(['error' => ['message' => 'no longer available']], 404),
+        '*models/model-c:generateContent' => Http::response(geminiText('We have 35 trucks.')),
+    ]);
+
+    expect(chat('How many trucks?')['messages'][0]['body'])->toBe('We have 35 trucks.');
+    Http::assertSentCount(3);
+});
+
+it('sends Gemini thought signatures back with tool results', function () {
+    $s = Shipment::factory()->create(['stage' => 'in_transit', 'last_update_at' => now()]);
+    $call = geminiCall('track_shipment', ['code' => $s->tracking_code]);
+    $call['candidates'][0]['content']['parts'][0]['thoughtSignature'] = 'SIG-123';
+    Http::fake([GEMINI => Http::sequence()->push($call)->push(geminiText('In transit.'))]);
+
+    chat("Where is {$s->tracking_code}?");
+
+    $second = Http::recorded()[1][0]->data();
+    expect(data_get($second, 'contents.1.parts.0.thoughtSignature'))->toBe('SIG-123');
+});

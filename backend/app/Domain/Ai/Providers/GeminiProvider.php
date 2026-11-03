@@ -54,7 +54,9 @@ final class GeminiProvider implements AiProvider
             /** @var list<ToolCall> $calls */
             $calls = $m['tool_calls'] ?? [];
             foreach ($calls as $call) {
-                $parts[] = ['functionCall' => ['name' => $call->name, 'args' => (object) $call->arguments]];
+                // Gemini 3+ "thinking" models reject a tool result unless the call's thought signature comes back with it.
+                $parts[] = ['functionCall' => ['name' => $call->name, 'args' => (object) $call->arguments]]
+                    + ($call->signature !== null ? ['thoughtSignature' => $call->signature] : []);
             }
             $contents[] = ['role' => $role === 'assistant' ? 'model' : 'user', 'parts' => $parts];
         }
@@ -70,20 +72,37 @@ final class GeminiProvider implements AiProvider
             $body['tools'] = [['functionDeclarations' => array_map(fn (array $t): array => $t, $tools)]];
         }
 
-        $model = (string) config('services.gemini.model');
-        try {
-            $res = Http::timeout(25)->acceptJson()
-                ->withHeaders(['x-goog-api-key' => (string) config('services.gemini.key')])
-                ->post("https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent", $body);
-        } catch (ConnectionException $e) {
-            throw new AiUnavailable('Gemini unreachable: '.$e->getMessage());
-        }
+        // Free-tier models get overloaded (503) or retired for new keys (404); try the next model on the same key.
+        $models = array_values(array_unique(array_filter(array_merge(
+            [(string) config('services.gemini.model')],
+            array_map('trim', explode(',', (string) config('services.gemini.fallback_models'))),
+        ))));
+        $errors = [];
+        $res = null;
+        foreach ($models as $model) {
+            try {
+                $try = Http::timeout(25)->acceptJson()
+                    ->withHeaders(['x-goog-api-key' => (string) config('services.gemini.key')])
+                    ->post("https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent", $body);
+            } catch (ConnectionException $e) {
+                $errors[] = "{$model}: unreachable";
 
-        if ($res->status() === 429) {
-            throw new AiUnavailable('Gemini rate limit reached.', rateLimited: true);
+                continue;
+            }
+            if (in_array($try->status(), [404, 429, 500, 503], true)) {
+                $errors[] = "{$model}: ".$try->status();
+
+                continue;
+            }
+            $res = $try;
+            break;
+        }
+        if ($res === null) {
+            $limited = $errors !== [] && collect($errors)->every(fn (string $e): bool => str_ends_with($e, '429'));
+            throw new AiUnavailable('Gemini unavailable ('.implode(', ', $errors).')', rateLimited: $limited);
         }
         if ($res->failed()) {
-            throw new AiUnavailable('Gemini error '.$res->status());
+            throw new AiUnavailable('Gemini error '.$res->status().': '.mb_substr((string) $res->json('error.message', ''), 0, 200));
         }
 
         $text = '';
@@ -93,7 +112,8 @@ final class GeminiProvider implements AiProvider
                 $text .= (string) $part['text'];
             }
             if (isset($part['functionCall']['name'])) {
-                $calls[] = new ToolCall('g-'.Str::random(8), (string) $part['functionCall']['name'], (array) ($part['functionCall']['args'] ?? []));
+                $calls[] = new ToolCall('g-'.Str::random(8), (string) $part['functionCall']['name'], (array) ($part['functionCall']['args'] ?? []),
+                    isset($part['thoughtSignature']) ? (string) $part['thoughtSignature'] : null);
             }
         }
         if ($text === '' && $calls === []) {
