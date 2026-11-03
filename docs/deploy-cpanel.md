@@ -83,13 +83,16 @@ QUEUE_CONNECTION=database
 CACHE_STORE=database
 SESSION_DRIVER=database
 
+# Email through Brevo (better delivery than cPanel mail). The username is the
+# "SMTP login" on Brevo's SMTP & API page; the password is the SMTP key (xsmtpsib-...).
 MAIL_MAILER=smtp
-MAIL_HOST=mail.geahaulageandlogistics.com
-MAIL_PORT=465
-MAIL_SCHEME=smtps
-MAIL_USERNAME=info@geahaulageandlogistics.com
-MAIL_PASSWORD=...
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_SCHEME=smtp
+MAIL_USERNAME=xxxxxx@smtp-brevo.com
+MAIL_PASSWORD=xsmtpsib-...
 MAIL_FROM_ADDRESS=info@geahaulageandlogistics.com
+MAIL_FROM_NAME="GEA Haulage and Logistics"
 
 # Website assistant (free tiers). Without keys the chat still takes leads with a form.
 GEMINI_API_KEY=...
@@ -107,6 +110,14 @@ BACKUP_SFTP_PASSWORD=...
 ```
 
 Use `APP_URL=https://staging.geahaulageandlogistics.com` and a separate database for staging.
+
+**Brevo sender domain:** in Brevo, go to Senders, Domains & Dedicated IPs → Domains and add `geahaulageandlogistics.com`. Add the DKIM, Brevo code and DMARC records it shows in cPanel → Zone Editor, then click Authenticate. Until the domain is authenticated, mail from info@, sales@ and billing@ may be refused or land in spam. Send a test with:
+
+```bash
+php artisan tinker --execute 'Mail::raw("Test from the GEA platform", fn ($m) => $m->to("you@example.com")->subject("GEA mail test"));'
+```
+
+If the server can't connect on port 587, ask the host to allow outgoing SMTP, or try `MAIL_PORT=2525`.
 
 ## 6. Migrate, seed and cache
 
