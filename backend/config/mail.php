@@ -115,4 +115,7 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    // Optional: send invoices from billing@ once the whole domain is authenticated with the mail provider.
+    'billing_from' => env('MAIL_BILLING_FROM'),
+
 ];

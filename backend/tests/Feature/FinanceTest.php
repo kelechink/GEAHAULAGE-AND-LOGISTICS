@@ -30,6 +30,7 @@ use App\Models\Finance\Expense;
 use App\Models\Finance\Invoice;
 use App\Models\MaintenanceRecord;
 use App\Models\Truck;
+use App\Settings\WebsiteSettings;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
@@ -342,4 +343,15 @@ it('creates an invoice from the admin form with live-calculated totals', functio
         ->assertHasNoFormErrors();
 
     expect(Invoice::query()->sole()->total_kobo)->toBe(36_550_000);
+});
+
+it('sends invoices from the verified sender with replies to the billing mailbox', function () {
+    config(['mail.from.address' => 'info@geahaulageandlogistics.com', 'mail.billing_from' => null]);
+    $mail = new InvoiceMail(basicInvoice());
+
+    expect($mail->envelope()->from?->address)->toBe('info@geahaulageandlogistics.com')
+        ->and($mail->envelope()->replyTo[0]->address)->toBe(app(WebsiteSettings::class)->email_billing);
+
+    config(['mail.billing_from' => 'billing@geahaulageandlogistics.com']);
+    expect((new InvoiceMail(basicInvoice()))->envelope()->from?->address)->toBe('billing@geahaulageandlogistics.com');
 });
