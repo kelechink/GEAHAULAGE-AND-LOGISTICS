@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\Finance\Invoice;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -40,5 +41,9 @@ class DatabaseSeeder extends Seeder
         )->syncRoles([Role::Sales->value]);
 
         $this->call([DemoCrmSeeder::class, DemoOperationsSeeder::class, DemoFinanceSeeder::class]);
+
+        // The demo portal user sees the customer with the most invoices.
+        $customerId = Invoice::query()->selectRaw('customer_id, count(*) as n')->groupBy('customer_id')->orderByDesc('n')->value('customer_id');
+        User::query()->where('email', 'customer@example.test')->update(['customer_id' => $customerId]);
     }
 }

@@ -7,7 +7,7 @@ You book shipments, assign trucks and drivers, keep tracking up to date and look
 1. **Operations → Shipments → New shipment.** Choose the customer, describe the cargo, enter tonnage, origin, destination and pickup date. Towns are found on the map automatically.
 2. Save. The shipment gets a tracking code like `GEA-2611-AB3CD`.
 3. Open the shipment and click **Assign truck**. Only available trucks big enough for the load are listed. The truck's usual driver is filled in.
-4. Use the **WhatsApp** button to send the customer their tracking link.
+4. The customer is emailed the booking details and tracking link automatically (if their customer record has an email). Use **Email tracking link** to send it again, or **WhatsApp tracking link**.
 
 ## Keep tracking up to date
 
@@ -18,6 +18,10 @@ Trips are updated three ways, and the customer's tracking page shows the newest:
 - **Tracker companies:** if set up under Settings → Integrations, positions arrive automatically.
 
 The **Dispatch board** shows every trip by stage. The **Live map** shows where active trucks are.
+
+## Proof of delivery
+
+On the shipment page, **Proof of delivery** shows who received the goods, with links to the photo, signature or scanned waybill. The links work for 30 minutes; reload the page for fresh ones. The customer's delivery email includes the same proof, with links that work for 14 days.
 
 ## Stages
 

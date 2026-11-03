@@ -48,6 +48,17 @@ class ViewShipment extends ViewRecord
                         Notification::make()->title($e->getMessage())->danger()->send();
                     }
                 }),
+            Actions\Action::make('emailLink')
+                ->label('Email tracking link')
+                ->icon('heroicon-o-envelope')
+                ->color('gray')
+                ->visible(fn (): bool => filled($shipment->customer->email))
+                ->requiresConfirmation()
+                ->modalDescription(fn (): string => 'Send the booking details and tracking link to '.$shipment->customer->email.'?')
+                ->action(function () use ($shipment): void {
+                    app(ShipmentService::class)->emailTrackingLink($shipment);
+                    Notification::make()->success()->title('Tracking link emailed to '.$shipment->customer->email.'.')->send();
+                }),
             Actions\Action::make('whatsapp')
                 ->label('WhatsApp tracking link')
                 ->icon('heroicon-o-chat-bubble-left-right')

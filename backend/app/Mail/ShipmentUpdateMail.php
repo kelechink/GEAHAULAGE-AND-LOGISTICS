@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Domain\Documents\DocumentLinks;
+use App\Enums\ShipmentStage;
 use App\Models\Shipment;
 use App\Models\ShipmentEvent;
 use App\Support\Senders;
@@ -28,6 +30,16 @@ class ShipmentUpdateMail extends Mailable implements ShouldQueue
 
     public function content(): Content
     {
-        return new Content(markdown: 'mail.shipment-update', with: ['url' => route('track.show', $this->shipment->tracking_code)]);
+        // Delivered: include the proof of delivery (photo, signature or signed waybill) as expiring links.
+        $proofs = $this->event->to_stage === ShipmentStage::Delivered
+            ? $this->shipment->proofs()->latest()->first()
+            : null;
+
+        return new Content(markdown: 'mail.shipment-update', with: [
+            'url' => route('track.show', $this->shipment->tracking_code),
+            'proofLinks' => $proofs !== null ? DocumentLinks::proofLinks($proofs) : [],
+            'receiver' => $proofs?->receiver_name,
+            'days' => DocumentLinks::PROOF_DAYS,
+        ]);
     }
 }

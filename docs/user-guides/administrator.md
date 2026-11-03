@@ -17,6 +17,10 @@ Everyone who uses `/admin` must set up two-factor sign-in with an authenticator 
 
 Large imports can also run over SSH: `php artisan gea:import trucks trucks.xlsx` checks, `--commit` saves.
 
+## Customer portal accounts
+
+Customers sign in at `/portal` (not `/admin`). Staff invite them from **CRM → Customers → Invite to portal**; switch a portal user off under **Users and roles** (Active). Portal users have the Customer role and can only see their own customer's records.
+
 ## Website and assistant content
 
 **Content** holds the website copy, services, FAQs and careers. **Assistant → Knowledge** is what the chat may say; it is seeded from the website and must be kept in step when services change.

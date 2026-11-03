@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Domain\Documents\DocumentLinks;
 use App\Domain\Shipping\ShipmentService;
 use App\Domain\Shipping\ShippingException;
 use App\Domain\Tracking\ManualUpdate;
@@ -14,6 +15,7 @@ use App\Filament\Resources\ShipmentResource\Pages;
 use App\Filament\Resources\ShipmentResource\RelationManagers;
 use App\Models\Driver;
 use App\Models\Place;
+use App\Models\ProofOfDelivery;
 use App\Models\Shipment;
 use App\Models\Truck;
 use Filament\Forms;
@@ -226,6 +228,11 @@ class ShipmentResource extends Resource
                     Infolists\Components\TextEntry::make('receiver_name')->label('Received by'),
                     Infolists\Components\TextEntry::make('source'),
                     Infolists\Components\TextEntry::make('created_at')->label('When')->dateTime('D j M, g:ia', 'Africa/Lagos'),
+                    // Short-lived signed links so staff can open the photo, signature or scanned waybill.
+                    Infolists\Components\TextEntry::make('files')->label('Files')->columnSpanFull()->html()
+                        ->state(fn (ProofOfDelivery $record): string => collect(DocumentLinks::proofLinks($record, 30))
+                            ->map(fn (string $url, string $label): string => '<a class="text-primary-600 underline" target="_blank" rel="noopener" href="'.e($url).'">'.e($label).'</a>')
+                            ->implode(' · ') ?: 'No files'),
                 ]),
             ]),
         ]);

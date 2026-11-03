@@ -18,6 +18,7 @@
             @include('site.partials.field', ['prefix' => 'q', 'name' => 'to', 'label' => 'Delivery location', 'required' => true, 'placeholder' => 'e.g. Kano'])
             @include('site.partials.field', ['prefix' => 'q', 'name' => 'service', 'label' => 'Service', 'type' => 'select', 'full' => true, 'options' => $services->pluck('title')->all(), 'value' => $selectedService ?? '', 'placeholderOption' => 'Choose a service'])
             @include('site.partials.field', ['prefix' => 'q', 'name' => 'details', 'label' => 'Cargo details', 'type' => 'textarea', 'full' => true, 'placeholder' => 'Type of goods, weight or volume, preferred date'])
+            <label class="portal-check full"><input type="checkbox" name="consent_marketing" value="1" @checked(old('consent_marketing'))> Send me occasional news and offers from GEA (optional)</label>
             <button class="btn btn-signal full" type="submit" style="min-height:58px;font-size:17px">Send quote request</button>
             <p class="fine full">We use your details only to respond to this request. See our <a href="{{ route('privacy') }}" style="text-decoration:underline">privacy policy</a>.</p>
         </form>

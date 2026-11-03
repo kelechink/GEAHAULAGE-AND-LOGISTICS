@@ -6,10 +6,13 @@ namespace App\Models;
 
 use App\Models\Crm\Company;
 use App\Models\Crm\Contact;
+use App\Models\Finance\Invoice;
+use App\Models\Finance\Quote;
 use Database\Factories\CustomerFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -41,6 +44,24 @@ class Customer extends Model
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
+    }
+
+    /** @return HasMany<Shipment, $this> */
+    public function shipments(): HasMany
+    {
+        return $this->hasMany(Shipment::class);
+    }
+
+    /** @return HasMany<Invoice, $this> */
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /** @return HasMany<Quote, $this> */
+    public function quotes(): HasMany
+    {
+        return $this->hasMany(Quote::class);
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -11,6 +11,7 @@ use App\Enums\ShipmentStage;
 use App\Enums\TrackingSource;
 use App\Enums\TruckStatus;
 use App\Events\ShipmentStageChanged;
+use App\Mail\ShipmentBookedMail;
 use App\Models\Driver;
 use App\Models\Shipment;
 use App\Models\ShipmentEvent;
@@ -18,6 +19,7 @@ use App\Models\Truck;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Creates shipments, assigns trucks and drivers, and runs the stage machine (PRD 8.2, 10.1).
@@ -29,9 +31,9 @@ final class ShipmentService
     /**
      * @param  array<string, mixed>  $data
      */
-    public function create(array $data, ?User $by = null): Shipment
+    public function create(array $data, ?User $by = null, bool $notifyCustomer = true): Shipment
     {
-        return DB::transaction(function () use ($data, $by): Shipment {
+        $shipment = DB::transaction(function () use ($data, $by): Shipment {
             foreach (['origin', 'destination'] as $end) {
                 if (empty($data["{$end}_lat"]) && filled($data[$end] ?? null)) {
                     $hit = $this->geocoder->find((string) $data[$end]);
@@ -55,6 +57,24 @@ final class ShipmentService
 
             return $shipment->refresh();
         });
+
+        // PRD 11: the customer gets the tracking link by email as soon as the shipment is booked.
+        if ($notifyCustomer) {
+            $this->emailTrackingLink($shipment);
+        }
+
+        return $shipment;
+    }
+
+    public function emailTrackingLink(Shipment $shipment): bool
+    {
+        $email = $shipment->customer->email;
+        if (blank($email)) {
+            return false;
+        }
+        Mail::to((string) $email)->queue(new ShipmentBookedMail($shipment));
+
+        return true;
     }
 
     /**

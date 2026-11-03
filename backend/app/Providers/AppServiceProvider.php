@@ -12,10 +12,13 @@ use App\Models\MaintenanceRecord;
 use App\Models\User;
 use App\Observers\MaintenanceRecordObserver;
 use App\Policies\ActivityPolicy;
+use App\Support\Senders;
 use App\View\Composers\SiteComposer;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
@@ -43,6 +46,15 @@ class AppServiceProvider extends ServiceProvider
         MaintenanceRecord::observe(MaintenanceRecordObserver::class);
 
         View::composer('site.*', SiteComposer::class);
+
+        // Customer portal password links (invite and "forgot password"), sent from the support mailbox.
+        ResetPassword::createUrlUsing(fn (User $user, string $token): string => route('portal.password.reset', ['token' => $token, 'email' => $user->email]));
+        ResetPassword::toMailUsing(fn (User $user, string $token) => (new MailMessage)
+            ->from(Senders::from('support', 'Support')->address, Senders::from('support', 'Support')->name)
+            ->subject('Choose a new password for the GEA customer portal')
+            ->line('We received a request to reset the password for your GEA customer portal account.')
+            ->action('Choose a new password', route('portal.password.reset', ['token' => $token, 'email' => $user->email]))
+            ->line('This link works for 60 minutes. If you did not ask for this, you can ignore this email.'));
 
         // Website forms: no paid captcha, so a honeypot plus a per-IP limit (PRD 7).
         RateLimiter::for('forms', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip()));

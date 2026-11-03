@@ -99,7 +99,7 @@ class DemoOperationsSeeder extends Seeder
                 'destination' => $d->label(), 'destination_lat' => $d->lat, 'destination_lng' => $d->lng,
                 'pickup_date' => now()->subDays(max(0, 20 - $i))->toDateString(),
                 'waybill_number' => 'WB-'.(52000 + $i),
-            ], $ops);
+            ], $ops, notifyCustomer: false);
 
             if ($target === ShipmentStage::Booked) {
                 continue;

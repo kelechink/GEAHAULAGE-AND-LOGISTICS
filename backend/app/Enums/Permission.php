@@ -16,6 +16,7 @@ enum Permission: string
     case IntegrationsManage = 'integrations.manage';
     case AuditView = 'audit.view';
     case ContentManage = 'content.manage';
+    case PrivacyManage = 'privacy.manage';
 
     // CRM (Phase 2)
     case CrmView = 'crm.view';

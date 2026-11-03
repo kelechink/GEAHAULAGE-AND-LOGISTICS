@@ -12,7 +12,8 @@
             <a class="link" href="{{ route('track') }}">Track shipment</a>
             <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch between light and dark mode"><span class="theme-dot" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
             <a class="btn btn-signal" href="{{ $home ? '#quote' : route('quote') }}">Request a quote</a>
-            <a class="login-link" href="{{ url('/admin/login') }}">Staff login</a>
+            <a class="login-link" href="{{ route('portal.login') }}">Customer login</a>
+            <a class="login-link" href="{{ url('/admin/login') }}">Staff</a>
             <button class="menu-btn" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu">Menu</button>
         </nav>
     </div>
@@ -34,5 +35,6 @@
         <a class="quote" href="{{ $home ? '#quote' : route('quote') }}">Request a quote</a>
     </nav>
     <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch between light and dark mode"><span class="theme-dot" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
-    <a class="login-link" style="opacity:.6;margin-top:10px" href="{{ url('/admin/login') }}">Staff login</a>
+    <a class="login-link" style="margin-top:10px" href="{{ route('portal.login') }}">Customer login</a>
+    <a class="login-link" style="opacity:.6" href="{{ url('/admin/login') }}">Staff login</a>
 </div>

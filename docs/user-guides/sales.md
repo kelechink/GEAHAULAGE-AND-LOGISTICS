@@ -19,6 +19,12 @@ Leads arrive from the website quote form, the website chat, and staff quick-add.
 
 **Finance → Quotes and proformas → New.** Add lines and VAT is worked out. Download the PDF or Word file and send it to the customer, then click **Mark sent**: the lead moves to Quoted with the quote's value. When the customer agrees, click **Turn into invoice**.
 
+## Customer portal
+
+On **CRM → Customers**, **Invite to portal** emails a customer contact a link to set a password. In the portal they see their shipments, proof of delivery, invoices and quotes. Send them `docs/user-guides/customers.md`.
+
+The quote form on the website has an optional, unticked box for news and offers. Only contacts who ticked it (Contacts → **Agreed to marketing**) may get marketing messages.
+
 ## Website chats
 
 The website assistant answers visitors from GEA's knowledge, tracks shipments, takes quote requests and books call-backs. It passes chats to a person for complaints, damage or loss, payments, disputes, or when asked.

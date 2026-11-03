@@ -19,6 +19,7 @@ After that, each time you sign in you type the current code from the app. Lost y
 | [Sales](sales.md) | Sales and customer service |
 | [Finance](finance.md) | Accounts |
 | [Drivers](drivers.md) | Drivers with the GEA Driver app |
+| [Customers](customers.md) | GEA customers using the customer portal |
 | [Administrator](administrator.md) | FigureWeb (Super Admin) |
 
 Word versions are in `docs/word/`. Rebuild them after editing with `docs/build-word.sh`.

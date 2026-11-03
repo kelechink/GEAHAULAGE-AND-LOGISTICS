@@ -20,8 +20,9 @@ class QuoteController extends Controller
 
     public function store(QuoteRequest $request, LeadCaptureService $leads): RedirectResponse
     {
-        /** @var array{name: string, phone: string, email?: string|null, company?: string|null, service?: string|null, from?: string|null, to?: string|null, details?: string|null} $data */
+        /** @var array{name: string, phone: string, email?: string|null, company?: string|null, service?: string|null, from?: string|null, to?: string|null, details?: string|null, consent_marketing?: bool} $data */
         $data = $request->safe()->except('website');
+        $data['consent_marketing'] = $request->boolean('consent_marketing');
         $leads->captureQuoteRequest($data);
 
         return redirect()

@@ -27,7 +27,7 @@ final class LeadCaptureService
     ) {}
 
     /**
-     * @param  array{name: string, phone: string, email?: string|null, company?: string|null, service?: string|null, from?: string|null, to?: string|null, details?: string|null}  $data
+     * @param  array{name: string, phone: string, email?: string|null, company?: string|null, service?: string|null, from?: string|null, to?: string|null, details?: string|null, consent_marketing?: bool}  $data
      */
     public function captureQuoteRequest(array $data, LeadSource $source = LeadSource::WebsiteForm): Lead
     {
@@ -37,6 +37,9 @@ final class LeadCaptureService
                 : null;
 
             $contact = $this->findOrCreateContact($data, $source, $company);
+            if (($data['consent_marketing'] ?? false) === true) {
+                $contact->forceFill(['consent_marketing' => true])->save(); // opt-in only; never switched off here
+            }
 
             $owner = $this->assigner->next();
 

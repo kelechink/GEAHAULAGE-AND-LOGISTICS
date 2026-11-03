@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Domain\Documents\DocumentLinks;
 use App\Domain\Finance\AmountInWords;
 use App\Domain\Finance\Documents\DocumentRenderer;
 use App\Domain\Finance\FinanceException;
@@ -23,6 +24,7 @@ use App\Support\Money;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
@@ -206,7 +208,7 @@ class InvoiceResource extends Resource
                     MoneyInput::make('wht_kobo', 'WHT deducted by customer')->default('0'),
                     Forms\Components\Select::make('method')->options(PaymentMethod::options())->default('bank_transfer')->required(),
                     Forms\Components\DatePicker::make('received_on')->default(now())->required(),
-                    Forms\Components\TextInput::make('reference')->maxLength(80),
+                    TextInput::make('reference')->maxLength(80),
                 ])
                 ->action($notify(function (array $data) use ($invoice): void {
                     app(PaymentService::class)->record($invoice->customer, (int) $data['amount_kobo'], PaymentMethod::from($data['method']),
@@ -215,11 +217,11 @@ class InvoiceResource extends Resource
                 }, 'Payment recorded')),
             Action::make('credit')->label('Credit note')->icon('heroicon-o-receipt-refund')->color('gray')
                 ->visible(fn (): bool => ! in_array($invoice->status, [InvoiceStatus::Draft, InvoiceStatus::Void], true) && self::userCan('manage'))
-                ->form([MoneyInput::make('amount_kobo', 'Amount')->required(), Forms\Components\TextInput::make('reason')->required()->maxLength(255)])
+                ->form([MoneyInput::make('amount_kobo', 'Amount')->required(), TextInput::make('reason')->required()->maxLength(255)])
                 ->action($notify(fn (array $data) => app(InvoiceService::class)->creditNote($invoice, (int) $data['amount_kobo'], $data['reason'], auth()->user()), 'Credit note raised')),
             Action::make('void')->label('Void')->icon('heroicon-o-no-symbol')->color('danger')
                 ->visible(fn (): bool => $invoice->status !== InvoiceStatus::Void && self::userCan('void'))
-                ->form([Forms\Components\TextInput::make('reason')->label('Why is it being voided?')->required()->maxLength(255)])
+                ->form([TextInput::make('reason')->label('Why is it being voided?')->required()->maxLength(255)])
                 ->action($notify(fn (array $data) => app(InvoiceService::class)->void($invoice, $data['reason'], auth()->user()), 'Invoice voided')),
             ActionGroup::make([
                 Action::make('pdf')->label('Download PDF')->icon('heroicon-o-document-arrow-down')
@@ -227,6 +229,12 @@ class InvoiceResource extends Resource
                 Action::make('docx')->label('Download Word')->icon('heroicon-o-document-arrow-down')
                     ->action(fn () => response()->streamDownload(fn () => print ($renderer->docx($invoice)), $renderer->filename($invoice, 'docx'),
                         ['Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])),
+                Action::make('link')->label('Customer link (30 days)')->icon('heroicon-o-link')
+                    ->visible(fn (): bool => $invoice->status !== InvoiceStatus::Draft)
+                    ->modalHeading('Link to this invoice')
+                    ->modalDescription('Anyone with this link can open the PDF for 30 days. Paste it into WhatsApp or an email.')
+                    ->modalSubmitAction(false)->modalCancelActionLabel('Close')
+                    ->form([TextInput::make('url')->label('Link')->default(fn (): string => DocumentLinks::invoice($invoice))->readOnly()->extraInputAttributes(['onclick' => 'this.select()'])]),
                 Action::make('email')->label('Email to customer')->icon('heroicon-o-envelope')
                     ->visible(fn (): bool => $invoice->status !== InvoiceStatus::Draft && filled($invoice->customer->email) && self::userCan('manage'))
                     ->requiresConfirmation()

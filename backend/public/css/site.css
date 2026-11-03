@@ -408,3 +408,28 @@ h1, h2, h3, p { margin: 0; }
 @keyframes ai-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .ai-teaser, .ai-panel { animation: none; } }
 @media (max-width: 520px) { .gea-ai.is-open { right: 14px; left: 14px; } .ai-panel { width: 100%; } }
+
+/* Customer portal */
+.portal-narrow { max-width: 560px; display: flex; flex-direction: column; gap: 22px; }
+.portal { display: flex; flex-direction: column; gap: 22px; }
+.portal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; color: var(--body); }
+.portal-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.portal-actions a:not(.btn) { color: var(--accent); text-decoration: underline; }
+.portal-check { display: flex; gap: 10px; align-items: center; font-size: 15px; color: var(--body); }
+.portal-muted { color: var(--muted); font-size: 15px; }
+.portal-muted a { color: var(--accent); text-decoration: underline; }
+.portal-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px; }
+.portal-tile { padding: 20px; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--signal); display: flex; flex-direction: column; gap: 6px; }
+.portal-tile span { font-size: 14px; color: var(--muted); }
+.portal-tile strong { font-family: var(--display); font-size: 34px; color: var(--ink); }
+.portal-h { font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; color: var(--ink); margin-top: 18px; }
+.portal-card { display: grid; grid-template-columns: 2fr 1.4fr auto; gap: 14px; align-items: center; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); }
+.portal-card > div { display: flex; flex-direction: column; gap: 4px; color: var(--ink); }
+.portal-card a:not(.btn) { color: var(--accent); text-decoration: underline; }
+.portal-stage { font-weight: 700; }
+.portal-table { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+.portal-table table { width: 100%; border-collapse: collapse; font-size: 15px; color: var(--ink); }
+.portal-table th, .portal-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.portal-table th { font-size: 13px; color: var(--muted); font-weight: 600; }
+.portal-table a { color: var(--accent); text-decoration: underline; }
+@media (max-width: 700px) { .portal-card { grid-template-columns: 1fr; } }

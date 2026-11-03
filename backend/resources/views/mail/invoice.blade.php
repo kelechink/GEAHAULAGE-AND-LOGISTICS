@@ -15,9 +15,13 @@ Invoice **{{ $invoice->displayNumber() }}** was due on {{ $invoice->due_date?->f
 Please find attached invoice **{{ $invoice->displayNumber() }}** for **{{ $total }}**, due on {{ $invoice->due_date?->format('j F Y') }}.
 @endswitch
 
+<x-mail::button :url="$link">View or download the invoice</x-mail::button>
+
+The PDF is also attached. The link works for {{ $days }} days.
+
 Please use the invoice number as the payment reference. If you have already paid, thank you, and please send us the payment details so we can match it.
 
-Questions? Reply to this email or call 0816 216 3235.
+Questions? Reply to this email or call {{ $phone }}.
 
 GEA Haulage and Logistics
 </x-mail::message>

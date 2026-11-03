@@ -25,6 +25,8 @@ class QuoteRequest extends FormRequest
             'to' => ['required', 'string', 'max:160'],
             'service' => ['nullable', 'string', 'max:160'],
             'details' => ['nullable', 'string', 'max:2000'],
+            // NDPA 2023: marketing only with a clear opt-in (unticked by default).
+            'consent_marketing' => ['nullable', 'boolean'],
             // Honeypot: real visitors never see or fill this field.
             'website' => ['prohibited'],
         ];

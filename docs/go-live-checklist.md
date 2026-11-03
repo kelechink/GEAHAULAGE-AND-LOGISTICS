@@ -9,8 +9,9 @@ Work through this with GEA before switching the domain to the new platform (PRD 
 - [ ] Logo files in `backend/public/assets/img/` checked by GEA (final versions)
 - [ ] Services, FAQs and open career roles checked by GEA
 - [ ] Cross-border coverage confirmed or left hidden (`show_cross_border`)
-- [ ] Privacy policy and terms reviewed by GEA's lawyer (they mention the AI chat)
-- [ ] Stock video licences confirmed for commercial use, or replaced with GEA footage
+- [x] Privacy policy reviewed and approved by GEA's lawyer (3 Nov 2026)
+- [ ] Terms of service reviewed by GEA's lawyer
+- [x] Video and image licences confirmed for commercial use (3 Nov 2026)
 - [ ] **Assistant → Knowledge:** office hours added to "Contact details and office hours"; every item read by GEA
 
 ## 2. Real data (Settings → Import data)
@@ -30,10 +31,13 @@ Download each template, fill it in, click **Check file**, fix any rows, then **I
 - [ ] `TWO_FACTOR_ENFORCED=true`; every staff member has set up two-factor (Users and roles → **2FA** column) and stored their recovery codes
 - [ ] Each driver with a smartphone has an app PIN (**Fleet → Drivers → Set app PIN**) and the APK installed
 - [ ] Every role has had its training session using the guides in `docs/user-guides/`
+- [ ] Key customers invited to the customer portal (Customers → **Invite to portal**) and sent `docs/user-guides/customers.md`
+- [ ] Management knows how to answer data requests (Settings → **Data requests**) within 30 days
 
 ## 4. Email, AI and integrations
 
-- [ ] Mail sends from the GEA mailboxes (quote received, new lead, invoice, tracking updates). Check spam folders.
+- [ ] Brevo: info@, sales@, support@, billing@ and logistic@ verified as senders, or the domain authenticated (until then `MAIL_PER_MAILBOX_SENDERS=false`)
+- [ ] Mail sends from the GEA mailboxes (booking confirmation, quote received, new lead, invoice with download link, tracking updates, portal invitation). Check spam folders.
 - [ ] Gemini and Groq keys set; a test chat answers; Assistant → Conversations shows usage
 - [ ] Tracker connectors configured in **Settings → Integrations**, if GEA uses any
 - [ ] FIRS e-invoicing: switched on only once GEA's credentials and compliance date are confirmed

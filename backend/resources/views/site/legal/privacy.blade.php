@@ -3,7 +3,7 @@
 @section('page_header', '1')
 
 @section('content')
-{{-- Drafted from PRD 16 (Nigeria Data Protection Act 2023). GEA must review before go-live. --}}
+{{-- Based on PRD 16 (Nigeria Data Protection Act 2023). Reviewed and approved by GEA's lawyer. Change the wording only with legal sign-off. --}}
 @include('site.partials.page-head', ['crumb' => 'Privacy policy', 'heading' => 'Privacy policy', 'intro' => 'How GEA Haulage and Logistics collects and uses your personal data.'])
 <section class="sec" id="privacy">
     <div class="wrap">

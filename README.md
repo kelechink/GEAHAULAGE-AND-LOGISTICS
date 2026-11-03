@@ -19,12 +19,14 @@ This repo holds the GEA Logistics Platform (`PRD.md`), built by FigureWeb. See `
 6. **Finance:** quotes, invoices in kobo with gap-free numbering, five PDF templates plus Word, payments with WHT, credit notes, expenses, reports, FIRS e-invoice readiness.
 7. **AI assistant:** website chat (Gemini, Groq fallback) grounded in GEA's knowledge, lead capture, tracking, human takeover; 7am digest; rule-based alerts; "Ask the system" for Management.
 8. **Go-live:** CSV/Excel import of customers, trucks, drivers and routes; nightly backups with off-server copy; `/health` for UptimeRobot; error emails; go-live checklist and user guides.
+9. **Security and data protection:** two-factor sign-in for staff; signed, expiring links for invoices and proof of delivery; data export and erasure requests (NDPA 2023); marketing consent opt-in.
+10. **Customer portal:** invited customers follow shipments, see proof of delivery and download invoices and quotes. Customers also get a booking email with their tracking link.
 
 The admin dashboard shows income, expenditure, quote requests, trips and alerts in colour charts for each role.
 
 ## Still needed from GEA
 
-Confirmation of cross-border coverage, office hours for the assistant, proof of credentials beyond CAC registration, client logos with permission, legal review of the privacy policy and terms, licence confirmation (or replacement) for the stock videos, AI and mail credentials, and the real customer, truck, driver and route lists for import. `docs/go-live-checklist.md` tracks all of it.
+The privacy policy is approved and media licences are cleared. Still open: confirmation of cross-border coverage, office hours for the assistant, proof of credentials beyond CAC registration, client logos with permission, legal review of the terms of service, the Brevo SMTP login and sender verification, a Groq key (optional), and the real customer, truck, driver and route lists for import. `docs/go-live-checklist.md` tracks all of it.
 
 ## Earlier static site
 
@@ -37,7 +39,7 @@ Target domain: geahaulageandlogistics.com
 - `styles.css`: styles (colour and type tokens at the top)
 - `script.js`: quote form, which opens WhatsApp (0816 216 3235) with the request already written; plays the videos only while on screen
 - `assets/img/gea-truck.*`: GEA-branded truck cropped from the brand mockup (a mockup, not a photo of the real fleet)
-- `assets/video/`: two muted, compressed clips with poster images (about 1.4 MB in total). They are stock footage, so replace them with GEA's own footage when it's available. They don't play for visitors with reduced motion or data saver turned on.
+- `assets/video/`: two muted, compressed clips with poster images (about 1.4 MB in total), licensed for commercial use. They don't play for visitors with reduced motion or data saver turned on.
 
 No build step. Open `index.html` in a browser, or upload the files and the `assets` folder to any static host.
 

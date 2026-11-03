@@ -99,3 +99,15 @@ it('limits each visitor to 5 form submissions a minute', function () {
 
     $this->post('/quote', quotePayload())->assertStatus(429);
 });
+
+it('records marketing consent only when the visitor ticks the box', function () {
+    Mail::fake();
+    $base = ['name' => 'Bola', 'phone' => '0803 555 1212', 'from' => 'Apapa', 'to' => 'Kano'];
+    $this->post('/quote', $base)->assertRedirect();
+    expect(Contact::query()->sole()->consent_marketing)->toBeFalse();
+
+    $this->post('/quote', $base + ['consent_marketing' => '1'])->assertRedirect();
+    expect(Contact::query()->sole()->consent_marketing)->toBeTrue();
+    $this->flushSession();
+    $this->get('/quote')->assertSee('Send me occasional news and offers');
+});

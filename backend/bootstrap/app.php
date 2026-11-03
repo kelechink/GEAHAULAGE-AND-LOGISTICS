@@ -16,7 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Guests asking for a portal page sign in to the portal; signed-in customers skip the sign-in page.
+        $middleware->redirectGuestsTo(fn (): string => route('portal.login'));
+        $middleware->redirectUsersTo(fn (): string => route('portal.home'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // The API (driver app, tracking poll, webhooks) always answers in JSON, including 401s.

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Domain\Documents\DocumentLinks;
 use App\Domain\Finance\Documents\DocumentRenderer;
 use App\Models\Finance\Invoice;
+use App\Settings\CompanySettings;
 use App\Support\Money;
 use App\Support\Senders;
 use Illuminate\Bus\Queueable;
@@ -45,6 +47,9 @@ class InvoiceMail extends Mailable implements ShouldQueue
         return new Content(markdown: 'mail.invoice', with: [
             'balance' => Money::kobo($this->invoice->balance_kobo)->format(),
             'total' => Money::kobo($this->invoice->total_kobo)->format(),
+            'link' => DocumentLinks::invoice($this->invoice),
+            'days' => DocumentLinks::INVOICE_DAYS,
+            'phone' => app(CompanySettings::class)->phone,
         ]);
     }
 

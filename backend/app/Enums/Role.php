@@ -60,6 +60,7 @@ enum Role: string
                 Permission::AuditView,
                 Permission::AiInbox,
                 Permission::AiManage,
+                Permission::PrivacyManage,
             ],
             self::Operations => [
                 Permission::DashboardView,
