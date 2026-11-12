@@ -28,7 +28,8 @@ class EnsureCustomer
                 return redirect()->route('portal.login')->withErrors(['email' => 'Your portal access is switched off. Contact GEA.']);
             }
 
-            return redirect('/admin'); // staff are sent to the back office
+            // Staff signed in to the back office in this browser see the portal sign-in page, not the admin dashboard.
+            return redirect()->route('portal.login');
         }
 
         return $next($request);

@@ -80,7 +80,7 @@ it('shows a customer only their own shipments and invoices', function () {
 
 it('keeps guests, staff and switched-off customers out', function () {
     $this->get('/portal')->assertRedirect('/portal/login');
-    $this->actingAs($this->userWithRole(Role::Operations))->get('/portal')->assertRedirect('/admin');
+    $this->actingAs($this->userWithRole(Role::Operations))->get('/portal')->assertRedirect('/portal/login');
     auth()->logout();
 
     [, $user] = portalCustomer('off@example.ng');
@@ -105,4 +105,27 @@ it('sends portal password resets only to customer accounts', function () {
 it('links the portal from the website header', function () {
     $this->get('/')->assertOk()->assertSee(route('portal.login'), false);
     $this->get('/portal/login')->assertOk()->assertSee('Customer portal');
+});
+
+it('shows the portal sign-in page to staff signed in to the back office, instead of the admin dashboard', function () {
+    $this->actingAs($this->userWithRole(Role::Operations, ['name' => 'Ike Ops']))
+        ->get('/portal/login')->assertOk()->assertSee('signed in to the staff back office as Ike Ops');
+});
+
+it('sends a signed-in customer from the sign-in page to their portal', function () {
+    [, $user] = portalCustomer();
+    $this->actingAs($user)->get('/portal/login')->assertRedirect('/portal');
+});
+
+it('never sends a customer to the admin after signing in, even if they opened /admin first', function () {
+    portalCustomer();
+    $this->get('/admin')->assertRedirect();
+    $this->post('/portal/login', ['email' => 'ada@obifoods.ng', 'password' => 'GoodPassword123'])->assertRedirect('/portal');
+});
+
+it('returns a customer to the portal page they asked for after signing in', function () {
+    [$customer] = portalCustomer();
+    $invoice = issuedInvoice($customer, 'GEA-INV-0009');
+    $this->get("/portal/invoices/{$invoice->id}")->assertRedirect('/portal/login');
+    $this->post('/portal/login', ['email' => 'ada@obifoods.ng', 'password' => 'GoodPassword123'])->assertRedirect("/portal/invoices/{$invoice->id}");
 });

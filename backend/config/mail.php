@@ -117,6 +117,12 @@ return [
 
     // Send each email from its team mailbox (App\Support\Senders). Set false to send everything from
     // MAIL_FROM_ADDRESS, e.g. until every mailbox is a verified sender with Brevo.
+    // GEA-branded emails: logo header, navy and amber colours, company details in the footer.
+    'markdown' => [
+        'theme' => env('MAIL_MARKDOWN_THEME', 'gea'),
+        'paths' => [resource_path('views/vendor/mail')],
+    ],
+
     'per_mailbox_senders' => (bool) env('MAIL_PER_MAILBOX_SENDERS', true),
 
 ];

@@ -5,7 +5,7 @@ GEA Haulage and Logistics has set up a customer portal account for **{{ $company
 
 <x-mail::button :url="$link">Choose your password</x-mail::button>
 
-This link works for 60 minutes. If it has expired, use "Forgot password" on the sign-in page.
+This link works for 24 hours. If it has expired, use "Forgot password" on the sign-in page.
 
 Sign in later at {{ route('portal.login') }} with **{{ $user->email }}**.
 

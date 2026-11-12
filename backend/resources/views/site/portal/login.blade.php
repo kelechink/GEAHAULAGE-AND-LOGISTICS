@@ -7,6 +7,7 @@
 @include('site.partials.page-head', ['crumb' => 'Customer portal', 'heading' => 'Customer portal', 'intro' => 'Follow your shipments, see proof of delivery and download your invoices.'])
 <section class="band">
     <div class="wrap portal-narrow">
+        @if ($staffName)<p class="notice" role="status">You are signed in to the staff back office as {{ $staffName }}. Signing in here as a customer signs you out of the back office. <a href="{{ url('/admin') }}">Back to the back office</a></p>@endif
         @if (session('status'))<p class="notice" role="status">{{ session('status') }}</p>@endif
         <form class="form" method="POST" action="{{ route('portal.login.attempt') }}">
             @csrf

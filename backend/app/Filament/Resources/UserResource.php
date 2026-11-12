@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Domain\Auth\StaffInvite;
 use App\Domain\Auth\TwoFactor;
 use App\Enums\Role;
 use App\Filament\Resources\UserResource\Pages;
@@ -55,9 +56,10 @@ class UserResource extends Resource
                     ->password()
                     ->revealable()
                     ->minLength(12)
-                    ->required(static fn (string $operation): bool => $operation === 'create')
                     ->dehydrated(static fn (?string $state): bool => filled($state))
-                    ->helperText('At least 12 characters. Leave blank to keep the current password.'),
+                    ->helperText(static fn (string $operation): string => $operation === 'create'
+                        ? 'Leave blank (recommended): they get a GEA email with a link to choose their own password.'
+                        : 'At least 12 characters. Leave blank to keep the current password.'),
                 Forms\Components\Toggle::make('is_active')
                     ->label('Active')
                     ->helperText('Inactive users cannot sign in. Users are never deleted, so the audit log stays complete.')
@@ -91,6 +93,14 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('sendInvite')->label('Send sign-in link')->icon('heroicon-o-envelope')
+                    ->visible(fn (User $record): bool => $record->is_active && ! $record->hasTwoFactor() && $record->canAccessPanel(filament()->getPanel('admin')))
+                    ->requiresConfirmation()
+                    ->modalDescription(fn (User $record): string => "Email {$record->email} a new link to choose their password. Any earlier link stops working.")
+                    ->action(function (User $record): void {
+                        app(StaffInvite::class)->send($record, auth()->user());
+                        Notification::make()->success()->title("Sign-in link sent to {$record->email}.")->send();
+                    }),
                 // Lost phone and no recovery codes: the user sets up two-factor again at next sign-in.
                 Tables\Actions\Action::make('resetTwoFactor')->label('Reset two-factor')->icon('heroicon-o-shield-exclamation')->color('warning')
                     ->visible(fn (User $record): bool => $record->hasTwoFactor())
