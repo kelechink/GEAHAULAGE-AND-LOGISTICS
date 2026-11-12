@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->passwordReset()
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn (): string => Blade::render('<div class="gea-topbar-theme" style="margin-inline-end:.75rem"><x-filament-panels::theme-switcher /></div>'))
             ->brandName('GEA Haulage and Logistics')
             ->brandLogo(asset('assets/img/logo-blue.png'))
