@@ -8,6 +8,7 @@ use App\Domain\Ai\AiGateway;
 use App\Domain\Ai\AiProvider;
 use App\Domain\Finance\EInvoice\EInvoiceProvider;
 use App\Domain\Finance\EInvoice\MockEInvoiceProvider;
+use App\Enums\Role;
 use App\Http\Responses\StaffLoginResponse;
 use App\Models\MaintenanceRecord;
 use App\Models\User;
@@ -15,6 +16,7 @@ use App\Observers\MaintenanceRecordObserver;
 use App\Policies\ActivityPolicy;
 use App\Support\Senders;
 use App\View\Composers\SiteComposer;
+use Filament\Facades\Filament;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -38,6 +40,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LoginResponse::class, StaffLoginResponse::class);
     }
 
+    private static function resetUrl(User $user, string $token): string
+    {
+        return $user->hasRole(Role::Customer->value)
+            ? route('portal.password.reset', ['token' => $token, 'email' => $user->email])
+            : Filament::getPanel('admin')->getResetPasswordUrl($token, $user);
+    }
+
     public function boot(): void
     {
         Model::shouldBeStrict(! $this->app->isProduction());
@@ -51,14 +60,21 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('site.*', SiteComposer::class);
 
-        // Customer portal password links (invite and "forgot password"), sent from the support mailbox.
-        ResetPassword::createUrlUsing(fn (User $user, string $token): string => route('portal.password.reset', ['token' => $token, 'email' => $user->email]));
-        ResetPassword::toMailUsing(fn (User $user, string $token) => (new MailMessage)
-            ->from(Senders::from('support', 'Support')->address, Senders::from('support', 'Support')->name)
-            ->subject('Choose a new password for the GEA customer portal')
-            ->line('We received a request to reset the password for your GEA customer portal account.')
-            ->action('Choose a new password', route('portal.password.reset', ['token' => $token, 'email' => $user->email]))
-            ->line('This link works for 60 minutes. If you did not ask for this, you can ignore this email.'));
+        // "Forgot password" links: customers reset in the portal, staff in the back office. Both are GEA-branded.
+        ResetPassword::createUrlUsing(fn (User $user, string $token): string => self::resetUrl($user, $token));
+        ResetPassword::toMailUsing(function (User $user, string $token): MailMessage {
+            $customer = $user->hasRole(Role::Customer->value);
+            $from = Senders::from($customer ? 'support' : 'info', $customer ? 'Support' : null);
+
+            return (new MailMessage)
+                ->from($from->address, $from->name)
+                ->subject($customer ? 'Choose a new password for the GEA customer portal' : 'Choose a new password for the GEA Logistics Platform')
+                ->greeting('Hello '.$user->name.',')
+                ->line($customer ? 'We received a request to reset the password for your GEA customer portal account.' : 'We received a request to reset the password for your GEA Logistics Platform account.')
+                ->action('Choose a new password', self::resetUrl($user, $token))
+                ->line('This link works for '.(int) ceil(config('auth.passwords.users.expire') / 60).' hours. If you did not ask for this, you can ignore this email: your password stays the same.')
+                ->salutation('GEA Haulage and Logistics');
+        });
 
         // Website forms: no paid captcha, so a honeypot plus a per-IP limit (PRD 7).
         RateLimiter::for('forms', static fn (Request $request): Limit => Limit::perMinute(5)->by($request->ip()));
